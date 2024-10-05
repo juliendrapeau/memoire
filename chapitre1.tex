@@ -1,0 +1,118 @@
+\begin{comment}
+
+Problème NP vs #P
+Théorème de Toda
+Description du paper JVV
+Complexité exacte vs approximative
+Countage exact vs approximatif
+Borne sur le comptage ("a tighter bound for counting max-weight solutions to 2SAT instances" ou l'équivalent pour 3SAT)
+
+\end{comment}
+
+\chapter{Théorie de la complexité}
+
+%-----------------------------------------------------------------------------%
+
+\section{Classes de complexité}
+
+\subsection*{Plan}
+
+\begin{enumerate}
+    \item Introduire les problèmes algorithmiques difficiles
+    \item Décrire le but des classes de complexité
+    \item Expliquer les propriétés des classes de complexité et leur relations
+    \item Définir comment quantifier la complexité d'un problème (temps contre espace)
+    \item Expliquer la notation de la complexité (O notation) et les machines de Turing
+    \item Décrire la tour de complexité (hiérarchie polynomiale) 
+    \item Comparer les classes importantes: P et NP et \#P
+    \item Établir la conjecture P != NP
+    \item Mentionner le théorème de Toda
+\end{enumerate}
+
+\subsection*{Références}
+
+1. Moore, Cristopher, and Stephan Mertens, The Nature of Computation (Oxford, 2011; online edn, Oxford Academic, 17 Dec. 2013), https://doi.org/10.1093/acprof:oso/9780199233212.001.0001, accessed 19 July 2024.
+
+2. Arora, S. and Barak, B. Computational Complexity: A Modern Approach. (Cambridge University Press, Cambridge, 2009). doi:10.1017/CBO9780511804090.
+
+%-----------------------------------------------------------------------------%
+
+\section{Problème de satisfaisabilité booléenne}
+
+\subsection*{Plan}
+
+\begin{enumerate}
+    \item Introduire SAT
+    \item Énumérer certaines applications de ce problème
+    \item Faire le lien entre le problème de décision SAT et le problème de comptage SAT
+    \item Introduire NAE3SAT et 1in3SAT
+    \item Énoncer la réduction entre NAE3SAT/1in3SAT et 3SAT
+    \item Introduire la transition de phase critique de ces problèmes
+    \item Expliquer pourquoi prendre la version positive de ces problèmes n'est pas un problème
+\end{enumerate}
+
+\subsection*{Références}
+
+1. Moore, Cristopher, and Stephan Mertens, The Nature of Computation (Oxford, 2011; online edn, Oxford Academic, 17 Dec. 2013), https://doi.org/10.1093/acprof:oso/9780199233212.001.0001, accessed 19 July 2024.
+
+2. Arora, S. and Barak, B. Computational Complexity: A Modern Approach. (Cambridge University Press, Cambridge, 2009). doi:10.1017/CBO9780511804090.
+
+3. Achlioptas, D., Chtcherba, A., Istrate, G. and Moore, C. The phase transition in 1-in-k SAT and NAE 3-SAT. Proceedings of the Annual ACM-SIAM Symposium on Discrete Algorithms (2001) doi:10.1145/365411.365760.
+
+
+%-----------------------------------------------------------------------------%
+
+\section{Intractabilité et approximations}
+
+\subsection*{Plan}
+
+\begin{enumerate}
+    \item Expliquer le concept d'intractabilité
+    \item Montrer la difficulté de résoudre des problèmes computationnels de manière exacte
+    \item Expliquer les advantages des méthodes approximatives (temps polynomial, applications réelles)
+    \item Introduire rigoureusement le concept d'approximation
+\end{enumerate}
+
+\subsection*{Références}
+
+
+%-----------------------------------------------------------------------------%
+
+\section{Complexité et bornes sur le comptage}
+
+\subsection*{Plan}
+
+\begin{enumerate}
+    \item Décrire les résultats actuels en terme de comptage exact et approximatif
+    \item Énumérer les algorithmes et les solveurs modernes (DPLL, \textit{survey propagation}, \textit{belief propagation})
+    \item Mentionner les meilleurs bornes sur les problèmes de comptage
+\end{enumerate}
+
+
+\subsection*{Références}
+
+1. Wahlström, M. A Tighter Bound for Counting Max-Weight Solutions to 2SAT Instances. in Parameterized and Exact Computation (eds. Grohe, M. and Niedermeier, R.) 202–213 (Springer, Berlin, Heidelberg, 2008). doi:10.1007/978-3-540-79723-419.
+
+2. Sinclair, A. and Jerrum, M. Approximate counting, uniform generation and rapidly mixing Markov chains. Information and Computation 82, 93–133 (1989).
+
+
+%-----------------------------------------------------------------------------%
+
+\section{Transitions de phase}
+
+\subsection*{Plan}
+
+\begin{enumerate}
+    \item Expliquer les différentes transitions de phase et leurs intuitions
+    \item Décrire l'objectif des algorithmes classiques locaux et globaux, comme le "belief propagation" ou le "survey propagation"
+    \item Expliquer brièvement où se situe VQCount par rapport à ça
+\end{enumerate}
+
+\subsection*{Références}
+
+1. Watrous, J. Quantum Computational Complexity. Preprint at https://doi.org/10.48550/arXiv.0804.3401 (2008).
+
+2. Mézard, M. and Montanari, A. Information, Physics, and Computation. (Oxford University Press, Oxford, New York, 2009).
+
+3. Survey propagation: An algorithm for satisfiability - Braunstein - 2005 - Random Structures amp; Algorithms - Wiley Online Library. https://onlinelibrary.wiley.com/doi/abs/10.1002/rsa.20057.
+

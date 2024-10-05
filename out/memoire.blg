@@ -1,0 +1,9 @@
+[0] Config.pm:307> INFO - This is Biber 2.17
+[0] Config.pm:310> INFO - Logfile is '/home/juliendrapeau/documents/master/memoire/out/memoire.blg'
+[86] biber:340> INFO - === Fri Oct  4, 2024, 21:06:40
+[103] Biber.pm:418> INFO - Reading '/home/juliendrapeau/documents/master/memoire/out/memoire.bcf'
+[187] Biber.pm:972> INFO - Found 0 citekeys in bib section 0
+[209] bbl.pm:654> INFO - Writing '/home/juliendrapeau/documents/master/memoire/out/memoire.bbl' with encoding 'UTF-8'
+[209] bbl.pm:757> INFO - Output to /home/juliendrapeau/documents/master/memoire/out/memoire.bbl
+[210] Biber.pm:130> WARN - The file '/home/juliendrapeau/documents/master/memoire/out/memoire.bcf' does not contain any citations!
+[210] Biber.pm:132> INFO - WARNINGS: 1
