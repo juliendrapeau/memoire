@@ -1,26 +1,37 @@
 \begin{comment}
-
 Problème NP vs #P
 Théorème de Toda
 Description du paper JVV
 Complexité exacte vs approximative
 Countage exact vs approximatif
 Borne sur le comptage ("a tighter bound for counting max-weight solutions to 2SAT instances" ou l'équivalent pour 3SAT)
-
 \end{comment}
 
-\chapter{Théorie de la complexité}
+\chapter{Complexité du comptage}
+
+\begin{comment}
+    \subsection*{Plan}
+    
+    \begin{enumerate}
+        \item Introduire les problèmes algorithmiques difficiles
+        \item Décrire les applications de ces problèmes
+        \item Expliquer les prochaines sections
+    \end{enumerate}
+\end{comment}
+
+
+
 
 %-----------------------------------------------------------------------------%
 
 \section{Classes de complexité}
 
+\begin{comment}
 \subsection*{Plan}
 
 \begin{enumerate}
-    \item Introduire les problèmes algorithmiques difficiles
     \item Décrire le but des classes de complexité
-    \item Expliquer les propriétés des classes de complexité et leur relations
+    \item Expliquer les propriétés des classes de complexité et leurs relations
     \item Définir comment quantifier la complexité d'un problème (temps contre espace)
     \item Expliquer la notation de la complexité (O notation) et les machines de Turing
     \item Décrire la tour de complexité (hiérarchie polynomiale) 
@@ -34,6 +45,23 @@ Borne sur le comptage ("a tighter bound for counting max-weight solutions to 2SA
 1. Moore, Cristopher, and Stephan Mertens, The Nature of Computation (Oxford, 2011; online edn, Oxford Academic, 17 Dec. 2013), https://doi.org/10.1093/acprof:oso/9780199233212.001.0001, accessed 19 July 2024.
 
 2. Arora, S. and Barak, B. Computational Complexity: A Modern Approach. (Cambridge University Press, Cambridge, 2009). doi:10.1017/CBO9780511804090.
+\end{comment}
+
+
+
+\begin{definition}[Classe de complexité \textsf{NP}]
+    Un ensemble $A$ est contenu dans $\textsf{NP}$ si et seulement s'il existe un ensemble calculable en temps polynomial $B$ et un polynôme $p$ tel que
+
+    \begin{equation*}
+        x \in A \iff \text{ il existe un } y \in \Sigma^{*} \text{ satisfaisant } |y| \leq p(|x|) \text{ et } \braket{x, y} \in  B
+    \end{equation*}
+
+    est vrai pour tout $x \in \Sigma^{*}$.
+\end{definition}
+
+
+
+
 
 %-----------------------------------------------------------------------------%
 
@@ -85,7 +113,7 @@ Borne sur le comptage ("a tighter bound for counting max-weight solutions to 2SA
 \begin{enumerate}
     \item Décrire les résultats actuels en terme de comptage exact et approximatif
     \item Énumérer les algorithmes et les solveurs modernes (DPLL, \textit{survey propagation}, \textit{belief propagation})
-    \item Mentionner les meilleurs bornes sur les problèmes de comptage
+    \item Mentionner les meilleures bornes sur les problèmes de comptage
 \end{enumerate}
 
 

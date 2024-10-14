@@ -12,7 +12,7 @@
 \usepackage[usenames,dvipsnames,svgnames,x11names]{xcolor}
 \usepackage{mathtools,amsmath,amssymb,bm,upgreek}%,esint}
 \usepackage{multirow,multicol,comment,array,listings,url}
-\usepackage{subfigure}
+\usepackage{subcaption}
 \usepackage{caption}
 \usepackage{dcolumn}
 \usepackage{setspace}           % Gère l'interligne
@@ -32,6 +32,24 @@
 \addbibresource{memoire.bib}
 \usepackage{hyperref}
 \usepackage{csquotes}
+\usepackage{tikz}
+\usetikzlibrary{quantikz}
+\usepackage{xcolor}
+\usetikzlibrary{external}
+\tikzset{external/force remake}
+\tikzexternalize[prefix=tikz/]
+\usepackage{amsthm}
+\usepackage{braket}
+
+
+\newtheorem{theorem}{Théorème}[chapter]
+\newtheorem{corollary}{Corollaire}[theorem]
+\newtheorem{lemma}[theorem]{Lemme}
+\newtheorem*{remark}{Remarque}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}[chapter]
+
 
 %=============================================================================%
 
