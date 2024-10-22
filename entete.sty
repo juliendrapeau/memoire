@@ -41,14 +41,77 @@
 \usepackage{amsthm}
 \usepackage{braket}
 
+% \definecolor{myblue}{rgb}{0.33725490196078434, 0.7058823529411765, 0.9137254901960784}
+\definecolor{myblue}{rgb}{0.48137254901960785, 0.757843137254902, 0.9137254901960784}
+\definecolor{mydarkblue}{HTML}{5278A3}
+% \definecolor{myred}{rgb}{0.8666666666666667, 0.3607843137254902, 0.3607843137254902}
+\definecolor{myred}{rgb}{0.8666666666666667, 0.4872549019607843, 0.4872549019607843}
+\definecolor{mydarkred}{HTML}{DD5C5C}
+% \definecolor{mysilver}{rgb}{0.7529411764755882, 0.7529411764755882, 0.7529411764755882}
+\definecolor{mysilver}{rgb}{0.7529411764705882, 0.7529411764705882, 0.7529411764705882}
+% \definecolor{myyellow}{rgb}{0.9411764705882353, 0.8941176470588236, 0.25882352941176473}
+\definecolor{myyellow}{rgb}{0.9411764705882353, 0.9058823529411765, 0.4294117647058824}
+\definecolor{mygreen}{rgb}{0.0, 0.6196078431372549, 0.4509803921568627}
+\definecolor{mypink}{rgb}{0.8, 0.47450980392156855, 0.6549019607843136}
+\definecolor{mybluedark}{rgb}{0.0, 0.44705882352941173, 0.6980392156862745}
+\definecolor{myorange}{rgb}{0.9019607843137255, 0.6235294117647059, 0.0}
+\definecolor{myviolet}{rgb}{0.3254901960784314, 0.1450980392156863, 0.4980392156862745}
 
-\newtheorem{theorem}{Théorème}[chapter]
-\newtheorem{corollary}{Corollaire}[theorem]
-\newtheorem{lemma}[theorem]{Lemme}
-\newtheorem*{remark}{Remarque}
 
-\theoremstyle{definition}
-\newtheorem{definition}{Définition}[chapter]
+% \newtheorem{theorem}{Théorème}[chapter]
+% \newtheorem{corollary}{Corollaire}[theorem]
+% \newtheorem{lemma}[theorem]{Lemme}
+% \newtheorem*{remark}{Remarque}
+
+% \theoremstyle{definition}
+% \newtheorem{definition}{Définition}[chapter]
+
+
+\usepackage[most]{tcolorbox}
+
+\tcbset {
+  base/.style={
+    arc=1mm, 
+    bottomtitle=0.5mm,
+    boxrule=0mm,
+    colback=black!5!white,
+    colbacktitle=black!10!white, 
+    coltitle=black, 
+    fonttitle=\bfseries, 
+    left=2.5mm,
+    leftrule=1.5mm,
+    right=3.5mm,
+    title={#1},
+    toptitle=0.75mm, 
+  }
+}  
+
+\newtcbtheorem[auto counter,number within=chapter]{maintheorem}%
+  {Théoreme}{colframe=myblue, base={#1}, separator sign dash}{th}
+
+\newtcbtheorem[use counter from=maintheorem,number within=chapter]{subtheorem}%
+  {Théoreme}{colframe=black!20!white, base={#1}, separator sign dash}{th}
+
+\newtcbtheorem[auto counter,number within=chapter]{maindefinition}%
+  {Définition}{colframe=myblue, base={#1}, separator sign dash}{def}
+
+\newtcbtheorem[use counter from=maindefinition,number within=chapter]{subdefinition}%
+  {Définition}{colframe=black!20!white, base={#1}, separator sign dash}{def}
+
+\newtcbtheorem[auto counter,number within=chapter]{relation}%
+  {Relation}{colframe=myblue, base={#1}, separator sign dash}{rel}
+
+\newtcbtheorem[auto counter,number within=chapter]{corollary}%
+   {Corollaire}{colframe=black!20!white, base={#1}, separator sign dash}{cor}
+
+\newtcbtheorem[auto counter,number within=chapter]{lemma}%
+   {Lemme}{colframe=black!20!white, base={#1}, separator sign dash}{lem}
+
+\newtcbtheorem[auto counter,number within=chapter]{remark}%
+   {Remarque}{colframe=black!20!white, base={#1}, separator sign dash}{rem}
+
+\newtcbtheorem[auto counter,number within=chapter]{example}%
+   {Exemple}{colframe=black!20!white, base={#1}, separator sign dash}{ex}
 
 
 %=============================================================================%

@@ -16,10 +16,11 @@ Borne sur le comptage ("a tighter bound for counting max-weight solutions to 2SA
         \item Introduire les problèmes algorithmiques difficiles
         \item Décrire les applications de ces problèmes
         \item Expliquer les prochaines sections
+        \item Expliquer pourquoi on ne parle pas des machines de Turing (thèse de Church-Turing)
     \end{enumerate}
 \end{comment}
 
-
+Il est souvent favorable de décrire la théorie de la complexité à l'aide du concept de \textit{machine de Turing}. ... . Ce mémoire fera abstraction de ....
 
 
 %-----------------------------------------------------------------------------%
@@ -30,14 +31,15 @@ Borne sur le comptage ("a tighter bound for counting max-weight solutions to 2SA
 \subsection*{Plan}
 
 \begin{enumerate}
+    \item Définir comment quantifier la complexité d'un problème (temps contre espace)
     \item Décrire le but des classes de complexité
     \item Expliquer les propriétés des classes de complexité et leurs relations
-    \item Définir comment quantifier la complexité d'un problème (temps contre espace)
     \item Expliquer la notation de la complexité (O notation) et les machines de Turing
     \item Décrire la tour de complexité (hiérarchie polynomiale) 
     \item Comparer les classes importantes: P et NP et \#P
     \item Établir la conjecture P != NP
     \item Mentionner le théorème de Toda
+    \item Parler de la these de church-turing pour les ordis quantiques
 \end{enumerate}
 
 \subsection*{Références}
@@ -47,20 +49,68 @@ Borne sur le comptage ("a tighter bound for counting max-weight solutions to 2SA
 2. Arora, S. and Barak, B. Computational Complexity: A Modern Approach. (Cambridge University Press, Cambridge, 2009). doi:10.1017/CBO9780511804090.
 \end{comment}
 
+La théorie de la complexité s'intéresse à la classification des problèmes algorithmiques en \textit{classes de complexité}, c'est-à-dire en ensembles de problèmes de même complexité. Classifier un problème permet de caractériser les limites atteignables de sa résolution par un algorithme.
+
+\textcolor{mydarkred}{\textit{Pourquoi est-ce qu'on veut faire ça?}}
+
+Comment est-il possible de généraliser la complexité d'un problème? Pour ce faire, les classes de complexité se basent sur les ressources indispensables à la résolution du problème: le temps et la mémoire. Afin de trouver la solution à un problème, un programme doit effectuer un certain nombre d'opérations, limité dans le temps par le matériel informatique. On parle alors de \textit{complexité en temps}. Afin de produire un résultat final, le programme garde souvent en mémoire les résultats intermédiaires. Tous les résultats doivent être sauvegardé dans le matériel informatique afin de pouvoir être réutilisés ultérieurement. La quantité d'information conservée est aussi un facteur limitant pour le matériel informatique, on parle donc de \textit{complexité en espace}. 
+
+Un problème de grande taille est plus 
+\textcolor{mydarkred}{\textit{Parler de la dépendance en n.}}
+
+Le temps et la mémoire quantifie bien les ressources nécessaires des algorithmes. Par contre, ceux-ci dépendent du matériel informatique utilisé. Il est attendu qu'un ordinateur des temps modernes soit bien plus performant qu'une des premières machines analogues. Comment retirer cette dépendence dans la notion de complexité? Pour ce faire, on fait appel à la notation asymptotique, communément appelé la notation $\mathcal{O}$. 
+
+\textcolor{mydarkred}{\textit{Référence ici aux machines de Turing?}}
 
 
-\begin{definition}[Classe de complexité \textsf{NP}]
-    Un ensemble $A$ est contenu dans $\textsf{NP}$ si et seulement s'il existe un ensemble calculable en temps polynomial $B$ et un polynôme $p$ tel que
+Ces ressources permettent la séparation de plusieurs problèmes: il est en effet souhaitable d'être capable de séparer les algorithmes efficaces de ceux qui ne le sont pas.
 
+Les relations entre les classes de complexité...
+
+Les problèmes de décision 
+
+Qu'est-ce qui rend un algorithme efficace? La classe de complexité \textsf{P} tente de répondre à cette question.
+
+Comment décrire l'efficacité d'un algorithme? Un algorithme est considéré comme efficace s'il résout un problème de la classe \textsf{P}.
+
+\textcolor{mydarkred}{\textit{Rajouter des exemples!}}
+
+\begin{maindefinition}{Classe de complexité \textsf{P}}{classe-p}
+    Une fonction $A$ fait partie de la classe de complexité \textsf{P} si et seulement si un algorithme peut calculer $A(x)=y$ en temps polynomial, c’est-à-dire en temps $O(n^{c})$ pour une taille $n = \lvert x \rvert$ et une constante $c$.
+\end{maindefinition}s
+
+\begin{maindefinition}{Classe de complexité \textsf{NP}}{classe-np}
+    Une fonction $A$ fait partie de la classe de complexité \textsf{NP} si et seulement si une fonction $B \in  \textsf{P}$ existe tel que
     \begin{equation*}
-        x \in A \iff \text{ il existe un } y \in \Sigma^{*} \text{ satisfaisant } |y| \leq p(|x|) \text{ et } \braket{x, y} \in  B
+        A(x) = \exists y \mid B(x,y)
     \end{equation*}
+    où $\lvert y \rvert = \mathrm{poly}(\lvert x \rvert)$.
+\end{maindefinition}
 
-    est vrai pour tout $x \in \Sigma^{*}$.
-\end{definition}
+On appelle $y$ le vérificateur (?).
 
+\begin{maindefinition}{Classe de complexité \textsf{\#P}}{classe-sharp-p}
+    Un fonction $A$ fait partie de la classe de complexité $\textsf{\#P}$ si et seulement si une fonction $B \in \textsf{P}$ existe tel que
+    \begin{equation*}
+        A(x) = \lvert \set{ y \mid B(x, y)} \rvert
+    \end{equation*}
+    où $\lvert y \rvert = \mathrm{poly}(\lvert x \rvert)$ pour toutes les valeurs $y$ prises par $B(x,y)$.
+\end{maindefinition}
 
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c|c|c}
+    Classes & Complexité & Description \\
+    \hline
+    ... & ... & ...
+    \end{tabular}
+    \caption{Sommaire des classes de complexité.}
+    \label{tab:...}
+\end{table}
 
+\begin{subtheorem}{Théorème de Toda}{toda}
+    ...
+\end{subtheorem}
 
 
 %-----------------------------------------------------------------------------%
@@ -69,6 +119,7 @@ Borne sur le comptage ("a tighter bound for counting max-weight solutions to 2SA
 
 \subsection*{Plan}
 
+\begin{comment}
 \begin{enumerate}
     \item Introduire SAT
     \item Énumérer certaines applications de ce problème
@@ -86,6 +137,30 @@ Borne sur le comptage ("a tighter bound for counting max-weight solutions to 2SA
 2. Arora, S. and Barak, B. Computational Complexity: A Modern Approach. (Cambridge University Press, Cambridge, 2009). doi:10.1017/CBO9780511804090.
 
 3. Achlioptas, D., Chtcherba, A., Istrate, G. and Moore, C. The phase transition in 1-in-k SAT and NAE 3-SAT. Proceedings of the Annual ACM-SIAM Symposium on Discrete Algorithms (2001) doi:10.1145/365411.365760.
+\end{comment}
+
+Le problème de \textit{satisfaisabilité booléenne}, ou problème SAT est particulièrement important dans la théorie de la complexité. Montré comme \textsf{NP}-complet par le théorème de Cook-Levin~\cites{cookComplexityTheoremprovingProcedures1971}{levinUniversalSequentialSearch}, il fut à la base de la définition de \textsf{NP}-complétude et du problème $\textsf{P} = \textsf{NP}$. Celui-ci est aussi couramment utilisé dans la preuve de réductions de problèmes au sein de la classe de complexité \textsf
+{NP}. 
+
+\textcolor{mydarkred}{\textit{Rajouter des sources et expliquer plus en détails le théorème de Cook-Levin.}}
+
+Le problème SAT a une multitude d'applications, comme…, en partie grâce à la facilité de formuler ces applications à l'aide de formules propositionnelles.
+
+Une formule propositionnelle, ou une expression booléene, est un ensemble de variables booléenes, $x_{i} \in \set{ 0, 1 }$, reliées par des opérateurs booléeans de conjections ("ou", $\lor$), de disjonctions ("et", $\land$) ainsi que de négation ("non", $\neg$). Par exemple, l'expression $(x_{1} \land x_{2}) \lor \neg x_{3}$ est un exemple de formule booléenne.
+
+Dans l'étude du problème SAT, les formules propositionnelles sont souvent exprimées en forme normale conjonctive (CNF). Celle-ci consiste en 
+
+
+\begin{maindefinition}{Satisfaisabilité booléenne}{sat}
+    Soit une constante $n \geq 1$ et une formule propositionnelle $\varphi(x_{1}, x_{2}, \dots, x_{n})$ où $x_{i} \in \set{ 0, 1 }$. Existe-il une assignation des variables $x_{1}, x_{2}, \dots, x_{n}$ telle que $\varphi$ est satisfaisable, c'est-à-dire que $\varphi(x_{1}, x_{2}, \dots, x_{n})=1$?
+\end{maindefinition}
+
+\begin{example}{Satisfaisabilité booléenne}{sat}
+    L
+\end{example}
+
+
+
 
 
 %-----------------------------------------------------------------------------%
