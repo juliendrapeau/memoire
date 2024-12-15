@@ -14,6 +14,7 @@
     \item Expliquer les avantages (exemple: algorithmes à court-terme, qubits bruités)
     \item Expliquer la chronologie avec les QAOA
     \item Expliquer comment est-ce qu'on peut utiliser ceux-ci comme générateur pour l'algorithme JVV.
+    \item Pourquoi est-ce que QAOA est une approche non-locale?
 \end{enumerate}
     
 \subsection*{Références}
@@ -25,14 +26,21 @@
 
 
 
+
+
+
+
+
 %-----------------------------------------------------------------------------%
 
 \section{Algorithme quantique d'optimisation approximative}
 
+\begin{comment}
 \subsection*{Plan}
-
+    
 \begin{enumerate}
-    \item Expliquer l'histoire et le lien avec le recuit quantique 
+    \item Expliquer l'histoire et le lien avec le recuit quantique
+    \item QAOA sees the whole graph?
 \end{enumerate}
 
 \subsection*{Références}
@@ -47,12 +55,57 @@
 
 5. Farhi, E., Goldstone, J., Gutmann, S. and Sipser, M. Quantum Computation by Adiabatic Evolution. Preprint at https://doi.org/10.48550/arXiv.quant-ph/0001106 (2000).
 
+6. https://arxiv.org/abs/1611.04471
+\end{comment}
+
+%-----------------------------------------------------------------------------%
+
+\subsection{Approche adiabatique quantique}
+
+\begin{comment}
+\subsection{Plan}
+
+\begin{enumerate}
+    \item QAA est adiabatique alors que QAOA est contre-adiabatique.
+\end{enumerate}
+\end{comment}
+
+Le théorème adiabatique, introduit par Born et Fock~\cite{bornBeweisAdiabatensatzes1928}, peut être énoncé simplement comme suit:
+
+\begin{subtheorem}{Théorème adiabatique~\cite{bornBeweisAdiabatensatzes1928}}{theoreme-adiabatique}
+    Un système physique demeure dans son état propre instantané si une perturbation donnée agit sur lui suffisament lentement et s'il y a un intervalle significatif entre la valeur propre et le reste du spectre de l'Hamiltonien.
+\end{subtheorem}
+
+Bien que différentes versions de ce théorème furent formellement établies, en commençant par Kant~\cite{katoAdiabaticTheoremQuantum1950} en 1950, une version approximative de celui-ci, dûe à \textcolor{mydarkred}{\textit{(Messiah, A., (1962), Quantum Mechanics, Vol. II (NorthHolland Publishing Company, Amsterdam).)}} et Amin~\cite{aminConsistencyAdiabaticTheorem2009}, est présentée ici avec objectif d'élucider les mécanismes du théorème. Un système quantique, décrit par un Hamiltonien dépendant du temps $H(t)$, évolue selon l'équation de Schrödinger
+
+\begin{align*}
+   i \hbar \frac{\partial \ket{\psi(t)}}{\partial t} = H(t) \ket{\psi} \,.
+\end{align*}
+
+Considérons ici 
+
+
+
+
+Kato fut le premier a établir une fondation mathématique rigoureuse du théorème adiabatique. Cependant, \textcolor{mydarkred}{\textit{Parler des bornes sur le gap.}}
+
+\begin{equation}
+    H(t) = \left(1-\frac{t}{T}\right) H_{D} + \left(\frac{t}{T}\right) H_{P}
+\end{equation}
+
+Ce théorème justifie le calcul adiabatique quantique...
+
+
+
+
+
 %-----------------------------------------------------------------------------%
 
 \subsection{Description de l'algorithme}
 
-\subsection*{Plan}
-
+\begin{comment}
+subsection*{Plan}
+    
 \begin{enumerate}
     \item Décrire le \textit{Quantum Approximate Optimization Algorithm}
 \end{enumerate}
@@ -60,6 +113,12 @@
 \subsection*{Références}
 
 1. Farhi, E., Goldstone, J. and Gutmann, S. A Quantum Approximate Optimization Algorithm. Preprint at https://doi.org/10.48550/arXiv.1411.4028 (2014).
+\end{comment}
+
+\begin{equation}
+    \label{eq:final-state}
+    \ket{\psi(\vec{\beta}, \vec{\gamma})} = \underbrace{U_D(\beta_p) U_P(\gamma_p) \cdots U_D(\beta_1) U_P(\gamma_1)}_{p \text { times }} \ket{\psi_{0}}
+\end{equation}
 
 %-----------------------------------------------------------------------------%
 
@@ -124,6 +183,7 @@ Peut-être une référence de plus qui traite directement des barrens plateau?
     \item Expliquer forçage en X
     \item Expliquer le forçage de Grover
     \item Énumérer les forçages populaires
+    \item Est-ce que le mixer doit être un vecteur propre de l'état initial?
 \end{enumerate}
 
 \subsection*{Références}
@@ -132,6 +192,7 @@ Peut-être une référence de plus qui traite directement des barrens plateau?
 
 \section{Approche quantique des opérateurs alternants avec forçage de Grover}
 
+\begin{comment}
 \subsection*{Plan}
 
 \begin{enumerate}
@@ -144,6 +205,11 @@ Peut-être une référence de plus qui traite directement des barrens plateau?
 1. Hadfield, S. et al. From the Quantum Approximate Optimization Algorithm to a Quantum Alternating Operator Ansatz. Algorithms 12, 34 (2019).
 
 2. Bärtschi, A. and Eidenbenz, S. Grover Mixers for QAOA: Shifting Complexity from Mixer Design to State Preparation. in 2020 IEEE International Conference on Quantum Computing and Engineering (QCE) 72–82 (2020). doi:10.1109/QCE49297.2020.00020.
+\end{comment}
+
+\begin{equation}
+    U_D^{\mathrm{Grover}} = U_{S}\left[ \mathds{1} -\left(1-e^{-i \beta}\right) (\ket{0}\!\bra{0})^{\otimes n} \right] U_{S}^{\dagger} \,,
+\end{equation}
 
 %-----------------------------------------------------------------------------%
 

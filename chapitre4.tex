@@ -13,18 +13,6 @@
 
 %-----------------------------------------------------------------------------%
 
-\section{Auto-réductibilité des algorithmes variationnels quantiques}
-
-\subsection*{Plan}
-
-\begin{enumerate}
-    \item Faire la preuve de l'auto-réductibilité des algorithmes variationnels quantiques
-\end{enumerate}
-
-\subsection*{Références}
-
-%-----------------------------------------------------------------------------%
-
 \section{Algorithme VQCount}
 
 \subsection*{Plan}
@@ -61,6 +49,48 @@
 %     \caption{}
 % \end{figure}
 
+% \begin{figure}[h]
+%     \centering
+%     \begin{quantikz}
+%         \ket{x_1} & \ctrl{3} & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw & \qw \\
+%         \ket{x_2} & \qw      & \ctrl{2} & \ctrl{3} & \qw      & \qw      & \qw      & \qw      & \qw & \qw \\
+%         \ket{x_3} & \qw      & \qw      & \qw      & \ctrl{2} & \qw      & \qw      & \qw      & \qw & \qw \\
+%         \ket{0}   & \targ{}  & \targ{}  & \qw      & \qw      & \targ{}  & \ctrl{2}      & \qw      & \qw & \qw \\
+%         \ket{0}   & \qw      & \qw      & \targ{}  & \targ{}  & \targ{}  & \ctrl{1}       & \qw     & \qw & \qw \\
+%         \ket{0}   & \qw      & \qw      & \qw      & \qw      & \qw      & \targ{}       & \ctrl{7} & \qw & \qw \\ [0.5cm]
+%         \ket{x_1} & \ctrl{3} & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw & \qw \\
+%         \ket{x_2} & \qw      & \ctrl{2} & \ctrl{3} & \qw      & \qw      & \qw      & \qw      & \qw & \qw \\
+%         \ket{x_3} & \qw      & \qw      & \qw      & \ctrl{2} & \qw      & \qw      & \qw      & \qw & \qw \\
+%         \ket{0}   & \targ{}  & \targ{}  & \qw      & \qw      & \targ{}  & \ctrl{2}      & \qw      & \qw & \qw \\
+%         \ket{0}   & \qw      & \qw      & \targ{}  & \targ{}  & \targ{}  & \ctrl{1}       & \qw     & \qw & \qw \\
+%         \ket{0}   & \qw      & \qw      & \qw      & \qw      & \qw      & \targ{}       & \ctrl{1}  & \qw & \qw \\ [0.5cm]
+%         \ket{0}   & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \gate{Z^{- \gamma \varepsilon/\pi}}  & \meter{} & \qw \\
+%         \end{quantikz}
+%     \caption{}
+%     \label{fig:...}
+% \end{figure}
+
+% \begin{figure}[h]
+%     \centering
+%     \begin{quantikz}
+%         \ket{x_1} & \ctrl{3} & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw     & \ctrl{3} & \qw \\
+%         \ket{x_2} & \qw      & \ctrl{2} & \ctrl{3} & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \ctrl{3} & \ctrl{2}     & \qw      & \qw \\
+%         \ket{x_3} & \qw      & \qw      & \qw      & \ctrl{2} & \qw      & \qw      & \qw      & \qw      & \qw      & \ctrl{2} & \qw      & \qw     & \qw      & \qw \\
+%         \ket{0}   & \targ{}  & \targ{}  & \qw      & \qw      & \targ{}  & \ctrl{2}      & \qw      & \ctrl{2} & \targ{}  & \qw      & \qw      & \targ{}      & \targ{}  & \qw \\
+%         \ket{0}   & \qw      & \qw      & \targ{}  & \targ{}  & \targ{}  & \ctrl{1}      & \qw     & \ctrl{1}  & \targ{}  & \targ{}  & \targ{}  & \qw     & \qw     & \qw \\
+%         \ket{0}   & \qw      & \qw      & \qw      & \qw      & \qw      & \targ{}       & \ctrl{7} & \targ{}  & \qw      & \qw      & \qw      & \qw     & \qw      & \qw \\ [0.5cm]
+%         \ket{x_4} & \ctrl{3} & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw     & \ctrl{3} & \qw \\
+%         \ket{x_5} & \qw      & \ctrl{2} & \ctrl{3} & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \ctrl{3} & \ctrl{2}     & \qw      & \qw \\
+%         \ket{x_6} & \qw      & \qw      & \qw      & \ctrl{2} & \qw      & \qw      & \qw      & \qw      & \qw      & \ctrl{2} & \qw      & \qw     & \qw      & \qw \\
+%         \ket{0}   & \targ{}  & \targ{}  & \qw      & \qw      & \targ{}  & \ctrl{2}      & \qw      & \ctrl{2} & \targ{}  & \qw      & \qw      & \targ{}      & \targ{}  & \qw \\
+%         \ket{0}   & \qw      & \qw      & \targ{}  & \targ{}  & \targ{}  & \ctrl{1}      & \qw     & \ctrl{1}  & \targ{}  & \targ{}  & \targ{}  & \qw     & \qw     & \qw \\
+%         \ket{0}   & \qw      & \qw      & \qw      & \qw      & \qw      & \targ{}       & \ctrl{1} & \targ{}  & \qw      & \qw      & \qw      & \qw     & \qw      & \qw \\ [0.5cm]
+%         \ket{0}   & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \gate{Z^{- \gamma \varepsilon/\pi}}  & \qw & \qw & \qw & \qw & \qw & \meter{} & \qw \\
+%         \end{quantikz}
+%     \caption{}
+%     \label{fig:..}
+% \end{figure}
+
 \begin{figure*}[t]
     \centering
     \begin{subfigure}[h]{0.45\textwidth}
@@ -78,6 +108,25 @@
 \caption{}
 \label{fig:quantum-circuit}
 \end{figure*}
+
+\begin{figure*}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/two-level-map.pdf}
+    \caption{}
+    \label{fig:two-level-map}
+\end{figure*}
+
+%-----------------------------------------------------------------------------%
+
+\section{Auto-réductibilité des algorithmes variationnels quantiques}
+
+\subsection*{Plan}
+
+\begin{enumerate}
+    \item Faire la preuve de l'auto-réductibilité des algorithmes variationnels quantiques
+\end{enumerate}
+
+\subsection*{Références}
 
 %-----------------------------------------------------------------------------%
 
