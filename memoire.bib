@@ -34,6 +34,20 @@
   file = {C\:\\Users\\Julien Drapeau\\Zotero\\storage\\6AREP8H4\\Amin - 2009 - Consistency of the Adiabatic Theorem.pdf;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\3WN778KT\\PhysRevLett.102.html}
 }
 
+@inproceedings{bartschiGroverMixersQAOA2020,
+  title = {Grover {{Mixers}} for {{QAOA}}: {{Shifting Complexity}} from {{Mixer Design}} to {{State Preparation}}},
+  shorttitle = {Grover {{Mixers}} for {{QAOA}}},
+  booktitle = {2020 {{IEEE International Conference}} on {{Quantum Computing}} and {{Engineering}} ({{QCE}})},
+  author = {B{\"a}rtschi, Andreas and Eidenbenz, Stephan},
+  year = {2020},
+  month = oct,
+  pages = {72--82},
+  doi = {10.1109/QCE49297.2020.00020},
+  abstract = {We propose GM-QAOA, a variation of the Quantum Alternating Operator Ansatz (QAOA) that uses Grover-like selective phase shift mixing operators. GM-QAOA works on any NP optimization problem for which it is possible to efficiently prepare an equal superposition of all feasible solutions; it is designed to perform particularly well for constraint optimization problems, where not all possible variable assignments are feasible solutions. GM-QAOA has the following features: (i) It is not susceptible to Hamiltonian Simulation error (such as Trotterization errors) as its operators can be implemented exactly using standard gate sets and (ii) Solutions with the same objective value are always sampled with the same amplitude. We illustrate the potential of GM-QAOA on several optimization problem classes: for permutation-based optimization problems such as the Traveling Salesperson Problem, we present an efficient algorithm to prepare a superposition of all possible permutations of \$n\$ numbers, defined on O (n 2) qubits; for the hard constraint k-Vertex-Cover problem, and for an application to Discrete Portfolio Rebalancing, we show that GM-QAOA outperforms existing QAOA approaches.},
+  keywords = {Approximation algorithms,Computer Science - Data Structures and Algorithms,Constraint optimization,Logic gates,Mixers,Optimization,Particle separators,Quantum Physics,Standards},
+  file = {C\:\\Users\\Julien Drapeau\\Zotero\\storage\\2TN4HX8A\\Bärtschi and Eidenbenz - 2020 - Grover Mixers for QAOA Shifting Complexity from M.pdf;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\Q3KCCAU5\\Bärtschi and Eidenbenz - 2020 - Grover Mixers for QAOA Shifting Complexity from M.pdf;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\47MIUH6G\\2006.html;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\57GQSKVT\\2006.html;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\B7D397BI\\9259965.html;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\GWCT2ETR\\9259965.html;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\LSETDZKK\\2006.html;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\X8FRIC5J\\9259965.html}
+}
+
 @article{bornBeweisAdiabatensatzes1928,
   title = {{Beweis des Adiabatensatzes}},
   author = {Born, M. and Fock, V.},
@@ -67,6 +81,23 @@
   file = {C:\Users\Julien Drapeau\Zotero\storage\MS5Z85WS\Cook - 1971 - The complexity of theorem-proving procedures.pdf}
 }
 
+@misc{farhiQuantumApproximateOptimization2014,
+  title = {A {{Quantum Approximate Optimization Algorithm}}},
+  author = {Farhi, Edward and Goldstone, Jeffrey and Gutmann, Sam},
+  year = {2014},
+  month = nov,
+  number = {arXiv:1411.4028},
+  eprint = {1411.4028},
+  primaryclass = {quant-ph},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.1411.4028},
+  urldate = {2022-06-27},
+  abstract = {We introduce a quantum algorithm that produces approximate solutions for combinatorial optimization problems. The algorithm depends on a positive integer p and the quality of the approximation improves as p is increased. The quantum circuit that implements the algorithm consists of unitary gates whose locality is at most the locality of the objective function whose optimum is sought. The depth of the circuit grows linearly with p times (at worst) the number of constraints. If p is fixed, that is, independent of the input size, the algorithm makes use of efficient classical preprocessing. If p grows with the input size a different strategy is proposed. We study the algorithm as applied to MaxCut on regular graphs and analyze its performance on 2-regular and 3-regular graphs for fixed p. For p = 1, on 3-regular graphs the quantum algorithm always finds a cut that is at least 0.6924 times the size of the optimal cut.},
+  archiveprefix = {arXiv},
+  keywords = {Quantum Physics},
+  file = {C\:\\Users\\Julien Drapeau\\Zotero\\storage\\RYFWJHZ8\\Farhi et al. - 2014 - A Quantum Approximate Optimization Algorithm.pdf;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\4QSY9L2P\\1411.html}
+}
+
 @misc{farhiQuantumComputationAdiabatic2000,
   title = {Quantum {{Computation}} by {{Adiabatic Evolution}}},
   author = {Farhi, Edward and Goldstone, Jeffrey and Gutmann, Sam and Sipser, Michael},
@@ -81,6 +112,26 @@
   archiveprefix = {arXiv},
   keywords = {Quantum Physics},
   file = {C\:\\Users\\Julien Drapeau\\Zotero\\storage\\U8P8TJUY\\Farhi et al. - 2000 - Quantum Computation by Adiabatic Evolution.pdf;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\IMUTZZ3R\\0001106.html}
+}
+
+@article{hadfieldQuantumApproximateOptimization2019,
+  title = {From the {{Quantum Approximate Optimization Algorithm}} to a {{Quantum Alternating Operator Ansatz}}},
+  author = {Hadfield, Stuart and Wang, Zhihui and O'Gorman, Bryan and Rieffel, Eleanor G. and Venturelli, Davide and Biswas, Rupak},
+  year = {2019},
+  month = feb,
+  journal = {Algorithms},
+  volume = {12},
+  number = {2},
+  pages = {34},
+  publisher = {Multidisciplinary Digital Publishing Institute},
+  issn = {1999-4893},
+  doi = {10.3390/a12020034},
+  urldate = {2022-06-28},
+  abstract = {The next few years will be exciting as prototype universal quantum processors emerge, enabling the implementation of a wider variety of algorithms. Of particular interest are quantum heuristics, which require experimentation on quantum hardware for their evaluation and which have the potential to significantly expand the breadth of applications for which quantum computers have an established advantage. A leading candidate is Farhi et al.'s quantum approximate optimization algorithm, which alternates between applying a cost function based Hamiltonian and a mixing Hamiltonian. Here, we extend this framework to allow alternation between more general families of operators. The essence of this extension, the quantum alternating operator ansatz, is the consideration of general parameterized families of unitaries rather than only those corresponding to the time evolution under a fixed local Hamiltonian for a time specified by the parameter. This ansatz supports the representation of a larger, and potentially more useful, set of states than the original formulation, with potential long-term impact on a broad array of application areas. For cases that call for mixing only within a desired subspace, refocusing on unitaries rather than Hamiltonians enables more efficiently implementable mixers than was possible in the original framework. Such mixers are particularly useful for optimization problems with hard constraints that must always be satisfied, defining a feasible subspace, and soft constraints whose violation we wish to minimize. More efficient implementation enables earlier experimental exploration of an alternating operator approach, in the spirit of the quantum approximate optimization algorithm, to a wide variety of approximate optimization, exact optimization, and sampling problems. In addition to introducing the quantum alternating operator ansatz, we lay out design criteria for mixing operators, detail mappings for eight problems, and provide a compendium with brief descriptions of mappings for a diverse array of problems.},
+  copyright = {http://creativecommons.org/licenses/by/3.0/},
+  langid = {english},
+  keywords = {approximate optimization,constrained optimization,constraint satisfaction problems,optimization,quantum algorithms,quantum circuit ansatz,quantum computing,quantum gate model},
+  file = {C\:\\Users\\Julien Drapeau\\Zotero\\storage\\CCW33JY3\\Hadfield et al. - 2019 - From the Quantum Approximate Optimization Algorith.pdf;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\9XLNXWZB\\34.html}
 }
 
 @article{impagliazzoComplexityKSAT2001,
@@ -120,6 +171,35 @@
   abstract = {The article examines several well-known problems of the ``sequential search type'' and proves that these problems can only be solved in the time it takes to solve any problem of the specified type in general.},
   langid = {english},
   file = {C:\Users\Julien Drapeau\Zotero\storage\2SL2MF6Q\Levin - Universal Sequential Search Problems.pdf}
+}
+
+@misc{lodewijksMappingNPhardNPcomplete2020,
+  title = {Mapping {{NP-hard}} and {{NP-complete}} Optimisation Problems to {{Quadratic Unconstrained Binary Optimisation}} Problems},
+  author = {Lodewijks, Bas},
+  year = {2020},
+  month = aug,
+  number = {arXiv:1911.08043},
+  eprint = {1911.08043},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.1911.08043},
+  urldate = {2025-01-09},
+  abstract = {We discuss several mappings from well-known NP-hard problems to Quadratic Unconstrained Binary Optimisation problems which are treated incorrectly by Lucas. We provide counterexamples and correct the mappings. We also extend the body of QUBO formulations of NP-complete and NP-hard optimisation problems by discussing additional problems.},
+  archiveprefix = {arXiv},
+  keywords = {Computer Science - Computational Complexity,Computer Science - Data Structures and Algorithms,Condensed Matter - Statistical Mechanics,Quantum Physics},
+  file = {C\:\\Users\\Julien Drapeau\\Zotero\\storage\\9X4U9WU7\\Lodewijks - 2020 - Mapping NP-hard and NP-complete optimisation probl.pdf;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\7FXMN69H\\1911.html}
+}
+
+@article{lucasIsingFormulationsMany2014,
+  title = {Ising Formulations of Many {{NP}} Problems},
+  author = {Lucas, Andrew},
+  year = {2014},
+  journal = {Frontiers in Physics},
+  volume = {2},
+  issn = {2296-424X},
+  doi = {10.3389/fphy.2014.00005},
+  abstract = {We provide Ising formulations for many NP-complete and NP-hard problems, including all of Karp's 21 NP-complete problems. This collects and extends mappings to the Ising model from partitioning, covering, and satisfiability. In each case, the required number of spins is at most cubic in the size of the problem. This work may be useful in designing adiabatic quantum optimization algorithms.},
+  file = {C:\Users\Julien Drapeau\Zotero\storage\XVERPETY\Lucas - 2014 - Ising formulations of many NP problems.pdf}
 }
 
 @book{messiahQuantumMechanics1999,
