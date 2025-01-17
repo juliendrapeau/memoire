@@ -34,6 +34,27 @@
   file = {C\:\\Users\\Julien Drapeau\\Zotero\\storage\\6AREP8H4\\Amin - 2009 - Consistency of the Adiabatic Theorem.pdf;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\3WN778KT\\PhysRevLett.102.html}
 }
 
+@article{anschuetzBarrenPlateausQuantum2022a,
+  title = {Beyond {{Barren Plateaus}}: {{Quantum Variational Algorithms Are Swamped With Traps}}},
+  shorttitle = {Beyond {{Barren Plateaus}}},
+  author = {Anschuetz, Eric R. and Kiani, Bobak T.},
+  year = {2022},
+  month = dec,
+  journal = {Nature Communications},
+  volume = {13},
+  number = {1},
+  eprint = {2205.05786},
+  primaryclass = {quant-ph},
+  pages = {7760},
+  issn = {2041-1723},
+  doi = {10.1038/s41467-022-35364-5},
+  urldate = {2024-08-03},
+  abstract = {One of the most important properties of classical neural networks is how surprisingly trainable they are, though their training algorithms typically rely on optimizing complicated, nonconvex loss functions. Previous results have shown that unlike the case in classical neural networks, variational quantum models are often not trainable. The most studied phenomenon is the onset of barren plateaus in the training landscape of these quantum models, typically when the models are very deep. This focus on barren plateaus has made the phenomenon almost synonymous with the trainability of quantum models. Here, we show that barren plateaus are only a part of the story. We prove that a wide class of variational quantum models -- which are shallow, and exhibit no barren plateaus -- have only a superpolynomially small fraction of local minima within any constant energy from the global minimum, rendering these models untrainable if no good initial guess of the optimal parameters is known. We also study the trainability of variational quantum algorithms from a statistical query framework, and show that noisy optimization of a wide variety of quantum models is impossible with a sub-exponential number of queries. Finally, we numerically confirm our results on a variety of problem instances. Though we exclude a wide variety of quantum algorithms here, we give reason for optimism for certain classes of variational algorithms and discuss potential ways forward in showing the practical utility of such algorithms.},
+  archiveprefix = {arXiv},
+  keywords = {Quantum Physics},
+  file = {C\:\\Users\\Julien Drapeau\\Zotero\\storage\\I2E9W6CE\\Anschuetz and Kiani - 2022 - Beyond Barren Plateaus Quantum Variational Algori.pdf;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\MEHXAZXU\\2205.html}
+}
+
 @inproceedings{bartschiGroverMixersQAOA2020,
   title = {Grover {{Mixers}} for {{QAOA}}: {{Shifting Complexity}} from {{Mixer Design}} to {{State Preparation}}},
   shorttitle = {Grover {{Mixers}} for {{QAOA}}},
@@ -46,6 +67,22 @@
   abstract = {We propose GM-QAOA, a variation of the Quantum Alternating Operator Ansatz (QAOA) that uses Grover-like selective phase shift mixing operators. GM-QAOA works on any NP optimization problem for which it is possible to efficiently prepare an equal superposition of all feasible solutions; it is designed to perform particularly well for constraint optimization problems, where not all possible variable assignments are feasible solutions. GM-QAOA has the following features: (i) It is not susceptible to Hamiltonian Simulation error (such as Trotterization errors) as its operators can be implemented exactly using standard gate sets and (ii) Solutions with the same objective value are always sampled with the same amplitude. We illustrate the potential of GM-QAOA on several optimization problem classes: for permutation-based optimization problems such as the Traveling Salesperson Problem, we present an efficient algorithm to prepare a superposition of all possible permutations of \$n\$ numbers, defined on O (n 2) qubits; for the hard constraint k-Vertex-Cover problem, and for an application to Discrete Portfolio Rebalancing, we show that GM-QAOA outperforms existing QAOA approaches.},
   keywords = {Approximation algorithms,Computer Science - Data Structures and Algorithms,Constraint optimization,Logic gates,Mixers,Optimization,Particle separators,Quantum Physics,Standards},
   file = {C\:\\Users\\Julien Drapeau\\Zotero\\storage\\2TN4HX8A\\Bärtschi and Eidenbenz - 2020 - Grover Mixers for QAOA Shifting Complexity from M.pdf;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\Q3KCCAU5\\Bärtschi and Eidenbenz - 2020 - Grover Mixers for QAOA Shifting Complexity from M.pdf;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\47MIUH6G\\2006.html;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\57GQSKVT\\2006.html;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\B7D397BI\\9259965.html;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\GWCT2ETR\\9259965.html;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\LSETDZKK\\2006.html;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\X8FRIC5J\\9259965.html}
+}
+
+@article{bittelTrainingVariationalQuantum2021,
+  title = {Training {{Variational Quantum Algorithms Is NP-Hard}}},
+  author = {Bittel, Lennart and Kliesch, Martin},
+  year = {2021},
+  month = sep,
+  journal = {Physical Review Letters},
+  volume = {127},
+  number = {12},
+  pages = {120502},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevLett.127.120502},
+  urldate = {2022-06-28},
+  abstract = {Variational quantum algorithms are proposed to solve relevant computational problems on near term quantum devices. Popular versions are variational quantum eigensolvers and quantum approximate optimization algorithms that solve ground state problems from quantum chemistry and binary optimization problems, respectively. They are based on the idea of using a classical computer to train a parametrized quantum circuit. We show that the corresponding classical optimization problems are NP-hard. Moreover, the hardness is robust in the sense that, for every polynomial time algorithm, there are instances for which the relative error resulting from the classical optimization problem can be arbitrarily large assuming that P{$\neq$}NP. Even for classically tractable systems composed of only logarithmically many qubits or free fermions, we show the optimization to be NP-hard. This elucidates that the classical optimization is intrinsically hard and does not merely inherit the hardness from the ground state problem. Our analysis shows that the training landscape can have many far from optimal persistent local minima This means gradient and higher order descent algorithms will generally converge to far from optimal solutions.},
+  file = {C\:\\Users\\Julien Drapeau\\Zotero\\storage\\ZTXA32WD\\Bittel and Kliesch - 2021 - Training Variational Quantum Algorithms Is NP-Hard.pdf;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\AFIRVHWG\\PhysRevLett.127.html;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\EXKFFMH2\\PhysRevLett.127.html;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\RXLHBT7V\\PhysRevLett.127.html}
 }
 
 @article{bornBeweisAdiabatensatzes1928,
@@ -150,6 +187,23 @@
   file = {C:\Users\Julien Drapeau\Zotero\storage\U4UUJURM\S0022000000917276.html}
 }
 
+@article{jerrumRandomGenerationCombinatorial1986,
+  title = {Random Generation of Combinatorial Structures from a Uniform Distribution},
+  author = {Jerrum, Mark R. and Valiant, Leslie G. and Vazirani, Vijay V.},
+  year = {1986},
+  month = jan,
+  journal = {Theoretical Computer Science},
+  volume = {43},
+  pages = {169--188},
+  issn = {0304-3975},
+  doi = {10.1016/0304-3975(86)90174-X},
+  urldate = {2022-06-28},
+  abstract = {The class of problems involving the random generation of combinatorial structures from a uniform distribution is considered. Uniform generation problems are, in computational difficulty, intermediate between classical existence and counting problems. It is shown that exactly uniform generation of `efficiently verifiable' combinatorial structures is reducible to approximate counting (and hence, is within the third level of the polynomial hierarchy). Natural combinatorial problems are presented which exhibit complexity gaps between their existence and generation, and between their generation and counting versions. It is further shown that for self-reducible problems, almost uniform generation and randomized approximate counting are inter-reducible, and hence, of similar complexity.},
+  langid = {english},
+  keywords = {F.1.1,F.1.3,G.2.1,G.3},
+  file = {C\:\\Users\\Julien Drapeau\\Zotero\\storage\\QBFJ6IFL\\Jerrum et al. - 1986 - Random generation of combinatorial structures from.pdf;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\2HLD5FCN\\030439758690174X.html;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\6TSI9FV5\\030439758690174X.html;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\ZV2NS3KA\\030439758690174X.html}
+}
+
 @article{katoAdiabaticTheoremQuantum1950,
   title = {On the {{Adiabatic Theorem}} of {{Quantum Mechanics}}},
   author = {Kato, Tosio},
@@ -163,6 +217,23 @@
   issn = {0031-9015},
   doi = {10.1143/JPSJ.5.435},
   urldate = {2024-12-14}
+}
+
+@misc{laroccaReviewBarrenPlateaus2024,
+  title = {A {{Review}} of {{Barren Plateaus}} in {{Variational Quantum Computing}}},
+  author = {Larocca, Martin and Thanasilp, Supanut and Wang, Samson and Sharma, Kunal and Biamonte, Jacob and Coles, Patrick J. and Cincio, Lukasz and McClean, Jarrod R. and Holmes, Zo{\"e} and Cerezo, M.},
+  year = {2024},
+  month = may,
+  number = {arXiv:2405.00781},
+  eprint = {2405.00781},
+  primaryclass = {quant-ph},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2405.00781},
+  urldate = {2025-01-14},
+  abstract = {Variational quantum computing offers a flexible computational paradigm with applications in diverse areas. However, a key obstacle to realizing their potential is the Barren Plateau (BP) phenomenon. When a model exhibits a BP, its parameter optimization landscape becomes exponentially flat and featureless as the problem size increases. Importantly, all the moving pieces of an algorithm -- choices of ansatz, initial state, observable, loss function and hardware noise -- can lead to BPs when ill-suited. Due to the significant impact of BPs on trainability, researchers have dedicated considerable effort to develop theoretical and heuristic methods to understand and mitigate their effects. As a result, the study of BPs has become a thriving area of research, influencing and cross-fertilizing other fields such as quantum optimal control, tensor networks, and learning theory. This article provides a comprehensive review of the current understanding of the BP phenomenon.},
+  archiveprefix = {arXiv},
+  keywords = {Computer Science - Machine Learning,Quantum Physics,Statistics - Machine Learning},
+  file = {C\:\\Users\\Julien Drapeau\\Zotero\\storage\\6ZFQG2WH\\Larocca et al. - 2024 - A Review of Barren Plateaus in Variational Quantum.pdf;C\:\\Users\\Julien Drapeau\\Zotero\\storage\\QQ4MGTP4\\2405.html}
 }
 
 @article{levinUniversalSequentialSearch,
@@ -202,6 +273,26 @@
   file = {C:\Users\Julien Drapeau\Zotero\storage\XVERPETY\Lucas - 2014 - Ising formulations of many NP problems.pdf}
 }
 
+@article{mccleanBarrenPlateausQuantum2018a,
+  title = {Barren Plateaus in Quantum Neural Network Training Landscapes},
+  author = {McClean, Jarrod R. and Boixo, Sergio and Smelyanskiy, Vadim N. and Babbush, Ryan and Neven, Hartmut},
+  year = {2018},
+  month = nov,
+  journal = {Nature Communications},
+  volume = {9},
+  number = {1},
+  pages = {4812},
+  publisher = {Nature Publishing Group},
+  issn = {2041-1723},
+  doi = {10.1038/s41467-018-07090-4},
+  urldate = {2025-01-14},
+  abstract = {Many experimental proposals for noisy intermediate scale quantum devices involve training a parameterized quantum circuit with a classical optimization loop. Such hybrid quantum-classical algorithms are popular for applications in quantum simulation, optimization, and machine learning. Due to its simplicity and hardware efficiency, random circuits are often proposed as initial guesses for exploring the space of quantum states. We show that the exponential dimension of Hilbert space and the gradient estimation complexity make this choice unsuitable for hybrid quantum-classical algorithms run on more than a few qubits. Specifically, we show that for a wide class of reasonable parameterized quantum circuits, the probability that the gradient along any reasonable direction is non-zero to some fixed precision is exponentially small as a function of the number of qubits. We argue that this is related to the 2-design characteristic of random circuits, and that solutions to this problem must be studied.},
+  copyright = {2018 The Author(s)},
+  langid = {english},
+  keywords = {Quantum information,Quantum mechanics},
+  file = {C:\Users\Julien Drapeau\Zotero\storage\WR6XAPWX\McClean et al. - 2018 - Barren plateaus in quantum neural network training.pdf}
+}
+
 @book{messiahQuantumMechanics1999,
   title = {Quantum Mechanics},
   author = {Messiah, Albert},
@@ -220,6 +311,19 @@
   urldate = {2024-11-27},
   langid = {american},
   file = {C:\Users\Julien Drapeau\Zotero\storage\Z9MXB6IV\p12.html}
+}
+
+@book{sipserIntroductionTheoryComputation2012,
+  title = {Introduction to the {{Theory}} of {{Computation}}},
+  author = {Sipser, Michael},
+  year = {2012},
+  month = jun,
+  publisher = {Cengage Learning},
+  abstract = {Now you can clearly present even the most complex computational theory topics to your students with Sipser's distinct, market-leading INTRODUCTION TO THE THEORY OF COMPUTATION, 3E. The number one choice for today's computational theory course, this highly anticipated revision retains the unmatched clarity and thorough coverage that make it a leading text for upper-level undergraduate and introductory graduate students. This edition continues author Michael Sipser's well-known, approachable style with timely revisions, additional exercises, and more memorable examples in key areas. A new first-of-its-kind theoretical treatment of deterministic context-free languages is ideal for a better understanding of parsing and LR(k) grammars. This edition's refined presentation ensures a trusted accuracy and clarity that make the challenging study of computational theory accessible and intuitive to students while maintaining the subject's rigor and formalism. Readers gain a solid understanding of the fundamental mathematical properties of computer hardware, software, and applications with a blend of practical and philosophical coverage and mathematical treatments, including advanced theorems and proofs. INTRODUCTION TO THE THEORY OF COMPUTATION, 3E's comprehensive coverage makes this an ideal ongoing reference tool for those studying theoretical computing.Important Notice: Media content referenced within the product description or the product text may not be available in the ebook version.},
+  googlebooks = {P3f6CAAAQBAJ},
+  isbn = {978-1-133-18779-0},
+  langid = {english},
+  keywords = {Computers / Computer Science}
 }
 
 @inproceedings{trakhtenbrotAutoreducibility1970,

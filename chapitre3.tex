@@ -67,6 +67,8 @@ où $\varepsilon_{j}(s) < \varepsilon_{j+1}(s) \ \forall j,s$ et $j \in \set{ 0,
     T \gg \max_{s \in [0,1]} \frac{\lvert \braket{ \varepsilon_{i}(s) | \partial_{s} \tilde{H}(s) | \varepsilon_{j}(s) } \rvert }{\lvert \varepsilon_{i}(s) - \varepsilon_{j}(s) \rvert^{2} } \ \forall j \neq i \,.
 \end{equation}
 
+
+
 \textcolor{mydarkred}{\textit{Rajouter une intuition et un lien avec le théorème.}}
 
 L'approximation adiabatique est souvent utilisée à partir de l'état fondamental $\ket{\varepsilon_{0}(t)}$, menant à la définition du gap spectral entre l'état fondamental et le premier état excité du système $\Delta(s) = \varepsilon_{1}(s) - \varepsilon_{0}(s)$. Généralement, le maximum de $\braket{ \varepsilon_{i}(s) | \partial_{s} \tilde{H}(s) | \varepsilon_{j}(s)}$ est de l'ordre d'une valeur propre typique de $\tilde{H}$ et petit. Le minimum du carré de l'inverse du gap spectral $\Delta$ constitue alors un critère pratique pour quantifier le temps nécessaire à l'évolution adiabatique. \textcolor{mydarkred}{\textit{Reformuler et faire attention aux symboles.}}
@@ -138,33 +140,44 @@ subsection*{Plan}
 1. Farhi, E., Goldstone, J. and Gutmann, S. A Quantum Approximate Optimization Algorithm. Preprint at https://doi.org/10.48550/arXiv.1411.4028 (2014).
 \end{comment}
 
-L'algorithme quantique d'optimisation approximative, étant une idée prometteuse pour les applications des ordinateurs quantiques, a mené à une quantité incroyable de travaux dans les précédentes années. Ainsi, pour simplifier la compréhension de ce concept, l'algorithme original, dû à Farhi~\cite{farhiQuantumApproximateOptimization2014}, est d'abord présenté.
+Étant une idée prometteuse pour les applications des ordinateurs quantiques, l'algorithme quantique d'optimisation approximative a mené à une quantité incroyable de travaux dans les précédentes années. Ainsi, pour simplifier la compréhension de ce concept, l'algorithme original, dû à Farhi~\cite{farhiQuantumApproximateOptimization2014}, est d'abord présenté.
 
-QAOA repose sur deux différents Hamiltoniens: l'Hamiltonien de problème $H_{P}$ et l'Hamiltonien de forçage $H_{D}$. \textcolor{mydarkred}{\textit{Drive, mixer, problem, phase?}} L'Hamiltonien de problème est formulé de façon à encoder la solution, potentiellement dégénérée, du problème d'optimisation combinatoire dans son état fondamental. L'Hamiltonien de forçage, quant à lui, est donné par
+QAOA repose sur deux différents Hamiltoniens: l'Hamiltonien de phase, ou de problème, $H_{P}$ et l'Hamiltonien de forçage, ou de mélange, $H_{D}$. L'Hamiltonien de problème est formulé de façon à encoder la solution, potentiellement dégénérée, du problème d'optimisation combinatoire dans son état fondamental. L'Hamiltonien de forçage, quant à lui, est donné par
 
 \begin{equation}
     \label{eq:x-drive}
-    H_{D} = \sum_{i=1}^{n} X_{i} \,,
+    H_{D}^{X} = \sum_{i=1}^{n} X_{i} \,,
 \end{equation}
 
-où $X_{i}$ est l'opérateur de Pauli $X$ appliqué sur le qubit $i$ d'un système à $n$ qubits. L'Hamiltonien de forçage est construit de manière à induire de l'interférence et ainsi permettre l'exploration de l'espace d'Hilbert. 
+où $X_{i}$ est l'opérateur de Pauli $X$ appliqué sur le qubit $i$ d'un système à $n$ qubits. $H_{D}^{X}$ est construit de manière à induire de l'interférence et ainsi permettre l'exploration de l'espace d'Hilbert. 
 
 Par définition, l'Hamiltonien $H_{p}$ est diagonal dans la base computationnelle, alors que l'Hamiltonien $H_{D}$ comprend des termes hors-diagonaux. Deux opérations unitaires paramétrées sont définies à partir des Hamiltoniens $H_{P}$ et $H_{D}$: l'opérateur de problème $U_{P}(\gamma) = e^{-i \gamma H_{P}}$ ainsi que l'opérateur de forçage $U_{D}(\beta) = e^{-i \beta H_{D}}$. L'opérateur $U_{P}$ représente une rotation de phase, paramétrisée par $\gamma$, des états de la base computationnelle dépendamment de leur énergie donné par $H_{P}$. L'opérateur $U_{D}$, paramétrisé par $\beta$, superpose différents états de la base computationnel ayant précédamment acquéri différents facteurs de phase, menant ainsi à de l'interférence.
 
-En tant que VQA, QAOA est un algorithme hybride composé d'un circuit quantique paramétré et d'un optimiseur classique. Le circuit quantique est d'abord préparé dans un état propre de l'Hamiltonien de forçage. Pour l'Hamiltonien~\ref{eq:x-drive}, un exemple d'état initial possible serait $\ket{\psi_{0}} = \ket{+}^{\otimes n}$. Le produit des opérateurs $U_{D}U_{P}$ est alors appliqué $p$ fois sur l'état initial $\ket{\psi_{0}}$. L'état obtenu est
+En tant que VQA, QAOA est un algorithme hybride composé d'un circuit quantique paramétré et d'un optimiseur classique. Le circuit quantique est d'abord préparé dans un état propre de l'Hamiltonien de forçage. Pour l'Hamiltonien~\ref{eq:x-drive}, un exemple d'état initial possible serait $\ket{\psi_{0}} = \ket{+}^{\otimes n}$. Le produit des opérateurs $U_{D}U_{P}$ est alors appliqué en alternance $p$ fois sur l'état initial $\ket{\psi_{0}}$, donnant l'état suivant:
 
 \begin{equation}
     \label{eq:final-state}
-    \ket{\psi(\vec{\gamma}, \vec{\beta})} = U_D(\beta_p) U_P(\gamma_p) \cdots U_D(\beta_1) U_P(\gamma_1) \ket{\psi_{0}} \,.
+    \ket{\psi(\vec{\gamma}, \vec{\beta})} = U_D(\beta_p) U_P(\gamma_p) \cdots U_D(\beta_1) U_P(\gamma_1) \ket{\psi_{0}} \,,
 \end{equation}
 
-où $\vec{\gamma} = (\gamma_{1}, \dots, \gamma_{p})$ et $\vec{\beta} = (\beta_{1}, \dots, \beta_{p})$. Une fois l'état $\ket{\psi(\vec{\gamma}, \vec{\beta}})$ préparé, la valeur moyenne de l'énergie, donnée par
+où $\vec{\gamma} = (\gamma_{1}, \dots, \gamma_{p})$ et $\vec{\beta} = (\beta_{1}, \dots, \beta_{p})$. Une fois l'état $\ket{\psi(\vec{\gamma}, \vec{\beta}})$ préparé, des mesures sont prise pour déterminer la valeur moyenne de l'énergie, donnée par
 
 \begin{equation}
-    E_{P} (\vec{\gamma}, \vec{\beta}) = \braket{ \psi(\vec{\gamma}, \vec{\beta}) | H_{P} | \psi(\vec{\gamma}, \vec{\beta}) } \,,
+    E_{P} (\vec{\gamma}, \vec{\beta}) = \braket{ \psi(\vec{\gamma}, \vec{\beta}) | H_{P} | \psi(\vec{\gamma}, \vec{\beta}) } \,.
 \end{equation}
 
-est mesurée. 
+L'énergie trouvée quantifie l'optimalité de l'état préparé.
+
+L'algorithme peut se résumer par les étapes suivantes:
+
+\begin{enumerate}
+    \item Préparation de l'état initial:
+\end{enumerate}
+
+\begin{equation}
+    C = \frac{ E_{p} (\vec{\gamma}, \vec{\beta})}{\min_{(\vec{\gamma}, \vec{\beta})} E_{p} (\vec{\gamma}, \vec{\beta}) }
+\end{equation}
+
 
 \textcolor{mydarkred}{\textit{Ajouter une figure.}}
 
@@ -347,11 +360,9 @@ où $E$ est l'ensemble d'arrêtes et $V$ est l'ensemble de sommets.
 
 L'algorithme quantique d'optimisation approximative applique en alternance un Hamiltonien de problème et un Hamiltonien de forçage, guidé par l'approche quantique adiabatique. Cet algorithme comporte une limitation importante: les opérateurs appliqués doivent être sous la forme d'une évolution temporelle d'un Hamiltonien local fixe. Cette restriction entrave la construction d'opérateurs unitaires potentiellement plus efficaces.
 
-L'\textit{approche quantique des opérateurs alternants} (QAOA), introduit par Hadfield et al.~\cite{hadfieldQuantumApproximateOptimization2019}, généralise l'algorithme quantique d'optimisation approximative en permettant l'alternance de familles générales d'opérateurs unitaires paramétrisés plutôt qu'uniquement des opérateurs basés sur un Hamiltonien. Cet ansatz supporte ainsi la représentation d'une plus grand nombre d'états, pouvant possiblement être construit de manière plus efficace.
+L'\textit{approche quantique des opérateurs alternants} (« Quantum Alternating Operator Ansatz») (QAOA), introduit par Hadfield et coll.~\cite{hadfieldQuantumApproximateOptimization2019}, généralise l'algorithme quantique d'optimisation approximative en permettant l'alternance de familles générales d'opérateurs unitaires paramétrisés plutôt qu'uniquement des opérateurs basés sur un Hamiltonien. Cet ansatz supporte ainsi la représentation d'une plus grand nombre d'états, pouvant possiblement être construit de manière plus efficace. L'algorithme quantique d'approximation quantique et l'approche quantique des opérateurs alternants possèdent le même acronyme. Comme cette dernière étend le premier, l'acronyme QAOA fera référence à l'approche quantique des opérateurs alternant pour le reste de la présente section.
 
-L'algorithme quantique d'approximation quantique et l'approche quantique des opérateurs alternants possèdent le même acronyme. Comme cette dernière étend le premier, l'acronyme QAOA fera référence à l'approche quantique des opérateurs alternant pour le reste de la présente section.
-
-Cette extension trouve son utilité principalement dans la création d'opérateurs de forçage. Restreindre l'espace des configurations d'un problème selon les contraintes de celui-ci permet d'éviter .
+Cette extension trouve son utilité principale dans la création d'opérateurs de forçage. Restreindre l'espace des configurations d'un problème selon les contraintes de celui-ci permet d'éviter .
 
 
 %-----------------------------------------------------------------------------%
@@ -364,6 +375,10 @@ Cette extension trouve son utilité principalement dans la création d'opérateu
 
 
 \subsection{Forçage de Grover}
+
+\textit{L'approche quantique des opérateurs alternants avec forçage de Grover} («Grover-Mixer Quantum Alternating Operator Ansatz») (GM-QAOA) fut proposé par Bärtschi et coll.~\cite{bartschiGroverMixersQAOA2020} pour déplacer la complexité de la conception de l'opérateur de forçage à la préparation de l'état initial en s'inspirant de l'algorithme de Grover. 
+
+
 
 \begin{equation}
     U_D^{\mathrm{Grover}} = U_{S}\left[ \mathds{1} -\left(1-e^{-i \beta}\right) (\ket{0}\!\bra{0})^{\otimes n} \right] U_{S}^{\dagger} \,,
@@ -399,8 +414,17 @@ Cette extension trouve son utilité principalement dans la création d'opérateu
 Peut-être une référence de plus qui traite directement des barrens plateau?
 \end{comment}
 
-L'optimisation classique des paramètres de QAOA 
+La capacité d'entraînement des réseaux de neurones à partir d'une simple descente de gradient fut en partie à l'origine de leur succès retentissant sur de nombreux différents problèmes. L'optimisation des paramètres se fait simplement, même avec des fonctions de coût non-convexe, tout en offrant de puissants résultats.
 
+\textcolor{mydarkred}{\textit{On espère la même chose des VQAs}}
+
+L'optimisation classique des paramètres de QAOA fait partie intégrante du concept d'algorithme variationnel quantique. Grâce à celle-ci, il est en théorie possible de prendre avantage des algorithmes quantiques en recourant à des ordinateurs quantiques bruités. Cependant, de nombreuses embûches rendent présentement cette tâche difficile. 
+
+D'abord, l'estimation du gradient de coût est difficile dans de nombreuses situations en raison de la présence de plateaux stériles~\cite{mccleanBarrenPlateausQuantum2018a, laroccaReviewBarrenPlateaus2024}, où le gradient devient exponentiellement petit selon la taille du système. Un nombre exponentiel de mesures devient alors nécessaires pour pouvoir identifier la direction minimisant la fonction de coût.
+
+De plus, 
+
+Cet ensemble de complication implique alors qu'une bonne initialisation des paramètres est nécessaire au succès de QAOA. Des paramètres initiaux suffisamment près de l'extremum global peuvent contourner les problèmes énoncés précédemment. 
 
 %-----------------------------------------------------------------------------%
 
