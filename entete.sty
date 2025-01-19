@@ -40,6 +40,9 @@
 \tikzexternalize[prefix=tikz/]
 \usepackage{braket}
 \usepackage{dsfont}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{algorithmic}
+
 
 % \definecolor{myblue}{rgb}{0.33725490196078434, 0.7058823529411765, 0.9137254901960784}
 \definecolor{myblue}{rgb}{0.48137254901960785, 0.757843137254902, 0.9137254901960784}
@@ -87,10 +90,10 @@
 }  
 
 \newtcbtheorem[auto counter,number within=chapter]{maintheorem}%
-  {Théoreme}{colframe=myblue, base={#1}, separator sign dash}{th}
+  {Théorème}{colframe=myblue, base={#1}, separator sign dash}{th}
 
 \newtcbtheorem[use counter from=maintheorem,number within=chapter]{subtheorem}%
-  {Théoreme}{colframe=black!20!white, base={#1}, separator sign dash}{th}
+  {Théorème}{colframe=black!20!white, base={#1}, separator sign dash}{th}
 
 \newtcbtheorem[auto counter,number within=chapter]{maindefinition}%
   {Définition}{colframe=myblue, base={#1}, separator sign dash}{def}

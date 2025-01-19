@@ -73,7 +73,7 @@ où $\varepsilon_{j}(s) < \varepsilon_{j+1}(s) \ \forall j,s$ et $j \in \set{ 0,
 
 L'approximation adiabatique est souvent utilisée à partir de l'état fondamental $\ket{\varepsilon_{0}(t)}$, menant à la définition du gap spectral entre l'état fondamental et le premier état excité du système $\Delta(s) = \varepsilon_{1}(s) - \varepsilon_{0}(s)$. Généralement, le maximum de $\braket{ \varepsilon_{i}(s) | \partial_{s} \tilde{H}(s) | \varepsilon_{j}(s)}$ est de l'ordre d'une valeur propre typique de $\tilde{H}$ et petit. Le minimum du carré de l'inverse du gap spectral $\Delta$ constitue alors un critère pratique pour quantifier le temps nécessaire à l'évolution adiabatique. \textcolor{mydarkred}{\textit{Reformuler et faire attention aux symboles.}}
 
-L'algorithme adiabatique quantique, introduit par Farhi~\cite{farhiQuantumComputationAdiabatic2000}, emploie un ordinateur quantique physique pour la résolution de problèmes d'optimisation combinatoire en se basant sur le théorème adiabatique quantique. Pour ce faire, le système physique est initialement préparé dans l'état fondamental d'un Hamiltonien de forçage $H_{D}$ facile à construire et dont l'état fondamental est simple à trouver. La solution du problème, encodée dans l'état fondamental de l'Hamiltonien de problème $H_{P}$, est alors obtenue en transitionnant de l'Hamiltonien $H_{D}$ à l'Hamiltonien $H_{P}$ par une évolution adiabatique. Plus précisément, l'Hamiltonien du système s'écrit comme
+L'\textit{algorithme adiabatique quantique} (« Quantum Adiabatic Algorithm ») (QAA), introduit par Farhi~\cite{farhiQuantumComputationAdiabatic2000}, emploie un ordinateur quantique physique pour la résolution de problèmes d'optimisation combinatoire en se basant sur le théorème adiabatique quantique. Pour ce faire, le système physique est initialement préparé dans l'état fondamental d'un Hamiltonien de forçage $H_{D}$ facile à construire et dont l'état fondamental est simple à trouver. La solution du problème, encodée dans l'état fondamental de l'Hamiltonien de problème $H_{P}$, est alors obtenue en transitionnant de l'Hamiltonien $H_{D}$ à l'Hamiltonien $H_{P}$ par une évolution adiabatique. Plus précisément, l'Hamiltonien du système s'écrit comme
 
 
 \begin{equation}
@@ -331,6 +331,13 @@ où $E$ est l'ensemble d'arrêtes et $V$ est l'ensemble de sommets.
     \end{itemize}
 \end{comment}
 
+Pour établir un lien entre QAA et QAOA, l'évolution de l'Hamiltonian doit être rendu discrète. Pour ce faire, la décomposition de Susuki-Trotter au premier ordre, donnée par $e^{A+B} = \lim_{n \to \infty} e^{\frac{A}{n}} e^{\frac{B}{n}}$ pour deux opérateurs $A$ et $B$, est utilisée. Cette décomposition permet de discrétiser l'opérateur d'un Hamiltonien $H$ tel que
+
+\begin{equation}
+    e^{-i\Delta t H(t)} \approx e^{-i \beta H_D} e^{-i \gamma H_P} + O(\Delta t^2)
+\end{equation}
+
+\textcolor{mydarkred}{\textit{Voir mon rapport de stage.}}
 
 \textcolor{mydarkred}{\textit{Expliquer la contre-diabacité.}}
 
@@ -424,7 +431,15 @@ D'abord, l'estimation du gradient de coût est difficile dans de nombreuses situ
 
 De plus, 
 
-Cet ensemble de complication implique alors qu'une bonne initialisation des paramètres est nécessaire au succès de QAOA. Des paramètres initiaux suffisamment près de l'extremum global peuvent contourner les problèmes énoncés précédemment. 
+Ces difficultés sont d'autant plus importantes comme la complexité de l'espace des paramètres augmente avec le nombre de paramètres qu'un circuit plus profond implique. 
+
+Cet ensemble de complication implique alors qu'une bonne initialisation des paramètres est nécessaire au succès de QAOA.  Des paramètres initiaux suffisamment près de l'extremum global peuvent contourner les problèmes énoncés précédemment.
+
+\textcolor{mydarkred}{\textit{Initialisation reste une question ouverte.}}
+
+\textcolor{mydarkred}{\textit{Initialisation aléatoire.}}
+
+Sack et Serbyn propose en conséquence une stratégie d'initialisation basée sur le recuit quantique trottérisé (« Trotterized Quantum Annealing ») (TQA)~\cite{sackQuantumAnnealingInitialization2021}.  
 
 %-----------------------------------------------------------------------------%
 

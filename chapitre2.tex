@@ -3,6 +3,7 @@
 
 \chapter{Échantillonnage quasi uniforme et comptage approximatif}
 
+\begin{comment}
 \subsection*{Plan}
 
 \begin{enumerate}
@@ -11,6 +12,9 @@
     \item Mentionner les concepts nécessaires pour l'algorithme de JVV (auto-réductibilité, échantillonnage quasi aléatoire, comptage approximatif)
 \end{enumerate}
 \subsection*{Références}
+\end{comment}
+
+Les trois concepts nécessaires à l'algorithme de JVV sont présentés dans cette section.
 
 %-----------------------------------------------------------------------------%
 
@@ -38,7 +42,7 @@ Survey paper de Balcázar, Selke, Allender.
 Explication simple par Hemaspaandra.
 \end{comment}
 
-L'\textit{auto-réductibilité} ("self-reducibility") est un concept complexe, essentiel à la compréhension du calcul et de la complexité, découlant de l'introduction de la \textit{réduction automatique} (autoreducibility)~\cite{trakhtenbrotAutoreducibility1970}. Ces concepts sont particulièrement importants dans le contexte de génération aléatoire et du comptage approximatif, ainsi que pour la réduction entre le problème de décision et les problèmes de recherche.
+L'\textit{auto-réductibilité} (« self-reducibility ») est un concept complexe, essentiel à la compréhension du calcul et de la complexité, découlant de l'introduction de la \textit{réduction automatique} (« autoreducibility »)~\cite{trakhtenbrotAutoreducibility1970}. Ces concepts sont particulièrement importants dans le contexte de génération aléatoire et du comptage approximatif, ainsi que pour la réduction entre le problème de décision et les problèmes de recherche.
 
 La \textit{réduction automatique} peut être introduite informellement de la manière suivante:
 
@@ -108,7 +112,9 @@ Une définition rigoureuse de l'auto-réductibilité peut aussi être pratique.
 \subsection*{Références}
 \end{comment}
 
-\begin{maindefinition}{Échantillonneur quasi uniforme pleinement polynomial (FPAUS)}{fpaus}
+
+
+\begin{maindefinition}{Échantillonneur quasi uniforme pleinement polynomial}{fpaus}
     Un échantillonneur quasi uniforme pour un ensemble de solutions $S \subseteq \Sigma^{*} \times \Sigma^{*}$, où $S$ représente la relation entre les instances d'un problème $x$ et de ses solutions $y \in  S(x)$, est un algorithme aléatoire prenant en entrée une instance $x \in \Sigma^{*}$ et une tolérance d'échantillonnage $\delta > 0$ et qui génère une solution $y \in S(x)$ tel que
     \begin{equation*}
         \lVert Y - U \rvert_{TV} \leq \delta 
@@ -135,7 +141,7 @@ Une définition rigoureuse de l'auto-réductibilité peut aussi être pratique.
 1. Stockmeyer, L. The complexity of approximate counting. in Proceedings of the fifteenth annual ACM symposium on Theory of computing 118–126 (Association for Computing Machinery, New York, NY, USA, 1983). doi:10.1145/800061.808740.
 \end{comment}
 
-\begin{maindefinition}{Schéma d'approximation aléatoire pleinement polynomial (FPRAS)}{fpras}
+\begin{maindefinition}{Schéma d'approximation aléatoire pleinement polynomial}{fpras}
     Un schéma d'approximation aléatoire pour un problème de comptage $f: \Sigma^{*} \to \mathbb{N}$ est un algorithme aléatoire prenant en entrée une instance d'un problème $x \in \Sigma^{*}$ et une tolérance d'erreur $\varepsilon > 0$ et qui génère un nombre $N \in \mathbb{N}$ tel que, pour toute instance $x$,
     \begin{equation*}
         \mathrm{ Pr }\left[(1+\varepsilon)^{-1} f(x) \leq N \leq (1+\varepsilon)f(x)\right] \geq \frac{3}{4} .
@@ -166,11 +172,13 @@ Une définition rigoureuse de l'auto-réductibilité peut aussi être pratique.
 
 Dans une publication marquante pour le domaine de la complexité du comptage, Jerrum, Valiant et Vazirani ont montré que l'échantillonage quasi uniforme de structures combinatoriales est d'une complexité équivalente au comptage approximatif randomisé~\cite{jerrumRandomGenerationCombinatorial1986}. Un algorithme de comptage approximatif, nommé \textit{algorithme de JVV} selon le nom de ses auteurs, utilise cette correspondance pour résoudre approximativement les problèmes de comptage auto-réductibles avec un générateur de solution quasi uniforme. 
 
-
+\begin{maintheorem}{}{}
+    
+\end{maintheorem}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/jvv-algorithm.pdf}
+    \includegraphics[width=0.55\textwidth]{figures/jvv-algorithm.pdf}
     \caption{}
     \label{fig:jvv-algorithm}
 \end{figure}
