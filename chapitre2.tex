@@ -223,9 +223,7 @@ Dans une publication marquante pour le domaine de la complexité du comptage, Je
     Si un problème algorithmique auto-réductible dans \textsf{\#P} de taille $n$ admet un générateur de solutions avec une non-uniformité $\eta = O(\varepsilon / n)$, alors le nombre de solutions peut être approximé à une erreur multiplicative de $\varepsilon$ avec une haute probabilité avec $O(n^{2}/\varepsilon^{2})$ appels au générateur.
 \end{maintheorem}
 
-Éclaircissons d'abord l'idée derrière l'algorithme de JVV à l'aide d'un exemple simple. Soit une instance du problème SAT décrite par la formule CNF $\varphi(x_{1}, x_{2}) = \neg x_{1} \land x_{2}$, dont les solutions sont les couples $(0,0)$, $(0,1)$ et $(1,1)$. Un arbre est construit de manière à représenter tous les sous-instances de l'instance originale. Chaque niveau de l'arbre correspond à l'attribution d'une valeur, 0 ou 1, à une variable, constituant ainsi une sous-instance du problème initial. L'arbre associé à $\varphi$ est illustré à la figure~\ref{fig:algorithme-jvv}. La racine de l'arbre représente le problème initial et ses deux variables $x_{1}$ et $x_{2}$. La première couche représente les sous-problèmes $\varphi_{0}$ et $\varphi_{1}$ où la première variable est remplaçée par 0 et 1 respectivement. Dans la dernière couche, les feuilles représentent les assignations possibles au problème $\varphi$, c'est-à-dire lorsque toutes les variables sont fixées à une certaine valeur. À chaque arrête de l'arbre, une probabilité décrit la probabilité qu'une solution au p
-
-L'algorithme de JVV implique de marcher vers le haut ou vers le bas de cet arbre, en s'inétéressant à tous les sous-instances en chemin.
+L'algorithme de JVV implique de marcher vers le haut ou vers le bas de cet arbre, en s'intéressant à tous les sous-instances en chemin.
 
 Pour commencer, démontrons comment compter approximativement en utilisant un générateur uniforme de solutions. Supposons qu'il est possible d'échantilloner uniformément les solutions d'une instance du problème SAT. D'abord, des solutions au problème initial $\varphi$, représenté à la racine de l'arbre, sont échantillonnées. Soit $P_{0}$ et $P_{1}$ les probabilités que la variable $x_{1}$ soit respectivement de 0 et 1 dans les solutions échantillonnés. Ces probabilités réflètent alors la proportion de solutions dans chaque sous-arbre. Par la suite, l'enfant le plus probable est choisi
 
@@ -249,9 +247,15 @@ Pour commencer, démontrons comment compter approximativement en utilisant un g�
 \end{equation}
 
 
+
+Éclaircissons d'abord l'idée derrière l'algorithme de JVV à l'aide d'un exemple simple. Soit une instance du problème SAT décrite par la formule CNF $\varphi(x_{1}, x_{2}) = \neg x_{1} \land x_{2}$, dont les solutions sont les couples $(0,0)$, $(0,1)$ et $(1,1)$. Un arbre est construit de manière à représenter tous les sous-instances de l'instance originale. Chaque niveau de l'arbre correspond à l'attribution d'une valeur, 0 ou 1, à une variable, constituant ainsi une sous-instance du problème initial. L'arbre associé à $\varphi$ est illustré à la figure~\ref{fig:algorithme-jvv}. La racine de l'arbre représente le problème initial et ses deux variables $x_{1}$ et $x_{2}$. La première couche représente les sous-problèmes $\varphi_{0}$ et $\varphi_{1}$ où la première variable est remplaçée par 0 et 1 respectivement. Dans la dernière couche, les feuilles représentent les assignations possibles au problème $\varphi$, c'est-à-dire lorsque toutes les variables sont fixées à une certaine valeur. À chaque arrête de l'arbre, une probabilité décrit la probabilité qu'une solution au p
+
+
 % Les solutions à ce problème sont facilement vérifiable par examination. Le problème SAT étant auto-réductible, un arbre d'auto-réductibilité peut être construit de manière à représenter tous ses sous-problèmes tel qu'illustré à la figure~\ref{fig:algorithme-jvv}. Supposons qu'il soit possible d'estimer 
 
 % Comme décrit à la section~\ref{sec:auto-reductibilite}, chaque noeud de l'arbre est associé une chaîne de bits $w$ de taille $m$ fixant les $m$ premières variables de la formule $\varphi$ ainsi qu'une formule partielle $\varphi_{w}$. 
+
+
 
 \begin{figure}[h]
     \centering

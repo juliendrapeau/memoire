@@ -120,6 +120,8 @@ La classe de complexité d'intérêt dans le cadre de ce mémoire est la classe 
 
 Par définition, un problème de la classe \textsf{\#P} est plus difficile qu'un problème de la classe \textsf{NP}. Connaître le nombre de solutions à un problème de décision indique effectivement s'il existe au moins une solution à un problème de décision.
 
+\textcolor{mydarkred}{\textit{Donc exponentiellement plus difficile que NP?}}
+
 Comme que les problèmes de la classe \textsf{P} font aussi parti de la classe \textsf{NP}, et que les problèmes de cette dernière appartiennent aussi à la classe \textsf{\#P}, il est nécessaire de définir un concept supplémentaire spécifiant la difficulté d'un problème au sein d'une classe. Intuitivement, un problème est \textit{difficile} pour une classe de complexité s'il est au moins aussi difficile que tous les problèmes de la classe. Plus formellement, un problème difficile pour une classe donnée signifie qu'il existe une \textit{réduction}, c'est-à-dire une transformation en temps polynomial d'un problème à un autre, entre ce problème et tous les autres problèmes de la classe. De plus, un problème est \textit{complet} s'il est difficile et aussi membre de la classe. La figure \textcolor{mydarkred}{\textit{Ajouter!}} éclaircit ces concepts. Les problèmes complets d'une classe représentent alors les problèmes les plus difficile de celle-ci. Par exemple, le problème du commis voyage est dit \textsf{NP}-complet, car il fait parti des problèmes considérés comme difficile de la classe \textsf{NP}. Il est toutefois crû que celui-ci ne fasse pas partie de la classe \textsf{P}.
 
 \textcolor{mydarkred}{\textit{Parler plus en détails des réductions?}}
@@ -205,8 +207,11 @@ Notons qu'un problème NAE3SAT peut être réduit à un problème 3SAT. Soit $f$
     Soit une formule CNF $\varphi(x_{1}, x_{2}, \dots, x_{n})$ pour laquelle chaque clause $C$ contient au maximum 3 littéraux. Existe-il une assignation des variables $x_{1}, x_{2}, \dots, x_{n}$ telle que $\varphi$ soit satisfaisable tout en s'assurant qu'exactement un littéral de chaque clause $C$ soit logiquement vrai?
 \end{maindefinition}
 
+Comme le problème SAT, les problèmes NAE3SAT et 1-in-3SAT appartiennent aussi à la classe de complexité \textsf{NP}-complet.
 
-Les précédents problèmes de décision peuvent être associés à des problèmes de comptage: \#NAE3SAT et \#1-in-3SAT. 
+Les précédents problèmes de décision peuvent être associés à des problèmes de comptage de la classe de complexité \textsf{\#P}: \#NAE3SAT et \#1-in-3SAT. 
+
+\textcolor{mydarkred}{\textit{Parler du nombre de solutions.}}
 
 
 %-----------------------------------------------------------------------------%
@@ -228,7 +233,18 @@ Les précédents problèmes de décision peuvent être associés à des problèm
 Subhash Khot. Inapproximability of NP-complete Problems, Discrete Fourier Analysis, and Geometry. In Proceedings of the International Congress of Mathematicians 2010 (ICM 2010)
 \end{comment}
 
+Les problèmes algorithmiques des classes de complexité \textsf{NP}-difficile et \textsf{\#P}-difficile sont considérés comme intractables en raison de leur complexité intrinsèque. En effet, il est improbable qu'un algorithme puisse résoudre exactement ces problème en temps polynomial. Par exemple, bien que certaines instances du problème SAT contenant plus d'un million de variables sont résolubles efficacement, d'autres instances de moins d'un millier de variables ne peuvent être résolus par les solveurs de pointe~\cite{froleyksSATCompetition20202021}. Cette difficulté s'accentue pour le problème \#SAT, où même une centaines de variables peut s'avérer trop complexe. 
 
+L'intractibilité de tels problèmes mène alors à un paradigme différent; Sachant qu'il est irréaliste de résoudre certains problèmes exactement, est-ce qu'il est possible de trouver une solution approximative de manière efficace? L'exactitude des solutions est alors sacrifié contre une performance accrue.
+
+\begin{subtheorem}{Algorithme d'approximation randomisé}{algorithme-approximation-randomise}
+    Un algorithme d'approximation randomisé à facteur $\delta$
+\end{subtheorem}
+
+
+\textcolor{mydarkred}{\textit{Parler de maxcut?}}
+
+\textcolor{mydarkred}{\textit{https://ics.uci.edu/~vazirani/book.pdf}}
 
 %-----------------------------------------------------------------------------%
 
