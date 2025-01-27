@@ -169,7 +169,7 @@ Comme que les problèmes de la classe \textsf{P} font aussi parti de la classe \
 Le problème de \textit{satisfaisabilité booléenne}, ou problème SAT est particulièrement important dans la théorie de la complexité. Montré comme \textsf{NP}-complet par le théorème de Cook-Levin~\cite{cookComplexityTheoremprovingProcedures1971,levinUniversalSequentialSearch}, il fut à la base de la définition de \textsf{NP}-complétude et du problème $\textsf{P} = \textsf{NP}$. Celui-ci est aussi couramment utilisé dans la preuve de réductions de problèmes au sein de la classe de complexité \textsf
 {NP} \textcolor{mydarkred}{\textit{Rajouter des sources.}}. Le problème SAT a une multitude d'applications, comme \textcolor{mydarkred}{\textit{Rajouter des exemples.}}, en partie grâce à la facilité de formuler ces applications à l'aide de formules propositionnelles.
 
-Une \textit{formule propositionnelle}, ou une expression booléene, est un ensemble de variables booléenes, $x_{i} \in \set{ 0, 1 }$, reliées par des opérateurs booléeans de conjections ("ou", $\lor$), de disjonctions ("et", $\land$) ainsi que de négation ("non", $\neg$). Un \textit{litéral} désigne dans ce contexte une variable booléene ou sa négation. Par exemple, l'expression $(x_{1} \land x_{2}) \lor \neg x_{3}$ est une formule booléenne composée des variables $x_{1}$, $x_{2}$ et $x_{3}$, ainsi que des littéraux $x_{1}$, $x_{2}$ et $\neg x_{3}$. 
+Une \textit{formule propositionnelle}, ou une expression booléene, est un ensemble de variables booléenes, $x_{i} \in \set{\textsc{\texttt{FAUX}}, \textsc{\texttt{VRAI}}}$, reliées par des opérateurs booléeans de conjections («ou», $\lor$), de disjonctions («et», $\land$) ainsi que de négation («non», $\neg$).  Un \textit{litéral} désigne dans ce contexte une variable booléene ou sa négation. Par exemple, l'expression $(x_{1} \land x_{2}) \lor \neg x_{3}$ est une formule booléenne composée des variables $x_{1}$, $x_{2}$ et $x_{3}$, ainsi que des littéraux $x_{1}$, $x_{2}$ et $\neg x_{3}$. Notons que l'équivalence $\textsc{\texttt{FAUX}} \leftrightarrow 0$ et $\textsc{\texttt{VRAI}} \leftrightarrow 1$ est utilisée dans ce mémoire par commodité.
 
 Un problème SAT se décrit par une formule propositionnelle. Résoudre le problème consiste à déterminer s'il existe une combinaison de variables qui rend la formule logiquement vraie, c'est-à-dire tel que l'évaluation de celle-ci donne 1. Une telle formule est alors dite satisfaisable.
 
@@ -186,17 +186,17 @@ Dans l'étude du problème SAT, les formules propositionnelles sont souvent expr
     \end{equation*}
     est satisfaisable car $\varphi(1,0,0) = (1 \lor 0) \land (\neg 1 \lor 0 \lor \neg 0) = 1$. Au contraire, la formule CNF
     \begin{equation*}
-        \varphi(x_{1}, x_{2})= (x_{1}) \land (\neg x_{1})
+        \varphi(x_{1})= (x_{1}) \land (\neg x_{1})
     \end{equation*}
     n'est pas satisfaisable car $\varphi (x_{1}) = 0$ peu importe le choix de $x_{1}$.
 \end{example}
 
 Un cas spécial du problème SAT est le problème kSAT, où le nombre de littéraux appartenant à chaque clause d'une formule CNF est restreint à $k$ littéraux au maximum. Notons que le problème kSAT est trivial pour $k=1$, résoluble en temps linéaire pour $k=2$, et \textsf{NP}-complet pour $k \geq 3$ \textcolor{mydarkred}{\textit{Source?}}.
 
-Dans ce mémoire, deux variantes de 3SAT seront portées à l'étude: le problème Pas-Tous-Égaux 3SAT (« Not-All-Equal 3-Satisfiability ») (NAE3SAT) et le problème 1-dans-3 3SAT (« One-in-three 3-Sastisfiability ») (1-in-3SAT).
+Dans ce mémoire, deux variantes de 3SAT seront portées à l'étude: le problème Pas-Tous-Égaux 3SAT (« Not-All-Equal 3-Satisfiability ») (NAE3SAT) et le problème 1-dans-3 3SAT (« One-in-Three 3-Sastisfiability ») (1-in-3SAT).
 
 \begin{maindefinition}{Problème NAE3SAT}{probleme-nae3sat}
-    SoSoit une formule CNF $\varphi(x_{1}, x_{2}, \dots, x_{n})$ pour laquelle chaque clause $C$ contient au maximum 3 littéraux. Existe-il une assignation des variables $x_{1}, x_{2}, \dots, x_{n}$ telle que $\varphi$ soit satisfaisable tout en s'assurant que toutes les littéraux de chaque clause $C$ ne soit pas égales?
+    Soit une formule CNF $\varphi(x_{1}, x_{2}, \dots, x_{n})$ pour laquelle chaque clause $C$ contient au maximum 3 littéraux. Existe-il une assignation des variables $x_{1}, x_{2}, \dots, x_{n}$ telle que $\varphi$ soit satisfaisable tout en s'assurant que tous les littéraux de chaque clause $C$ ne soient pas égaux?
 \end{maindefinition}
 
 Notons qu'un problème NAE3SAT peut être réduit à un problème 3SAT. Soit $f$ une formule CNF représentant un problème 3SAT. Dans ce cas, la formule $g = f \land \neg f$ décrit le problème NAE3SAT associé.
@@ -211,7 +211,7 @@ Les précédents problèmes de décision peuvent être associés à des problèm
 
 %-----------------------------------------------------------------------------%
 
-\section{Intractabilité et approximations}
+\section{Intractabilité, approximations et optimisation}
 
 \begin{comment}
 \subsection*{Plan}
@@ -278,7 +278,7 @@ Subhash Khot. Inapproximability of NP-complete Problems, Discrete Fourier Analys
 
 La complexité d'une instance aléatoire d'un problème \textsf{NP} n'est pas toujours identique. En réalité, certaines instances sont résolubles en temps polynomial, alors que d'autres sont intractables. Les discussions autour des classes de complexité s'intéressent principalement à la complexité dans le pire des cas pour décrire la difficulté inhérente d'un problème. Cependant, certaines instances peuvent posséder une complexité inférieure, pouvant alors être pris en avantage par certains algorithmes. 
 
-Pour les problèmes SAT, la difficulté d'une instance aléatoire est grandement dépendante sur le ratio du nombre de clauses $C$ sur le nombre de variables $v$. Plus surprenamment, ce ratio $\alpha = \frac{\#c}{\#v}$ est un indicateur d'une transition de phase de la complexité du problème SAT. En effet, il existe une valeur critique $\alpha_{c}$ où les instances du problème SAT passe de satisfaisable à insatisfaisable. La difficulté du problème SAT semble provenir juste avant cette transition.
+Pour les problèmes SAT, la difficulté d'une instance aléatoire est grandement dépendante sur le ratio $\alpha = \frac{m}{n}$, où $m$ est le nombre de clauses et $n$ est le nombre de variables. Plus surprenamment, la complexité d'une tel instance suit une transition de phase. En effet, il existe une valeur critique $\alpha_{c}$ où les instances du problème SAT passe de satisfaisable à insatisfaisable. La difficulté du problème SAT semble provenir juste avant cette transition.
 
 Plusieurs autres transitions de phase existent avant la transition critique. 
 
@@ -288,3 +288,6 @@ Plusieurs autres transitions de phase existent avant la transition critique.
     \caption{}
     \label{fig:...}
 \end{figure}
+
+NAE3SAT: $\alpha_{c} \approx 2.1$~\cite{achlioptasPhaseTransition1ink2001}
+1-in-3SAT: $\alpha_{c} \approx 2/3$~\cite{raymondPhaseDiagram1in32007}

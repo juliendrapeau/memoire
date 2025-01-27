@@ -367,7 +367,7 @@ Pour établir un lien entre QAA et QAOA, l'évolution de l'Hamiltonian doit êtr
 
 L'algorithme quantique d'optimisation approximative applique en alternance un Hamiltonien de problème et un Hamiltonien de forçage, guidé par l'approche quantique adiabatique. Cet algorithme comporte une limitation importante: les opérateurs appliqués doivent être sous la forme d'une évolution temporelle d'un Hamiltonien local fixe. Cette restriction entrave la construction d'opérateurs unitaires potentiellement plus efficaces.
 
-L'\textit{approche quantique des opérateurs alternants} (« Quantum Alternating Operator Ansatz») (QAOA), introduit par Hadfield et coll.~\cite{hadfieldQuantumApproximateOptimization2019}, généralise l'algorithme quantique d'optimisation approximative en permettant l'alternance de familles générales d'opérateurs unitaires paramétrisés plutôt qu'uniquement des opérateurs basés sur un Hamiltonien. Cet ansatz supporte ainsi la représentation d'une plus grand nombre d'états, pouvant possiblement être construit de manière plus efficace. L'algorithme quantique d'approximation quantique et l'approche quantique des opérateurs alternants possèdent le même acronyme. Comme cette dernière étend le premier, l'acronyme QAOA fera référence à l'approche quantique des opérateurs alternant pour le reste de la présente section.
+L'\textit{approche quantique des opérateurs alternants} (« Quantum Alternating Operator Ansatz») (QAOA), introduit par Hadfield et coll.~\cite{hadfieldQuantumApproximateOptimization2019}, généralise l'algorithme quantique d'optimisation approximative en permettant l'alternance de familles générales d'opérateurs unitaires paramétrisés plutôt qu'uniquement des opérateurs basés sur un Hamiltonien. Cet approche supporte ainsi la représentation d'une plus grand nombre d'états, pouvant possiblement être construit de manière plus efficace. L'algorithme quantique d'approximation quantique et l'approche quantique des opérateurs alternants possèdent le même acronyme. Comme cette dernière étend le premier, l'acronyme QAOA fera référence à l'approche quantique des opérateurs alternant pour le reste de la présente section.
 
 Cette extension trouve son utilité principale dans la création d'opérateurs de forçage. Restreindre l'espace des configurations d'un problème selon les contraintes de celui-ci permet d'éviter .
 
@@ -429,7 +429,7 @@ L'optimisation classique des paramètres de QAOA fait partie intégrante du conc
 
 D'abord, l'estimation du gradient de coût est difficile dans de nombreuses situations en raison de la présence de plateaux stériles~\cite{mccleanBarrenPlateausQuantum2018a, laroccaReviewBarrenPlateaus2024}, où le gradient devient exponentiellement petit selon la taille du système. Un nombre exponentiel de mesures devient alors nécessaires pour pouvoir identifier la direction minimisant la fonction de coût.
 
-De plus, 
+De plus, ~\cite{bittelTrainingVariationalQuantum2021}. 
 
 Ces difficultés sont d'autant plus importantes comme la complexité de l'espace des paramètres augmente avec le nombre de paramètres qu'un circuit plus profond implique. 
 

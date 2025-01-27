@@ -19,6 +19,7 @@ Les trois concepts nécessaires à l'algorithme de JVV sont présentés dans cet
 %-----------------------------------------------------------------------------%
 
 \section{Auto-réductibilité}
+\label{sec:auto-reductibilite}
  
 \begin{comment}
 \subsection*{Plan}
@@ -71,9 +72,27 @@ Cette propriété s'éclaircit en prenant le problème SAT comme exemple, qui s'
     \end{equation*}
 \end{relation}
 
-Cette relation implique que l'ensemble de solutions d'une instance donnée peut être exprimée comme l'ensemble de solutions de deux instances plus petite du problème. \textcolor{mydarkred}{\textit{Élaborer...}}
+Cette relation implique que l'ensemble de solutions d'une instance donnée peut être exprimée comme l'ensemble de solutions de deux instances plus petites du problème. Supposons que l'on souhaite résoudre une instance du problème SAT décrit par la formule CNF $\varphi(x_{1}, x_{2}, \dots, x_{n})$. Soit $\varphi_{0} = \varphi(x_{1}=0, \dots, x_{n})$ et $\varphi_{1} = \varphi(x_{1}=1, \dots, x_{n})$ deux sous-instances de l'instance $\varphi$, où la variable $x_{1}$ est remplacée par 0 et 1 respectivement. Se faisant, la formule $\varphi$ est alors raccourcie, comme certaines clauses sont satisfaits ou du moins réduites. Pour que l'instance $\varphi$ soit satisfaisable, il est alors nécessaire qu'au moins une des sous-instances $\varphi_{0}$ et $\varphi_{1}$ soit satisfaible. Dans le cas contraire, l'instance originale $\varphi$ ne peut être satisfaible car il n'existe pas de solution peu importe la valeur de $x_{1}$. Ainsi, il suffit de considérer la disjonction des sous-problèmes possibles du problème original pour résoudre ce dernier. Les sous-problèmes obtenus étant aussi des formules propositionnelles, ceux-ci peuvent aussi être décomposés en problème de taille inférieure récursivement jusqu'à obtenir un problème complètement fixé. Notons de plus qu'il n'est pas nécessaire de construire la relation~\ref{rel:auto-reductibilite-sat} avec la variable $x_{1}$, n'importe quelle variable $x_{i}$ peut aussi être utilisée.
 
 Plus précisément, le problème SAT est décrit comme une auto-réductibilité à longueur décroissante 2-disjonctive. Ici, 2-disjonctive fait référence à une formule propositionnelle dans une disjonction ($\lor$) d'une conjonction ($\land$) d'au plus deux variables. Longueur décroissante, ou descendante, signifie que l'algorithme résout des instances de taille strictement inférieure.
+
+L'auto-réductibilité est simplement généralisable aux problèmes dont les variables peuvent prendre un plus grand nombre de valeurs en prennant la disjonction sur toutes les valeurs possibles.
+
+\textcolor{mydarkred}{\textit{Élaborer...}}
+
+La relation~\ref{rel:auto-reductibilite-sat} exemplifie une deuxième façon de voir l'auto-réductibilité: la résolution partielle d'une instance d'un problème laisse une plus petite instance du même type de problème. Une autre manière de l'interprêter est qu'une instance peut être résolue en résolvant des plus petites instances et en assemblant les sous-instances ensemble.
+
+\textcolor{mydarkred}{\textit{Exemple: casse-tête}}
+
+Afin d'obtenir une meilleure perspective sur la notion d'auto-réductibilité, il est pertinent d'exprimer la structure d'une relation auto-réductible $\varphi$ sous la forme d'un arbre orienté, nommé \textit{arbre d'auto-réductibilité}. Dans cet arbre, les sommets représentent à la fois une chaîne de bits $w$ de taille $m$ et une instance de problème $\varphi_{w}$, où $\varphi_{w}$ représente la sous-instance du problème $\varphi$ dont les premières variables sont remplacées par la chaîne de bits $w$. La racine de l'arbre correspond à l'instance du problème initial $\varphi$ ainsi qu'à une solution partielle nulle. Par la suite, les enfants de cette racine sont donnés par les sous-instances $\varphi_{w}$ pour tous les préfixes $w$ de taille $1$ possibles. Le reste de l'arbre est alors défini récursivement de la même manière en augmentant la taille de la chaîne de bits $w$ à chaque niveau jusqu'aux feuilles de l'arbre, qui représentent alors une entrée au problème $\varphi$.
+
+Le degrée de l'arbre est donc donné par ...
+
+La figure \textcolor{mydarkred}{\textit{Ajouter la figure.}}
+
+Notons que l'arbre d'auto-réductibilité est aussi parfois défini tel les feuilles correspondent uniquement à des solutions au problème auto-réductible. Ainsi, les ramifications de l'arbre ne comprennent pas les non-solutions.
+
+
 
 Une définition rigoureuse de l'auto-réductibilité peut aussi être pratique.
 
@@ -113,20 +132,42 @@ Une définition rigoureuse de l'auto-réductibilité peut aussi être pratique.
 \end{comment}
 
 
+L'échantillonage uniforme étant une demande plutôt rigide, il est parfois nécessaire de relaxer la condition d'uniformité pour une quasi uniformité. Une distribution quasi uniforme est en pratique indifférentiable d'une distribution uniforme, mais ce relâchement facilite les preuves, comme montré à la section~\ref{sec:algorithme-jvv}.
 
-\begin{maindefinition}{Échantillonneur quasi uniforme pleinement polynomial}{fpaus}
+\begin{maindefinition}{Échantillonneur quasi uniforme polynomial}{fpaus}
     Un échantillonneur quasi uniforme pour un ensemble de solutions $S \subseteq \Sigma^{*} \times \Sigma^{*}$, où $S$ représente la relation entre les instances d'un problème $x$ et de ses solutions $y \in  S(x)$, est un algorithme aléatoire prenant en entrée une instance $x \in \Sigma^{*}$ et une tolérance d'échantillonnage $\delta > 0$ et qui génère une solution $y \in S(x)$ tel que
     \begin{equation*}
-        \lVert Y - U \rvert_{TV} \leq \delta 
+        \lVert Y - U \rVert_{TV} \leq \delta 
     \end{equation*}
     où $Y$ est la distribution de probabilité de $y$ et $U$ est la distribution de probabilité uniforme sur $S(x)$. Si l'algorithme s'exécute en temps borné par un polynomial en $\lvert x \rvert$ et en $\ln (\delta^{-1})$, on parle d'échantillonneur quasi uniforme pleinement polynomial.
 \end{maindefinition}
 
 \textcolor{mydarkred}{\textit{Changer la définition pour celle du papier de JVV? Oui, et décrire le lien avec la TVD.}}
 
+Une définition alternative utilise plutôt la \textit{distance en variation totale}. Cette quantité statistique décrit la distance entre deux distributions de probabilité.
+
+\begin{subdefinition}{Distance en variation totale}{tvd}
+    Soit deux distributions de probabilité $P$ et $Q$ définies sur un ensemble $\chi$. La distance en variation totale est
+    \begin{equation*}
+        \lVert P - Q \rVert_{TV} \equiv \frac{1}{2} \sum_{x \in \chi} \lvert P(x) - Q(x) \rvert \,. 
+    \end{equation*}
+\end{subdefinition}
+
+Une notion supplémentaire est introduite dans ce mémoire afin de simplifier la notation. La \textit{non-uniformité}, de manière similaire à la distance en variation totale, décrit la distance entre une distribution de probabilité $Q$ et la distribution de probabilité uniforme $U$.
+
+\begin{maindefinition}{Non-uniformité}{non-uniformite}
+    Soit la distribution de probabilité $P$ et la distribution de probabilité uniforme $U$ tel que $U(x) = 1/\lvert x \rvert$ définies sur un ensemble $\chi$. La non-uniformité est
+    \begin{equation*}
+        \eta \equiv \frac{1}{2} \sum_{x \in \chi} \lvert P(x) - U(x) \rvert \,. 
+    \end{equation*}
+\end{maindefinition}
+
+\textcolor{mydarkred}{\textit{https://page.math.tu-berlin.de/~felsner/Lehre/SemProbMeth/XX-Jerrum.pdf}}
+
+
 %-----------------------------------------------------------------------------%
 
-\section{Comptage approximatif}
+\section{Comptage approximatif randomisé}
 
 \begin{comment}
 \subsection*{Plan}
@@ -141,12 +182,12 @@ Une définition rigoureuse de l'auto-réductibilité peut aussi être pratique.
 1. Stockmeyer, L. The complexity of approximate counting. in Proceedings of the fifteenth annual ACM symposium on Theory of computing 118–126 (Association for Computing Machinery, New York, NY, USA, 1983). doi:10.1145/800061.808740.
 \end{comment}
 
-\begin{maindefinition}{Schéma d'approximation aléatoire pleinement polynomial}{fpras}
-    Un schéma d'approximation aléatoire pour un problème de comptage $f: \Sigma^{*} \to \mathbb{N}$ est un algorithme aléatoire prenant en entrée une instance d'un problème $x \in \Sigma^{*}$ et une tolérance d'erreur $\varepsilon > 0$ et qui génère un nombre $N \in \mathbb{N}$ tel que, pour toute instance $x$,
+\begin{maindefinition}{Schéma d'approximation randomisé polynomial}{fpras}
+    Un schéma d'approximation randomisé pour un problème de comptage $f: \Sigma^{*} \to \mathbb{N}$ est un algorithme randomisé prenant en entrée une instance d'un problème $x \in \Sigma^{*}$ et une tolérance d'erreur $\varepsilon > 0$ et qui génère un nombre $N \in \mathbb{N}$ tel que, pour toute instance $x$,
     \begin{equation*}
         \mathrm{ Pr }\left[(1+\varepsilon)^{-1} f(x) \leq N \leq (1+\varepsilon)f(x)\right] \geq \frac{3}{4} .
     \end{equation*}
-    Si l'algorithme s'exécute en temps borné par un polynomial en $\lvert x \rvert$ et $\varphi^{-1}$, alors on parle de schéma d'approximation aléatoire pleinement polynomial.
+    Si l'algorithme s'exécute en temps borné par un polynomial en $\lvert x \rvert$ et $\varepsilon^{-1}$, alors on parle de schéma d'approximation aléatoire pleinement polynomial.
 \end{maindefinition}
 
 %-----------------------------------------------------------------------------%
@@ -172,13 +213,50 @@ Une définition rigoureuse de l'auto-réductibilité peut aussi être pratique.
 
 Dans une publication marquante pour le domaine de la complexité du comptage, Jerrum, Valiant et Vazirani ont montré que l'échantillonage quasi uniforme de structures combinatoriales est d'une complexité équivalente au comptage approximatif randomisé~\cite{jerrumRandomGenerationCombinatorial1986}. Un algorithme de comptage approximatif, nommé \textit{algorithme de JVV} selon le nom de ses auteurs, utilise cette correspondance pour résoudre approximativement les problèmes de comptage auto-réductibles avec un générateur de solution quasi uniforme. 
 
-\begin{maintheorem}{}{}
+\begin{subtheorem}{Équivalence entre l'échantillonage quasi uniforme et le comptage approximatif randomisé}{equivalence-fpaus-fpras}
     
+\end{subtheorem}
+
+\textcolor{mydarkred}{\textit{Expliquer le lien entre les deux concepts et les preuves.}}
+
+\begin{maintheorem}{Algorithme de JVV}{algorithme-jvv}
+    Si un problème algorithmique auto-réductible dans \textsf{\#P} de taille $n$ admet un générateur de solutions avec une non-uniformité $\eta = O(\varepsilon / n)$, alors le nombre de solutions peut être approximé à une erreur multiplicative de $\varepsilon$ avec une haute probabilité avec $O(n^{2}/\varepsilon^{2})$ appels au générateur.
 \end{maintheorem}
+
+Éclaircissons d'abord l'idée derrière l'algorithme de JVV à l'aide d'un exemple simple. Soit une instance du problème SAT décrite par la formule CNF $\varphi(x_{1}, x_{2}) = \neg x_{1} \land x_{2}$, dont les solutions sont les couples $(0,0)$, $(0,1)$ et $(1,1)$. Un arbre est construit de manière à représenter tous les sous-instances de l'instance originale. Chaque niveau de l'arbre correspond à l'attribution d'une valeur, 0 ou 1, à une variable, constituant ainsi une sous-instance du problème initial. L'arbre associé à $\varphi$ est illustré à la figure~\ref{fig:algorithme-jvv}. La racine de l'arbre représente le problème initial et ses deux variables $x_{1}$ et $x_{2}$. La première couche représente les sous-problèmes $\varphi_{0}$ et $\varphi_{1}$ où la première variable est remplaçée par 0 et 1 respectivement. Dans la dernière couche, les feuilles représentent les assignations possibles au problème $\varphi$, c'est-à-dire lorsque toutes les variables sont fixées à une certaine valeur. À chaque arrête de l'arbre, une probabilité décrit la probabilité qu'une solution au p
+
+L'algorithme de JVV implique de marcher vers le haut ou vers le bas de cet arbre, en s'inétéressant à tous les sous-instances en chemin.
+
+Pour commencer, démontrons comment compter approximativement en utilisant un générateur uniforme de solutions. Supposons qu'il est possible d'échantilloner uniformément les solutions d'une instance du problème SAT. D'abord, des solutions au problème initial $\varphi$, représenté à la racine de l'arbre, sont échantillonnées. Soit $P_{0}$ et $P_{1}$ les probabilités que la variable $x_{1}$ soit respectivement de 0 et 1 dans les solutions échantillonnés. Ces probabilités réflètent alors la proportion de solutions dans chaque sous-arbre. Par la suite, l'enfant le plus probable est choisi
+
+\begin{equation}
+    N = \frac{1}{P_{x_{:0}}} \frac{1}{P_{x_{:m}}} \dots \frac{1}{P_{x_{:n}}} = \frac{N}{N_{x_{:0}}} \frac{N_{x_{:0}}}{N_{x_{:1}}} \dots \frac{N_{x_{:n-1}}}{N_{x_{:n}}}
+\end{equation}
+
+
+\begin{align}
+    p^\star = \frac1N =&{\ } \frac{N_{z_{:1}}}{N} \cdot \frac{N_{z_{:2}}}{N_{z_{:1}}} \cdots \frac{N_{z_{:n}}}{N_{z_{:n-1}}} \\
+    =&{\ } p(z_{:1}) \cdot p(z_{:2}|z_{:1}) \cdots p(z_{:n}|z_{:n-1}) \\
+    =&{\ } p(z_{:1}) \prod_{i=1}^{n-1} p(z_{:i+1}|z_{:i}) \,,
+\end{align}
+
+\begin{equation}
+    \tilde p(z_{:i+1}|z_{:i}) = \frac{ \tilde N_{z_{:i+1}} }{ \tilde N_{z_{:i}} } \,,
+\end{equation}
+
+\begin{equation}
+    \tilde p^\star = \tilde p(z_{:1}) \prod_{i=1}^{n-1} \tilde p(z_{:i+1}|z_{:i}) \approx \frac1N \,.
+\end{equation}
+
+
+% Les solutions à ce problème sont facilement vérifiable par examination. Le problème SAT étant auto-réductible, un arbre d'auto-réductibilité peut être construit de manière à représenter tous ses sous-problèmes tel qu'illustré à la figure~\ref{fig:algorithme-jvv}. Supposons qu'il soit possible d'estimer 
+
+% Comme décrit à la section~\ref{sec:auto-reductibilite}, chaque noeud de l'arbre est associé une chaîne de bits $w$ de taille $m$ fixant les $m$ premières variables de la formule $\varphi$ ainsi qu'une formule partielle $\varphi_{w}$. 
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.55\textwidth]{figures/jvv-algorithm.pdf}
     \caption{}
-    \label{fig:jvv-algorithm}
+    \label{fig:algorithme-jvv}
 \end{figure}
+
