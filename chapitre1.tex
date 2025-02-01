@@ -54,7 +54,7 @@ La théorie de la complexité s'intéresse à la classification des problèmes a
 
 Comment est-il possible de déterminer la complexité d'un problème? Pour ce faire, les classes de complexité se basent sur les ressources indispensables à la résolution du problème: le temps et la mémoire. Afin de trouver la solution à un problème, un programme doit effectuer un certain nombre d'opérations, limité dans le temps par le matériel informatique. On parle alors de \textit{complexité en temps}. Afin de produire un résultat final, le programme doit garder en mémoire les résultats intermédiaires. Ceux-ci doivent être sauvegardés dans le matériel informatique afin d'être réutilisés ultérieurement. Comme la quantité d'information conservée est aussi un facteur limitant pour le matériel informatique, on parle donc de \textit{complexité en espace}. 
 
-La complexité en temps et en espace d'un problème est définie selon la taille de celui-ci. Un problème de plus grande taille est nécessairement plus complexe. \textcolor{mydarkred}{\textit{Pourquoi?}} Afin de capturer cette dépendence, on cherche à trouver une loi d'échelle encaspulant la difficulté d'un problème en fonction de sa taille. 
+La complexité en temps et en espace d'un problème est définie selon la taille de celui-ci. \textsf{Quel est le but de ça?} Afin de capturer cette dépendence, on cherche à trouver une loi d'échelle encaspulant la difficulté d'un problème en fonction de sa taille.  \textcolor{mydarkred}{\textit{Expliquer plus.}}
 
 Le temps et la mémoire quantifient bien les ressources nécessaires des algorithmes. Par contre, ceux-ci dépendent du matériel informatique utilisé. Il est attendu qu'un ordinateur moderne soit bien plus performant qu'une des premières machines analogues. Comment retirer cette dépendence de la notion de complexité? Pour ce faire, on fait appel à la notation asymptotique, communément appelé la \textit{notation $\mathcal{O}$}. La notation asymptotique caractérise la vitesse de croissance d'une fonction en ne considérant que son comportement global à l'infini. Les coefficients ainsi que les termes asymptotiquement inférieurs ne sont pas considérés. Par exemple, pour une taille de problème $n$, la résolution de celui-ci pourrait demander un temps exponentiel $\mathcal{O}(2^{n})$ et une mémoire polynomiale $\mathcal{O}(n)$. On remarque qu'il n'y a aucune dépendence au matériel informatique: deux ordinateurs différents doivent effectuer le même nombre d'opération et sauvegarder la même quantité d'information. Un de ces ordinateurs pourraient toutefois résoudre le problème plus rapidement si celui-ci peut effectuer un plus grand nombre d'opérations par seconde ou accéder plus rapidement à sa mémoire. L'attrait des classes de complexité vient donc en partie de cette abstraction du matériel informatique.
 
@@ -140,6 +140,8 @@ Comme que les problèmes de la classe \textsf{P} font aussi parti de la classe \
 
 \textcolor{mydarkred}{\textit{Ajouter une figure sur les classes de complexité.}}
 
+\textcolor{mydarkred}{\textit{Classes de complexité quantique}}
+
 %-----------------------------------------------------------------------------%
 
 \section{Problème de satisfaisabilité booléenne}
@@ -213,10 +215,13 @@ Les précédents problèmes de décision peuvent être associés à des problèm
 
 \textcolor{mydarkred}{\textit{Parler du nombre de solutions.}}
 
+\textcolor{mydarkred}{\textit{Vertex cover?}}
+
 
 %-----------------------------------------------------------------------------%
 
-\section{Intractabilité, approximations et optimisation}
+\section{Intractabilité, approximation et optimisation}
+\label{intractabilite-approximation-et-optimisation}
 
 \begin{comment}
 \subsection*{Plan}
@@ -235,11 +240,29 @@ Subhash Khot. Inapproximability of NP-complete Problems, Discrete Fourier Analys
 
 Les problèmes algorithmiques des classes de complexité \textsf{NP}-difficile et \textsf{\#P}-difficile sont considérés comme intractables en raison de leur complexité intrinsèque. En effet, il est improbable qu'un algorithme puisse résoudre exactement ces problème en temps polynomial. Par exemple, bien que certaines instances du problème SAT contenant plus d'un million de variables sont résolubles efficacement, d'autres instances de moins d'un millier de variables ne peuvent être résolus par les solveurs de pointe~\cite{froleyksSATCompetition20202021}. Cette difficulté s'accentue pour le problème \#SAT, où même une centaines de variables peut s'avérer trop complexe. 
 
-L'intractibilité de tels problèmes mène alors à un paradigme différent; Sachant qu'il est irréaliste de résoudre certains problèmes exactement, est-ce qu'il est possible de trouver une solution approximative de manière efficace? L'exactitude des solutions est alors sacrifié contre une performance accrue.
+L'intractibilité de tels problèmes a alors mené à un paradigme différent; Sachant qu'il est irréaliste de résoudre certains problèmes exactement, est-ce qu'il est possible de trouver une solution approximative de manière efficace? L'exactitude des solutions est alors sacrifié contre une performance accrue.
+
+Les problèmes de décision ne possédant que deux solutions, oui ou non, il n'est pas possible de fournir une solution approximative. Un \textit{problème d'optimisation}, défini en conjonction à un problème de décision, est alors une notion plus adéquate pour incorporer la notion d'approximation. Ces problèmes ne cherchent plus à trouver la solution optimal, mais plutôt à obtenir une réponse suffisamment près de la réponse optimale. 
+
+Un exemple de problème d'optimisation, particulièrement étudié dans le domaine de l'optimisation quantique en raison de sa simplicité d'implémentation sur du matériel informatique quantique, est le problème de coupe maximum (­« Maximum Cut ») (Max-Cut). Ce problème cherche une coupe séparant les sommets du graphe en deux ensembles complémentaire tel que le nombre d'arrêtes séparant les deux ensemble soit maximal. Le problème Max-Cut étant \textsf{NP}-complet, il est difficile d'obtenir une coupe optimal, mais une coupe sous-optimal peut possiblement être trouvée efficacement.
+
+Une mesure de succès fréquemment utilisée, autant classiquement que quantiquement, est le \textit{ratio d'approximation}. Pour un problème d'optimisation $\Sigma$ \textcolor{mydarkred}{\textit{Continuer...}}
+
+\begin{equation}
+    C = \frac{ E_{p} (\vec{\gamma}, \vec{\beta})}{\min_{(\vec{\gamma}, \vec{\beta})} E_{p} (\vec{\gamma}, \vec{\beta}) }
+\end{equation}
+
+Bien que les algorithmes d'approximation heuristiques offrent fréquemment de bons résultats, ceux-ci ne possèdent aucune garantie quant à la qualité de ces solutions. Un algorithme d'approximation est alors défini tel que les solutions obtenues ait une tolérance $\delta$. 
 
 \begin{subtheorem}{Algorithme d'approximation randomisé}{algorithme-approximation-randomise}
-    Un algorithme d'approximation randomisé à facteur $\delta$
+    Un algorithme d'approximation randomisé à facteur $\delta$ pour un problème de minimisation $\Pi: \Sigma^{*} \to  $ est un algorithme aléatoire prenant en entrée une instance $x \in \Sigma^{*}$ et une tolérance $\delta$ et qui produit une solution $y \in S(x)$ tel que
+    \begin{align}
+        \mathrm{ Pr } [(1+\varepsilon)]
+    \end{align}
 \end{subtheorem}
+
+
+En relaxant la condition d'exactitude, il est attendu qu'un gain en possible en terme d'efficacité. Cependant, cela n'est pas toujours aussi clair. Il existe en effet certains problèmes où même trouver une solution approximative demeure intractable.
 
 
 \textcolor{mydarkred}{\textit{Parler de maxcut?}}
@@ -250,6 +273,7 @@ L'intractibilité de tels problèmes mène alors à un paradigme différent; Sac
 
 \section{Complexité et bornes sur le comptage}
 
+\begin{comment}
 \subsection*{Plan}
 
 \begin{enumerate}
@@ -260,12 +284,15 @@ L'intractibilité de tels problèmes mène alors à un paradigme différent; Sac
     \item Lien avec la fonction de partition
 \end{enumerate}
 
-
 \subsection*{Références}
 
 1. Wahlström, M. A Tighter Bound for Counting Max-Weight Solutions to 2SAT Instances. in Parameterized and Exact Computation (eds. Grohe, M. and Niedermeier, R.) 202–213 (Springer, Berlin, Heidelberg, 2008). doi:10.1007/978-3-540-79723-419.
 
 2. Sinclair, A. and Jerrum, M. Approximate counting, uniform generation and rapidly mixing Markov chains. Information and Computation 82, 93–133 (1989).
+\end{comment}
+
+
+ Sachant désormais que le comptage est un problème difficile, est-il possible de préciser sa complexité?
 
 
 %-----------------------------------------------------------------------------%
@@ -307,3 +334,7 @@ Plusieurs autres transitions de phase existent avant la transition critique.
 
 NAE3SAT: $\alpha_{c} \approx 2.1$~\cite{achlioptasPhaseTransition1ink2001}
 1-in-3SAT: $\alpha_{c} \approx 2/3$~\cite{raymondPhaseDiagram1in32007}
+
+\textcolor{mydarkred}{\textit{Pourquoi transition dynamique?}}
+
+\textcolor{mydarkred}{\textit{Parler du nombre de solutions.}}

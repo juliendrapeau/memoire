@@ -1,7 +1,7 @@
 \begin{comment}
 \end{comment}
 
-\chapter{Échantillonnage quasi uniforme et comptage approximatif}
+\chapter{Échantillonnage quasi uniforme et comptage approximatif randomisé}
 
 \begin{comment}
 \subsection*{Plan}
@@ -14,7 +14,25 @@
 \subsection*{Références}
 \end{comment}
 
-Les trois concepts nécessaires à l'algorithme de JVV sont présentés dans cette section.
+Dans une publication marquante pour le domaine de la complexité du comptage, Jerrum, Valiant et Vazirani ont montré que l'échantillonage quasi uniforme de structures combinatoriales est d'une complexité équivalente au comptage approximatif randomisé~\cite{jerrumRandomGenerationCombinatorial1986}. Un algorithme de comptage approximatif utilise cette correspondance pour résoudre approximativement les problèmes de comptage auto-réductibles avec un générateur de solution quasi uniforme.
+
+Les trois concepts nécessaires à l'algorithme de JVV sont présentés dans cette section: l'auto-réductibilité, l'échantillonnage quasi-uniforme et le comptage approximatif.
+
+Une \textit{structure combinatoriale} se définit comme un système discret fini comportant des éléments et des relations bien définies. Par exemple, une formule propositionnelle, composée de variables booléennes et de contraintes sous forme d'opérateurs booléens, est associée à un ensemble discret de solutions.
+
+Dans la section précédente, les problème de décision, ou équivalemment d'existence, et de comptage ont été introduit. Ces problèmes se cadrent à l'intérieur d'autre types de problèmes: 
+
+\begin{enumerate}[(1)]
+    \item \textbf{Existence}: Existe-t-il une solution au problème?
+    \item \textbf{Construction}: Construire une solution au problème.
+    \item \textbf{Génération uniforme}: Générer uniformément et aléatoirement une solution au problème.
+    \item \textbf{Comptage} Combien de solutions satisfont le problème?
+\end{enumerate}
+
+
+
+
+\textcolor{mydarkred}{\textit{Rajouter une citation au papier de JVV.}}
 
 %-----------------------------------------------------------------------------%
 
@@ -84,15 +102,13 @@ La relation~\ref{rel:auto-reductibilite-sat} exemplifie une deuxième façon de 
 
 \textcolor{mydarkred}{\textit{Exemple: casse-tête}}
 
-Afin d'obtenir une meilleure perspective sur la notion d'auto-réductibilité, il est pertinent d'exprimer la structure d'une relation auto-réductible $\varphi$ sous la forme d'un arbre orienté, nommé \textit{arbre d'auto-réductibilité}. Dans cet arbre, les sommets représentent à la fois une chaîne de bits $w$ de taille $m$ et une instance de problème $\varphi_{w}$, où $\varphi_{w}$ représente la sous-instance du problème $\varphi$ dont les premières variables sont remplacées par la chaîne de bits $w$. La racine de l'arbre correspond à l'instance du problème initial $\varphi$ ainsi qu'à une solution partielle nulle. Par la suite, les enfants de cette racine sont donnés par les sous-instances $\varphi_{w}$ pour tous les préfixes $w$ de taille $1$ possibles. Le reste de l'arbre est alors défini récursivement de la même manière en augmentant la taille de la chaîne de bits $w$ à chaque niveau jusqu'aux feuilles de l'arbre, qui représentent alors une entrée au problème $\varphi$.
+Afin d'obtenir une meilleure perspective sur la notion d'auto-réductibilité, il est pertinent d'exprimer la structure d'une relation auto-réductible $\varphi$ sous la forme d'un arbre orienté, nommé \textit{arbre d'auto-réductibilité}. Dans cet arbre, les sommets représentent à la fois une chaîne de bits $w$ de taille $m$ et une instance de problème $\varphi_{w}$, où $\varphi_{w}$ représente la sous-instance du problème $\varphi$ dont les premières variables sont remplacées par la chaîne de bits $w$. Le sous-problème est alors dit \textit{fixé} par la le préfixe $w$. La racine de l'arbre correspond à l'instance du problème initial $\varphi$ ainsi qu'à une solution partielle nulle. Par la suite, les enfants de cette racine sont donnés par les sous-instances $\varphi_{w}$ pour tous les préfixes $w$ de taille $1$ possibles. Le reste de l'arbre est alors défini récursivement de la même manière en augmentant la taille de la chaîne de bits $w$ à chaque niveau jusqu'aux feuilles de l'arbre. Ces feuilles représentent alors une solution au problème $\varphi$.
 
-Le degrée de l'arbre est donc donné par ...
+Le degrée de l'arbre est donné par le nombre de valeurs que peut prendre une variable. Dans le cas du problème SAT, les variables sont booléennes et donc le degré de l'arbre est de deux.
 
 La figure \textcolor{mydarkred}{\textit{Ajouter la figure.}}
 
 Notons que l'arbre d'auto-réductibilité est aussi parfois défini tel les feuilles correspondent uniquement à des solutions au problème auto-réductible. Ainsi, les ramifications de l'arbre ne comprennent pas les non-solutions.
-
-
 
 Une définition rigoureuse de l'auto-réductibilité peut aussi être pratique.
 
@@ -113,8 +129,11 @@ Une définition rigoureuse de l'auto-réductibilité peut aussi être pratique.
     \end{enumerate}
 \end{maindefinition}
 
+Notons que la définition de l'auto-réducibilité utilisée dans cette section s'applique principalement à l'équivalence entre l'échantillonnage quasi uniforme et le comptage approximatif randomisé. Cependant, une définition alternative~\cite{goldreichComputationalComplexityConceptual2008a} est souvent introduite pour l'équivalence entre les problèmes de décision et les problèmes de recherche, où un problème de recherche ne demande pas de montrer l'existence d'une solution, mais de construire une telle solution. En effet, si un problème est auto-réductible dans ce sens, alors le problème de décision est de la même complexité que le problème de recherche. 
+
 \textcolor{mydarkred}{\textit{Parler du lien avec les problème de recherche.}}
 
+\textcolor{mydarkred}{\textit{Most of NP problems exhibit self-reducibility.}}
 
 %-----------------------------------------------------------------------------%
 
@@ -131,10 +150,13 @@ Une définition rigoureuse de l'auto-réductibilité peut aussi être pratique.
 \subsection*{Références}
 \end{comment}
 
+\textcolor{mydarkred}{\textit{L'existence est plus facile que le comptage.}}
+\textcolor{mydarkred}{\textit{L'échantillonnage uniforme est plus facile que le comptage.}}
+
 
 L'échantillonage uniforme étant une demande plutôt rigide, il est parfois nécessaire de relaxer la condition d'uniformité pour une quasi uniformité. Une distribution quasi uniforme est en pratique indifférentiable d'une distribution uniforme, mais ce relâchement facilite les preuves, comme montré à la section~\ref{sec:algorithme-jvv}.
 
-\begin{maindefinition}{Échantillonneur quasi uniforme polynomial}{fpaus}
+\begin{maindefinition}{Échantillonneur quasi uniforme polynomial~\cite{jerrumCountingSamplingIntegrating2003}}{fpaus}
     Un échantillonneur quasi uniforme pour un ensemble de solutions $S \subseteq \Sigma^{*} \times \Sigma^{*}$, où $S$ représente la relation entre les instances d'un problème $x$ et de ses solutions $y \in  S(x)$, est un algorithme aléatoire prenant en entrée une instance $x \in \Sigma^{*}$ et une tolérance d'échantillonnage $\delta > 0$ et qui génère une solution $y \in S(x)$ tel que
     \begin{equation*}
         \lVert Y - U \rVert_{TV} \leq \delta 
@@ -182,6 +204,8 @@ Une notion supplémentaire est introduite dans ce mémoire afin de simplifier la
 1. Stockmeyer, L. The complexity of approximate counting. in Proceedings of the fifteenth annual ACM symposium on Theory of computing 118–126 (Association for Computing Machinery, New York, NY, USA, 1983). doi:10.1145/800061.808740.
 \end{comment}
 
+Un algorithme d'approximation pour le comptage se définit de manière similaire à l'algorithme d'approximation pour l'optimisation décrit à la section~\ref{intractabilite-approximation-et-optimisation}.
+
 \begin{maindefinition}{Schéma d'approximation randomisé polynomial}{fpras}
     Un schéma d'approximation randomisé pour un problème de comptage $f: \Sigma^{*} \to \mathbb{N}$ est un algorithme randomisé prenant en entrée une instance d'un problème $x \in \Sigma^{*}$ et une tolérance d'erreur $\varepsilon > 0$ et qui génère un nombre $N \in \mathbb{N}$ tel que, pour toute instance $x$,
     \begin{equation*}
@@ -211,11 +235,8 @@ Une notion supplémentaire est introduite dans ce mémoire afin de simplifier la
 2. Huber, M. Exact sampling and approximate counting techniques. in Proceedings of the thirtieth annual ACM symposium on Theory of computing 31–40 (Association for Computing Machinery, New York, NY, USA, 1998). doi:10.1145/276698.276709.
 \end{comment}
 
-Dans une publication marquante pour le domaine de la complexité du comptage, Jerrum, Valiant et Vazirani ont montré que l'échantillonage quasi uniforme de structures combinatoriales est d'une complexité équivalente au comptage approximatif randomisé~\cite{jerrumRandomGenerationCombinatorial1986}. Un algorithme de comptage approximatif, nommé \textit{algorithme de JVV} selon le nom de ses auteurs, utilise cette correspondance pour résoudre approximativement les problèmes de comptage auto-réductibles avec un générateur de solution quasi uniforme. 
 
-\begin{subtheorem}{Équivalence entre l'échantillonage quasi uniforme et le comptage approximatif randomisé}{equivalence-fpaus-fpras}
-    
-\end{subtheorem}
+Le travail de Jerrum, Valiant et Vazirani~\cite{jerrumRandomGenerationCombinatorial1986} se poursuit en établissant une correspondance entre l'échantillonnage quasi uniforme et le comptage approximatif randomisé. Pour ce faire, deux algorithmes permettant le passage d'un problème à l'autre sont présentés. Bien la réduction du comptage à l'échantillonage est intéressante, elle ne sera discuté que brièvement à la fin de la section comme la réduction d'importance est ici son inverse. L'algorithme de comptage approximatif randomisé, nommé \textit{algorithme de JVV} selon le nom de ses auteurs, permet de trouver le nombre de solutions d'un problème auto-réductible de la classe \textsf{\#P} à une erreur multiplicative près en utilisant un générateur de solution quasi uniforme. 
 
 \textcolor{mydarkred}{\textit{Expliquer le lien entre les deux concepts et les preuves.}}
 
@@ -223,14 +244,28 @@ Dans une publication marquante pour le domaine de la complexité du comptage, Je
     Si un problème algorithmique auto-réductible dans \textsf{\#P} de taille $n$ admet un générateur de solutions avec une non-uniformité $\eta = O(\varepsilon / n)$, alors le nombre de solutions peut être approximé à une erreur multiplicative de $\varepsilon$ avec une haute probabilité avec $O(n^{2}/\varepsilon^{2})$ appels au générateur.
 \end{maintheorem}
 
-L'algorithme de JVV implique de marcher vers le haut ou vers le bas de cet arbre, en s'intéressant à tous les sous-instances en chemin.
+Comment est-ce que l'algorithme de JVV opère? Commençons par introduire l'idée principale derrière l'algorithme, pour ensuite donner un exemple simple, et compléter avec une description plus mathématique. 
 
-Pour commencer, démontrons comment compter approximativement en utilisant un générateur uniforme de solutions. Supposons qu'il est possible d'échantilloner uniformément les solutions d'une instance du problème SAT. D'abord, des solutions au problème initial $\varphi$, représenté à la racine de l'arbre, sont échantillonnées. Soit $P_{0}$ et $P_{1}$ les probabilités que la variable $x_{1}$ soit respectivement de 0 et 1 dans les solutions échantillonnés. Ces probabilités réflètent alors la proportion de solutions dans chaque sous-arbre. Par la suite, l'enfant le plus probable est choisi
+Pour mieux comprendre son exécution, l'arbre d'auto-réductibilité, présenté à la section~\ref{sec:auto-reductibilite}, sera utilisé. L'algorithme de JVV implique de marcher vers le haut ou vers le bas de cet arbre, en s'intéressant à tous les sous-instances en chemin.
+
+Démontrons d'abord comment compter approximativement en utilisant un générateur uniforme de solutions. Supposons qu'il est possible d'échantilloner uniformément les solutions de n'importe quelle instance du problème SAT. D'abord, des solutions au problème initial $\varphi$, représenté par racine de l'arbre, sont échantillonnées. Soit $P_{0}$ et $P_{1}$ les probabilités que la variable $x_{1}$ soit respectivement de 0 et 1 dans les solutions échantillonnés. Ces probabilités réflètent alors la proportion de solutions dans chaque sous-arbre. Par la suite, nous descendons l'arbre vers l'enfant le plus probable $w_{0}$, en gardant en mémoire la probabilité $P_{w_{0}}$. Comme notre échantillonneur peut aussi résoudre le problème subséquent, nous pouvons encore déterminer quelle variable est la plus probable en déterminant la probabilité $P_{w_{1}}$. Le processus est répété jusqu'à atteindre les feuilles de l'arbre, en sauvegardant les probabilités $P_{w}$ le long du chemin choisi $w$. Au dernier noeud avant les feuilles, une solution est obtenue avec une probabilité $P_{w_{n}}$. Comme nous sommes à la base de l'arbre, cette probabilité indique le nombre de solutions associées à la dernière sous-instance. Alors, ce sous-arbre contient nécessairement $\frac{1}{P_{w_{n}}}$ solutions, car il y a soit aucune, une ou deux solutions dans la dernière sous-instance. En remontant l'arbre, on remarque que la sous-instance précédente contient $\frac{1}{P_{w_{n-1}}}$ fois plus de solutions. Par conséquent, le nombre de solutions dans cette partie de l'arbre est de $\frac{1}{P_{w_{n}}} \frac{1}{P_{w_{n-1}}}$. Continuant cette procédure jusqu'à la racine, nous trouvons que le nombre de solutions est donné par 
+
 
 \begin{equation}
-    N = \frac{1}{P_{x_{:0}}} \frac{1}{P_{x_{:m}}} \dots \frac{1}{P_{x_{:n}}} = \frac{N}{N_{x_{:0}}} \frac{N_{x_{:0}}}{N_{x_{:1}}} \dots \frac{N_{x_{:n-1}}}{N_{x_{:n}}}
+    N = \frac{1}{P_{w_{0}}} \frac{1}{P_{w_{m}}} \dots \frac{1}{P_{w_{n}}} = \frac{N}{N_{w_{0}}} \frac{N_{w_{0}}}{N_{w_{1}}} \dots \frac{N_{w_{n-1}}}{N_{w_{n}}}
 \end{equation}
 
+Éclaircissons maintenant l'idée derrière l'algorithme de JVV à l'aide d'un exemple simple tel qu'illustré à la figure~\ref{fig:algorithme-jvv}. Soit une instance du problème SAT décrite par la formule CNF $\varphi(x_{1}, x_{2}) = \neg x_{1} \land x_{2}$, dont les solutions sont les couples $(0,0)$, $(0,1)$ et $(1,1)$. Un arbre est construit de manière à représenter tous les sous-instances de l'instance originale. Chaque niveau de l'arbre correspond à l'attribution d'une valeur, 0 ou 1, à une variable, constituant ainsi une sous-instance du problème initial. La racine de l'arbre représente le problème initial et ses deux variables $x_{1}$ et $x_{2}$. La première couche représente les sous-problèmes $\varphi_{0}$ et $\varphi_{1}$ où la première variable est remplaçée par 0 et 1 respectivement. Dans la dernière couche, les feuilles représentent les assignations possibles au problème $\varphi$, c'est-à-dire lorsque toutes les variables sont fixées à une certaine valeur. À chaque arrête de l'arbre, une probabilité décrit la probabilité qu'une solution au p
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{figures/jvv-algorithm.pdf}
+    \caption{}
+    \label{fig:algorithme-jvv}
+\end{figure}
+
+Supposons que le nombre exact de solutions pour une instance de problème SAT de $n$ est de $N$. 
 
 \begin{align}
     p^\star = \frac1N =&{\ } \frac{N_{z_{:1}}}{N} \cdot \frac{N_{z_{:2}}}{N_{z_{:1}}} \cdots \frac{N_{z_{:n}}}{N_{z_{:n-1}}} \\
@@ -246,21 +281,8 @@ Pour commencer, démontrons comment compter approximativement en utilisant un g�
     \tilde p^\star = \tilde p(z_{:1}) \prod_{i=1}^{n-1} \tilde p(z_{:i+1}|z_{:i}) \approx \frac1N \,.
 \end{equation}
 
-
-
-Éclaircissons d'abord l'idée derrière l'algorithme de JVV à l'aide d'un exemple simple. Soit une instance du problème SAT décrite par la formule CNF $\varphi(x_{1}, x_{2}) = \neg x_{1} \land x_{2}$, dont les solutions sont les couples $(0,0)$, $(0,1)$ et $(1,1)$. Un arbre est construit de manière à représenter tous les sous-instances de l'instance originale. Chaque niveau de l'arbre correspond à l'attribution d'une valeur, 0 ou 1, à une variable, constituant ainsi une sous-instance du problème initial. L'arbre associé à $\varphi$ est illustré à la figure~\ref{fig:algorithme-jvv}. La racine de l'arbre représente le problème initial et ses deux variables $x_{1}$ et $x_{2}$. La première couche représente les sous-problèmes $\varphi_{0}$ et $\varphi_{1}$ où la première variable est remplaçée par 0 et 1 respectivement. Dans la dernière couche, les feuilles représentent les assignations possibles au problème $\varphi$, c'est-à-dire lorsque toutes les variables sont fixées à une certaine valeur. À chaque arrête de l'arbre, une probabilité décrit la probabilité qu'une solution au p
-
-
 % Les solutions à ce problème sont facilement vérifiable par examination. Le problème SAT étant auto-réductible, un arbre d'auto-réductibilité peut être construit de manière à représenter tous ses sous-problèmes tel qu'illustré à la figure~\ref{fig:algorithme-jvv}. Supposons qu'il soit possible d'estimer 
 
 % Comme décrit à la section~\ref{sec:auto-reductibilite}, chaque noeud de l'arbre est associé une chaîne de bits $w$ de taille $m$ fixant les $m$ premières variables de la formule $\varphi$ ainsi qu'une formule partielle $\varphi_{w}$. 
 
-
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.55\textwidth]{figures/jvv-algorithm.pdf}
-    \caption{}
-    \label{fig:algorithme-jvv}
-\end{figure}
-
+\textcolor{mydarkred}{\textit{Ajouter un algorithme.}}
