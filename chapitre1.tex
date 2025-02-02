@@ -8,6 +8,7 @@ Borne sur le comptage ("a tighter bound for counting max-weight solutions to 2SA
 \end{comment}
 
 \chapter{Complexité du comptage}
+\label{cha:complexite-du-comptage}
 
 \begin{comment}
     \subsection*{Plan}
@@ -240,7 +241,7 @@ Subhash Khot. Inapproximability of NP-complete Problems, Discrete Fourier Analys
 
 Les problèmes algorithmiques des classes de complexité \textsf{NP}-difficile et \textsf{\#P}-difficile sont considérés comme intractables en raison de leur complexité intrinsèque. En effet, il est improbable qu'un algorithme puisse résoudre exactement ces problème en temps polynomial. Par exemple, bien que certaines instances du problème SAT contenant plus d'un million de variables sont résolubles efficacement, d'autres instances de moins d'un millier de variables ne peuvent être résolus par les solveurs de pointe~\cite{froleyksSATCompetition20202021}. Cette difficulté s'accentue pour le problème \#SAT, où même une centaines de variables peut s'avérer trop complexe. 
 
-L'intractibilité de tels problèmes a alors mené à un paradigme différent; Sachant qu'il est irréaliste de résoudre certains problèmes exactement, est-ce qu'il est possible de trouver une solution approximative de manière efficace? L'exactitude des solutions est alors sacrifié contre une performance accrue.
+L'intractibilité de tels problèmes mène alors à un paradigme différent; Sachant qu'il est irréaliste de résoudre certains problèmes exactement, est-ce qu'il est possible de trouver une solution approximative de manière efficace? L'exactitude des solutions est alors sacrifié contre une performance accrue.
 
 Les problèmes de décision ne possédant que deux solutions, oui ou non, il n'est pas possible de fournir une solution approximative. Un \textit{problème d'optimisation}, défini en conjonction à un problème de décision, est alors une notion plus adéquate pour incorporer la notion d'approximation. Ces problèmes ne cherchent plus à trouver la solution optimal, mais plutôt à obtenir une réponse suffisamment près de la réponse optimale. 
 

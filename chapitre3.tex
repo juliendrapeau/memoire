@@ -24,6 +24,11 @@
 2. Bharti, K. et al. Noisy intermediate-scale quantum (NISQ) algorithms. Rev. Mod. Phys. 94, 015004 (2022).
 \end{comment}
 
+En général, le comptage est un problème hardu. En acceptant une solution approximative, la complexité de ce problème peut être déplacée à l'échantillonage quasi uniforme de solutions à ce problème. Toutefois, la construction d'un tel générateur n'a pas encore été évoquée. En fait, la majorité des solutionneurs de problème \textsf{\#P} n'utilise pas l'algorithme de JVV en raison de la difficulté d'obtenir une distribution uniforme composée de solutions. 
+
+Les algorithmes variationnels quantiques peuvent possiblement résoudre ce problème. Ceux-ci sont connus pour être en mesure de préparer des distributions difficile à imiter par des ordinateurs classiques (\textcolor{mydarkred}{\textit{Boson sampling.}})
+
+
 \textcolor{mydarkred}{\textit{Ajouter un dessin.}}
 
 \textcolor{mydarkred}{\textit{Importance des heuristiques quantiques (voir qaoa (2e version) paper)}}
@@ -444,7 +449,9 @@ Sack et Serbyn propose en conséquence une stratégie d'initialisation basée su
 %-----------------------------------------------------------------------------%
 
 \section{Échantillonage et biais}
+\label{sec:echantillonage-et-biais}
 
+\begin{comment}
 \subsection*{Plan}
 
 \begin{enumerate}
@@ -463,3 +470,14 @@ Sack et Serbyn propose en conséquence une stratégie d'initialisation basée su
 3. Matsuda, Y., Nishimori, H. and Katzgraber, H. G. Ground-state statistics from annealing algorithms: quantum versus classical approaches. New J. Phys. 11, 073021 (2009).
 
 Plus de sources sur le fair sampling pour QAOA?
+\end{comment}
+
+L'allure de la distribution obtenue par QAOA est dans notre cas essentielle. Afin de se conformer à la condition de l'algorithme de JVV, celui-ci doit être quasi uniforme. Sans ce critère, l'algorithme de JVV n'offre aucune assurance.
+
+Le recuit quantique n'échantillonne pas les états fondamentaux uniformément en général~\cite{matsudaGroundstateStatisticsAnnealing2009, mandraExponentiallyBiasedGroundState2017}. 
+
+
+Comme le recuit quantique et QAOA sont fortement liés, il est ainsi peu probable que QAOA puisse échantillonner les états fondamentaux de manière uniforme.
+
+
+Une propriété de l'algorithme GM-QAOA devient alors d'un intérêt considérable: l'équiprobabilité des états de même énergie. Dans GM-QAOA, les solutions sont encodées dans l'état fondamental de l'Hamiltonien de problème, ceux-ci posséderont alors la même amplitude et donc la même probabilité. Ainsi, en ne considérant que les solutions, l'état préparé par le circuit GM-QAOA possède toujours une non-uniformité nulle. 
