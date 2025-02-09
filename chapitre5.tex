@@ -38,6 +38,18 @@ La simulation de circuits quantiques est un problème complexe en raison de la q
 
 Pour le problème \#NAE3SAT, 20 instances aléatoires sont générées par taille d'instance, allant de 6 à 20 variables, pour les deux densités de clause $\alpha=1$ et $\alpha = 2$. Similairement, problème \#1-in-3SAT, 20 instances aléatoires sont générées pour une taille de variable allant de 9 à 27 variables par saut de 3 variables, pour une densité de clause $\alpha = 2/3$. 
 
+%-----------------------------------------------------------------------------%
+
+\section{Méthode}
+
+Afin de déterminer le nombre d'échantillons nécessaires pour atteindre un compte approximatif avec une tolérance $\varepsilon$ et une confiance $\delta$, il faut augmenter le nombre d'échantillons utilisé par l'algorithme VQCount jusqu'à ce que le nombre de solutions trouvé soit à une erreur multiplicative $\varepsilon$ du nombre de solutions exact avec une probabilité supérieure à $\delta$. La simulation de l'algorithme étant coûteuse, une méthode plus simple et moins rigoureuse est utilisée ici. L'algorithme VQCount est exécuté en augmentant le nombre de solutions échantillonées du circuit quantique optimisé QAOA jusqu'à ce que le nombre de solutions soit à l'intérieur des bornes d'erreur $\varepsilon$. La figure~\ref{fig:count-accuracy.pdf} montre la précision du comptage, c'est-à-dire le nombre de solutions approximatif sur le nombre de solutions exact, pour différentes erreurs multiplicatives $\varepsilon$. Notons que pour diminuer les incertitudes, une procédure de lissage est utilisée. L'algorithme de JVV semble sous-estimer le nombre de solutions, comme vu avec la courbe de \#NAE3SAT avec $\alpha = 1$. Ce comportement s'explique par le manque d'échantillons indiscernables dans la distribution de probabilité des solutions échantillonées, entraînant une légère inexactitude des probabilités dans l'arbre des configurations. 
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/count-accuracy.pdf}
+    \caption{}
+    \label{fig:count-accuracy.pdf}
+\end{figure}
 
 %-----------------------------------------------------------------------------%
 
@@ -51,44 +63,65 @@ Pour le problème \#NAE3SAT, 20 instances aléatoires sont générées par taill
 \end{enumerate}
 \end{comment}
 
+Comme vu à la section~\ref{sec:echantillonage-et-biais}, l'état préparé par un circuit GM-QAOA permet un échantillonage uniforme de solutions tel que nécessaire pour l'algorithme de JVV, alors que la probabilité de certaines solutions est exponentiellement petite avec l'approche QAOA. Sachant que les problèmes étudiés possèdent en moyenne un nombre exponentiel de solutions et qu'un nombre polynomial d'échantillons est nécessaire, il est possible que la distribution préparée par QAOA soit suffisante pour obtenir un compte approximatif convenable. La figure~\ref{fig:nae3sat-number-of-samples} résume les résultats obtenues pour le problème \#NAE3SAT avec un circuit de profondeur $p=3$. Les figures~\ref{fig:nae3sat-number-of-samples}(a) et~\ref{fig:nae3sat-number-of-samples}(b) confirme que GM-QAOA échantillonne les solutions parfaitement uniformément. Au contraire, la distribution des solutions préparées par QAOA est de plus en plus non-uniforme avec la taille de l'instance. Les figures~\ref{fig:nae3sat-number-of-samples}(c) et~\ref{fig:nae3sat-number-of-samples}(d) montrent que, pour une profondeur de circuit fixe, le taux de succès de QAOA et GM-QAOA diminue grossièrement de façon exponentielle avec le nombre de variables, malgré que la diminution est plus importante pour GM-QAOA. Les taux de succès sont plus faibles et se détériorent plus rapidement pour $\alpha = 2$ que pour $\alpha=1$, réflétant la différence de complexité du problème selon la proximité du seuil de satisfaisabilité.
 
+Le nombre total d'échantillons requis pour que l'algorithme VQCount retourne un compte approximatif à une erreur multiplicative $\varepsilon = 1/3$ est présenté à la figure~\ref{fig:nae3sat-number-of-samples}(e) et~\ref{fig:nae3sat-number-of-samples}(f). Le nombre d'échantillons augmente exponentiellement avec la taille des instances en raison de la post-sélection des solutions à la fois pour QAOA et GM-QAOA comme générateurs de solutions. Malgré le taux de succès exponentiellement plus faible de GM-QAOA, VQCount nécessite environ le même nombre d'échantillons avec QAOA ou GM-QAOA pour $\alpha=1$. Au contraire, VQCount avec QAOA requiert un nombre exponentiellement plus faible qu'avec GM-QAOA, malgré la non-uniformité de la distribution des probabilités de QAOA. Cela suggère que QAOA est potentiellement un générateur plus efficace pour VQCount dans le cas où les solutions sont rares et dispersées.
 
-
-\begin{figure}[h]
+\begin{figure}[ht!]
     \centering
     \includegraphics[width=1\textwidth]{figures/nae3sat-number-of-samples.pdf}
     \caption{}
     \label{fig:nae3sat-number-of-samples}
 \end{figure}
 
-\begin{figure}[h]
+Pour l'instant, la performance de VQCount a été étudié pour des circuits de profondeur fixe. La figure~\ref{fig:nae3sat-depth} montre que, lorsque la profondeur du circuit augmente, la non-uniformité diminue et la probabilité d'obtenir une solution augmente, menant à un nombre d'échantillons nécessaires pour atteindre un compte approximatif avec une erreur multiplicative donnée. QAOA semble s'améliorer plus rapidement que GM-QAOA, mais la non-uniformité de QAOA augmente et atteint un plateau avec la profondeur du circuit.
+
+\begin{figure}[ht!]
     \centering
     \includegraphics[width=0.5\textwidth]{figures/nae3sat-depth.pdf}
     \caption{}
     \label{fig:nae3sat-depth}
 \end{figure}
 
-\begin{figure}[h]
+Dans cette étude, les paramètres des circuits quantiques sont maintenus à une profondeur fixe lors de la procédure de JVV comme la ré-optimisation est coûteuse à simuler classiquement. Est-ce que ce choix a un impact important sur la performance de l'algorithme VQCount? Sachant qu'à chaque étape de l'algorithme de JVV un problème plus petit est échantillonné, il est raisonnable de s'attendre à ce que le succès de l'algorithme augmente. Comme illustré à la figure~\ref{fig:nae3sat-jvv-steps}, la non-uniformité diminue en moyenne lorsque des qubits additionnels sont fixés pour GM-QAOA. 
+
+\textcolor{mydarkred}{\textit{Changer!}}
+
+\begin{figure}[ht!]
     \centering
     \includegraphics[width=1\textwidth]{figures/nae3sat-jvv-steps}
     \caption{}
     \label{fig:nae3sat-jvv-steps}
 \end{figure}
 
-%-----------------------------------------------------------------------------%
+Les résultats précédents suggèrent que le circuit QAOA est un meilleur générateur de solutions que le circuit GM-QAOA pour une faible profondeur. GM-QAOA dépend aussi d'une porte contrôle à $n$ qubits, diffilement implémentable pour la simulation classique et pour les ordinateurs quantiques bruités à court-terme. 
 
+%-----------------------------------------------------------------------------%
 
 \section{Performance}
 
-\subsection*{Plan}
-
-\begin{enumerate}
+\begin{comment}
+    \subsection*{Plan}
+    
+    \begin{enumerate}
     \item  Décrire le taux de réussite et le nombre d'échantillons requis
     \item  Décrire la performance de l'algorithme en fonction de la profondeur du circuit
     \item Décrire l'efficacité d'échantillonage et la précision du compte
     \item Présenter brièvement le ratio d'approximation
-\end{enumerate}
+    \end{enumerate}
+\end{comment}
 
-\subsection*{Références}
+
+Ayant conclu que QAOA semble être un meilleur générateur de solutions pour une faible profondeur de circuit, la performance de VQCount avec QAOA est caractérisé de manière approndie pour le problème \#1-in-3SAT. La figure~\ref{fig:1in3sat-number-of-samples} résume le comportement de mise à l'échelle de VQCount avec un circuit QAOA à faible profondeur. Naîvement, le nombre de solutions peut être trouvé en déterminant la probabilité qu'un chaîne de bit aléatoire échantillons de l'ensemble des chaînes de bits possible soit une solution. Comme vu à la figure~\ref{fig:1in3sat-number-of-samples}a, VQCount possède une loi d'échelle exponentiellement meilleure qu'avec un échantillonnage par rejet naïf et sa performance s'améliore avec la taille du circuit. Aux profondeurs de circuit possibles d'atteindre en utilisant des ressources computationnelles raisonnables, la performance asymptôtique de VQCount est plus faible que les solveurs classiques de pointe pour ce problème~\cite{kourtisFastCountingTensor2019}, mais les résultats suggèrent que ce n'est possiblement pas le cas pour des profondeurs de circuit finies plus grande. La précision de VQCount peut être améliorée en augmentant le nombre d'échantillons, comme montré à la figure \ref{fig:1in3sat-number-of-samples}b.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/1in3sat-number-of-samples.pdf}
+    \caption{}
+    \label{fig:1in3sat-number-of-samples}
+\end{figure}
+
+
+
 
 %-----------------------------------------------------------------------------%
