@@ -14,13 +14,7 @@
 \subsection*{Références}
 \end{comment}
 
-Dans une publication marquante pour le domaine de la complexité du comptage, Jerrum, Valiant et Vazirani ont montré que l'échantillonage quasi uniforme de structures combinatoriales est d'une complexité équivalente au comptage approximatif randomisé~\cite{jerrumRandomGenerationCombinatorial1986}. Pour ce faire, ils introduisent un algorithme de comptage approximatif utilisant cette correspondance pour résoudre approximativement les problèmes de comptage auto-réductibles avec un générateur de solution quasi uniforme.
-
-Les trois concepts nécessaires à l'algorithme de JVV sont présentés dans cette section: l'auto-réductibilité, l'échantillonnage quasi-uniforme et le comptage approximatif randomisé.
-
-Une \textit{structure combinatoriale} se définit comme un système discret fini comportant des éléments et des relations bien définies. Par exemple, une formule propositionnelle, composée de variables booléennes et de contraintes sous forme d'opérateurs booléens, est associée à un ensemble discret de solutions. Le domaine de l'\textit{énumération combinatoriale} cherche en conséquence à ...
-
-Dans la section précédente, les problème de décision, ou équivalemment d'existence, et de comptage ont été introduit. Ces problèmes se cadrent à l'intérieur d'autre types de problèmes: 
+La section précédente a introduit les problèmes de décision, ou équivalemment d'existence, et de comptage. Ces problèmes se cadrent à l'intérieur des problèmes suivants: 
 
 \begin{enumerate}[(1)]
     \item \textbf{Existence}: Existe-t-il une solution au problème?
@@ -29,11 +23,13 @@ Dans la section précédente, les problème de décision, ou équivalemment d'ex
     \item \textbf{Comptage} Combien de solutions satisfont le problème?
 \end{enumerate}
 
-Il n'est pas évident à prime abord de comparer la complexité de ces problèmes. 
+Il n'est pas évident à prime abord de comparer la complexité de ces problèmes. Toutefois, dans une publication marquante pour le domaine de la complexité du comptage, Jerrum, Valiant et Vazirani offrent une unique perspective sur l'écart de complexité entre ces différents types de problèmes~\cite{jerrumRandomGenerationCombinatorial1986}. Les auteurs suggèrent d'abord que la génération est strictement plus difficile que l'existence et la construction. De plus, ils avançent que la génération uniforme est plus simple que le comptage. Notons aussi que la construction est évidemment au moins aussi difficile que l'existence. Une réduction de la génération uniforme au comptage approximatif est montrée. Finalement, ils établissent une correspondance entre l'échantillonage quasi uniforme et le comptage approximatif randomisé.
 
+Ce travail éclaircit la compréhension de la théorie de la complexité, particulièrement pour la génération uniforme et du comptage. Cependant, la dernière correspondance s'avère d'une grande importance et formera la base du travail de ce mémoire. Cette inter-réduction mène en effet à un algorithme de comptage approximatif résolvant approximativement certains problèmes de comptage, possèdant la propriété d'auto-réductibilité, à l'aide d'un générateur de solutions quasi uniforme. Par souci de commodité, cet algorithme sera surnommé \textit{algorithme de JVV}. Un des attraits principal de celui-ci est sa capacité à obtenir un compte approximatif avec un nombre polynomial d'appels au générateur de solutions, si ce dernier est suffisamment uniforme. Cette propriété s'avère particulièrement utile pour les problèmes possèdant un nombre exponentiel de solutions comme le problème SAT.
 
+Les trois concepts nécessaires à l'algorithme de JVV sont formalisés dans cette section: l'auto-réductibilité, l'échantillonnage quasi-uniforme et le comptage approximatif randomisé. Pour conclure, l'algorithme de JVV sera décrit en profondeur.
 
-\textcolor{mydarkred}{\textit{Rajouter une citation au papier de JVV.}}
+Avant de continuer, il est utile de définir une notion supplémentaire. Les problèmes mentionnés au début de la section sont souvent définis sur des objets mathématiques discrets, comme les formules propositionnelles, les graphes, les couplages, les permutations, et bien plus. Ces objets se regroupent sous une même ombrelle, nommée \textit{structure combinatoriale}. Plus précisément, une structure combinatoriale est un système discret fini comportant des éléments et des relations bien définies. Par exemple, une formule propositionnelle, composée de variables booléennes et de contraintes sous forme d'opérateurs booléens, est associée à un ensemble discret de solutions. Conséquemment, le domaine de l'\textit{énumération combinatoriale} cherche à déterminer le nombre d'éléments satisfaisant la relation. Pour le problème SAT, cela consiste à trouver le nombre d'assignements satisfaisant la formule propositionnelle.
 
 %-----------------------------------------------------------------------------%
 
@@ -237,7 +233,7 @@ Un algorithme d'approximation pour le comptage se définit de manière similaire
 \end{comment}
 
 
-Le travail de Jerrum, Valiant et Vazirani~\cite{jerrumRandomGenerationCombinatorial1986} se poursuit en établissant une correspondance entre l'échantillonnage quasi uniforme et le comptage approximatif randomisé. Pour ce faire, deux algorithmes permettant le passage d'un problème à l'autre sont présentés. Bien la réduction du comptage à l'échantillonage est intéressante, elle ne sera discuté que brièvement à la fin de la section comme la réduction d'importance est ici son inverse. L'algorithme de comptage approximatif randomisé, nommé \textit{algorithme de JVV} selon le nom de ses auteurs, permet de trouver le nombre de solutions d'un problème auto-réductible de la classe \textsf{\#P} à une erreur multiplicative près en utilisant un générateur de solution quasi uniforme. 
+Le travail de Jerrum, Valiant et Vazirani~\cite{jerrumRandomGenerationCombinatorial1986} se poursuit en établissant une correspondance entre l'échantillonnage quasi uniforme et le comptage approximatif randomisé. Pour ce faire, deux algorithmes permettant le passage d'un problème à l'autre sont présentés. Bien la réduction du comptage à l'échantillonage est intéressante, elle ne sera discuté que brièvement à la fin de la section comme la réduction d'importance est ici son inverse. L'algorithme de comptage approximatif randomisé, surnommé \textit{algorithme de JVV} selon le nom de ses auteurs, permet de trouver le nombre de solutions d'un problème auto-réductible de la classe \textsf{\#P} à une erreur multiplicative près en utilisant un générateur de solution quasi uniforme. 
 
 \textcolor{mydarkred}{\textit{Expliquer le lien entre les deux concepts et les preuves.}}
 
@@ -262,7 +258,7 @@ Démontrons d'abord comment compter approximativement en utilisant un générate
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.55\textwidth]{figures/jvv-algorithm.pdf}
-    \caption{}
+    \caption[Algorithme de Jerrum-Valiant-Vazirani]{}
     \label{fig:algorithme-jvv}
 \end{figure}
 

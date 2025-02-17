@@ -55,7 +55,7 @@ La théorie de la complexité s'intéresse à la classification des problèmes a
 
 Comment est-il possible de déterminer la complexité d'un problème? Pour ce faire, les classes de complexité se basent sur les ressources indispensables à la résolution du problème: le temps et la mémoire. Afin de trouver la solution à un problème, un programme doit effectuer un certain nombre d'opérations, limité dans le temps par le matériel informatique. On parle alors de \textit{complexité en temps}. Afin de produire un résultat final, le programme doit garder en mémoire les résultats intermédiaires. Ceux-ci doivent être sauvegardés dans le matériel informatique afin d'être réutilisés ultérieurement. Comme la quantité d'information conservée est aussi un facteur limitant pour le matériel informatique, on parle donc de \textit{complexité en espace}. 
 
-La complexité en temps et en espace d'un problème est définie selon la taille de celui-ci. \textsf{Quel est le but de ça?} Afin de capturer cette dépendence, on cherche à trouver une loi d'échelle encaspulant la difficulté d'un problème en fonction de sa taille.  \textcolor{mydarkred}{\textit{Expliquer plus.}}
+La complexité en temps et en espace d'un problème est définie selon la taille de celui-ci. \textcolor{mydarkred}{\textit{Quel est le but de ça?}} Afin de capturer cette dépendence, on cherche à trouver une loi d'échelle encaspulant la difficulté d'un problème en fonction de sa taille.  \textcolor{mydarkred}{\textit{Expliquer plus.}}
 
 Le temps et la mémoire quantifient bien les ressources nécessaires des algorithmes. Par contre, ceux-ci dépendent du matériel informatique utilisé. Il est attendu qu'un ordinateur moderne soit bien plus performant qu'une des premières machines analogues. Comment retirer cette dépendence de la notion de complexité? Pour ce faire, on fait appel à la notation asymptotique, communément appelé la \textit{notation $\mathcal{O}$}. La notation asymptotique caractérise la vitesse de croissance d'une fonction en ne considérant que son comportement global à l'infini. Les coefficients ainsi que les termes asymptotiquement inférieurs ne sont pas considérés. Par exemple, pour une taille de problème $n$, la résolution de celui-ci pourrait demander un temps exponentiel $\mathcal{O}(2^{n})$ et une mémoire polynomiale $\mathcal{O}(n)$. On remarque qu'il n'y a aucune dépendence au matériel informatique: deux ordinateurs différents doivent effectuer le même nombre d'opération et sauvegarder la même quantité d'information. Un de ces ordinateurs pourraient toutefois résoudre le problème plus rapidement si celui-ci peut effectuer un plus grand nombre d'opérations par seconde ou accéder plus rapidement à sa mémoire. L'attrait des classes de complexité vient donc en partie de cette abstraction du matériel informatique.
 
@@ -243,11 +243,11 @@ Subhash Khot. Inapproximability of NP-complete Problems, Discrete Fourier Analys
 
 Les problèmes algorithmiques des classes de complexité \textsf{NP}-difficile et \textsf{\#P}-difficile sont considérés comme intractables en raison de leur complexité intrinsèque. En effet, il est improbable qu'un algorithme puisse résoudre exactement ces problème en temps polynomial. Par exemple, bien que certaines instances du problème SAT contenant plus d'un million de variables sont résolubles efficacement, d'autres instances de moins d'un millier de variables ne peuvent être résolus par les solveurs de pointe~\cite{froleyksSATCompetition20202021}. Cette difficulté s'accentue pour le problème \#SAT, où même une centaines de variables peut s'avérer trop complexe. 
 
-L'intractibilité de tels problèmes mène alors à un paradigme différent; Sachant qu'il est irréaliste de résoudre certains problèmes exactement, est-ce qu'il est possible de trouver une solution approximative de manière efficace? L'exactitude des solutions est alors sacrifié contre une performance accrue.
+L'intractibilité de tels problèmes mène alors à un paradigme différent; Sachant qu'il est irréaliste de résoudre certains problèmes exactement, est-ce qu'il est possible de trouver une solution approximative de manière efficace? L'exactitude des solutions est alors sacrifié pour une performance accrue.
 
-Les problèmes de décision ne possédant que deux solutions, oui ou non, il n'est pas possible de fournir une solution approximative. Un \textit{problème d'optimisation}, défini en conjonction à un problème de décision, est alors une notion plus adéquate pour incorporer la notion d'approximation. Ces problèmes ne cherchent plus à trouver la solution optimal, mais plutôt à obtenir une réponse suffisamment près de la réponse optimale. 
+Les problèmes de décision ne possédant que deux solutions, oui ou non, il n'est pas possible de fournir une solution approximative. Un \textit{problème d'optimisation}, défini en conjonction à un problème de décision, est alors une notion plus adéquate pour incorporer la notion d'approximation. Ces problèmes ne cherchent plus à trouver la solution optimale, mais plutôt à obtenir une réponse suffisamment près de la valeur optimale. 
 
-Un exemple de problème d'optimisation, particulièrement étudié dans le domaine de l'optimisation quantique en raison de sa simplicité d'implémentation sur du matériel informatique quantique, est le problème de coupe maximum (­« Maximum Cut ») (Max-Cut). Ce problème cherche une coupe séparant les sommets du graphe en deux ensembles complémentaire tel que le nombre d'arrêtes séparant les deux ensemble soit maximal. Le problème Max-Cut étant \textsf{NP}-complet, il est difficile d'obtenir une coupe optimal, mais une coupe sous-optimal peut possiblement être trouvée efficacement.
+Un exemple de problème d'optimisation, particulièrement étudié dans le domaine de l'optimisation quantique en raison de sa simplicité d'implémentation sur du matériel informatique quantique, est le problème de coupe maximum (­« Maximum Cut ») (Max-Cut). Ce problème cherche une coupe séparant les sommets d'un graphe en deux ensembles complémentaires tel que le nombre d'arrêtes séparant les deux ensemble soit maximal. Le problème Max-Cut étant \textsf{NP}-complet, il est difficile d'obtenir une coupe optimale, mais une coupe sous-optimale peut possiblement être trouvée efficacement.
 
 Une mesure de succès fréquemment utilisée, autant classiquement que quantiquement, est le \textit{ratio d'approximation}. Pour un problème d'optimisation $\Sigma$ \textcolor{mydarkred}{\textit{Continuer...}}
 
@@ -297,7 +297,10 @@ En relaxant la condition d'exactitude, il est attendu qu'un gain en possible en 
 
  Sachant désormais que le comptage est un problème difficile, est-il possible de préciser sa complexité?
 
- \textcolor{mydarkred}{\textit{Model counting!}}
+\textcolor{mydarkred}{\textit{2sat is easy, but \#2sat is hard}}
+Le théorie de la complexité est un domaine étrange. Comme vu à la section~\ref{sec:satisfaisabilite-booleenne}, le problème $2SAT$ est tractable au contraire du problème $3SAT$. Suprenament, les problèmes de comptage correspondant, \#2SAT et \#3SAT, appartiennent tous les deux à la classe \textsf{\#P}-complet. 
+
+\textcolor{mydarkred}{\textit{Model counting!}}
 
 %-----------------------------------------------------------------------------%
 
@@ -333,7 +336,7 @@ Plusieurs autres transitions de phase existent avant la transition critique.
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\textwidth]{figures/phase-transitions.pdf}
-    \caption{}
+    \caption[Transitions de phase du problème SAT]{}
     \label{fig:...}
 \end{figure}
 
@@ -343,3 +346,5 @@ NAE3SAT: $\alpha_{c} \approx 2.1$~\cite{achlioptasPhaseTransition1ink2001}
 \textcolor{mydarkred}{\textit{Pourquoi transition dynamique?}}
 
 \textcolor{mydarkred}{\textit{Parler du nombre de solutions.}}
+
+\textcolor{mydarkred}{\textit{Locked problems.}}

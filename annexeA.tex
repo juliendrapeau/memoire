@@ -2,25 +2,66 @@
 \end{comment}
 
 
-\chapter{Grover-mixer}
+\chapter{Auto-réductibilité du circuit GM-QAOA}
 
 %-----------------------------------------------------------------------------%
 
-\section{Simulation de circuits quantiques}
+\begin{maintheorem}{Auto-réductibilité de GM-QAOA}{auto-reductibilite-gm-qaoa}
+    Suppose that a Grover-Mixer quantum alternating operator ansatz (GM-QAOA) circuit efficiently generates approximate solutions to a self-reducible problem $\varphi$ in $\#P$. Then, this circuit can be modified, without altering the circuit's parameters, to approximately solve every sub-problem $\varphi_{c}$ of $\varphi$ while conserving the properties of GM-QAOA. 
+\end{maintheorem}
 
-\subsection*{Plan}
+Let $\varphi$ in $\#P$ be the problem instance of size $n$ we want to solve  with GM-QAOA. The instance can be encoded into a problem Hamiltonian $H_{p}$ with eigenvalues $E=0$ for solutions and $E=\varepsilon_{k}>0$ for non-solutions. The operator $U_{P}$ corresponding with $H_{p}$ can then be written as:
+\begin{equation}
+    U_{P} = \sum_{j \in G} \ket{j}\bra{j} + \sum_{k} e^{-i \gamma \varepsilon_{k}} \sum_{j \in E^{(k)}} \ket{j}\bra{j} \,,
+\end{equation} 
+with $G$ and $E^{(k)}$ respectively being the ground state and excited state manifolds, and thus the set of solutions and non-solutions to $\varphi$. For an unconstrained solution space, the operator $U_{D}$ is given by
+\begin{equation}
+    U_{D}^{GM-QAOA} = \mathds{1} - (1 - e^{-i\beta}) (\ket{+}\!\bra{+}^{\otimes n}) \,.
+\end{equation}
+Let $\varphi_{c}$ be the sub-problem of $\varphi$ with the last $q$ variables fixed to the bitstring $c$. We define $G_{c}$ and $E_{c}^{(k)}$ as the sets of solutions and non-solutions to $\varphi_{c}$. The ground and excited states are written as:
+\begin{align}
+    \ket{g_{c}} = \frac{1}{\sqrt{ \lvert G_{c} \rvert }} \sum_{j \in G_{c}} \ket{j}, \\
+    \ket{e^{(k)}_{c}} = \frac{1}{\sqrt{ \lvert E^{(k)}_{c} \rvert }} \sum_{j \in E^{(k)}_{c}} \ket{j} \,.
+\end{align}
+Keeping track of the last $q$ qubits, we evolve the initial state $\ket{+}^{\otimes n}$ with an optimized GM-QAOA circuit of $p$ layers. We find, by induction, that the final state follows the recursive formula
 
+\begin{equation}
+    \ket{\psi_{\varphi}} = \frac{1}{\sqrt{ N }} \sum_{i=0}^{Q-1} \left( \sqrt{ \lvert G_{i} \rvert } F_{p} \ket{g_{i}} + \sum_{k} \sqrt{ \lvert E^{(k)}_{i} \rvert } \bar{F}^{(k)}_{p} \ket{e^{(k)}_{i}} \right) \ket{i} \,,
+\end{equation}
+\begin{align}
+    F_{p} &= F_{p-1} - \frac{1}{N} (1-e^{-i\beta_{p}}) \left( \lvert G \rvert   F_{p-1} + \sum_{k'} \lvert E^{(k')} \rvert \bar{F}^{(k')}_{p-1} e^{-i\gamma_{p}\varepsilon_{k'}} \right) \,, \\
+    \bar{F}^{(k)}_{p} &= e^{-i\gamma_{p} \varepsilon_{k}}\bar{F}_{p-1}^{(k)} - \frac{1}{N} (1-e^{-i\beta_{p}}) \left( \lvert G \rvert   F_{p-1} + \sum_{k'} \lvert E^{(k')} \rvert \bar{F}^{(k')}_{p-1} e^{-i\gamma_{p}\varepsilon_{k'}} \right) \,,
+\end{align}
+
+where $N=2^{n}$, $Q=2^{q}$ and $F_{0}=\bar{F}_{0}^{(k)}=1$. To solve the sub-problem $\varphi_{c}$, we make some modifications to the circuit. For each of the last $q$ qubits:
 \begin{enumerate}
-    \item Décrire le lien entre les circuits quantiques et les réseaux de tenseurs
-    \item Décrire les différentes méthodes de simulation (MPS-MPO et réseau de tenseurs général)
-    \item Décrire la méthode d'échantillonage
+    \item Replace the initial $H$ gate by an $X$ gate conditioned on the value to which the qubit is being fixed.
+    \item Remove the mixer Hamiltonian affecting the qubit.
 \end{enumerate}
-
-\subsection*{Références}
-
-1. Gray, J. quimb: A python package for quantum information and many-body calculations. Journal of Open Source Software 3, 819 (2018).
-
-2. Ferris, A. J. and Vidal, G. Perfect Sampling with Unitary Tensor Networks. Phys. Rev. B 85, 165146 (2012).
-
+We find, by induction, that the final state after these modifications follows the same recursive formula with the following transformations:
+\begin{align*}
+    \sum_{i=0}^{Q-1} \ket{i} &\to \ket{c} \,, \\
+    N &\to N_{Q} \,, \\
+    G &\to G_{c} \,, \\
+    E^{(k)} &\to E^{(k)}_{c} \,,
+\end{align*}
+where $N_{Q}=2^{n-q}$. The final state therefore conserves the same properties as the initial GM-QAOA circuit. We now suppose that the problem $\varphi$ is mapped to a two-level system, meaning that $\varepsilon_{k}=\varepsilon$ and therefore that $\lvert E_{c} \rvert = N_{Q} - \lvert G_{c} \rvert$. Using $\lvert G_{c} \rvert / N_{Q} \to 0$, we find that $F_{p,c}$ and $\bar{F}_{p,c}$ become:
+\begin{equation}
+\begin{aligned}
+\tilde{F}_{p,c} &= \tilde{F}_{p-1,c} \\
+&- \frac{1}{N_{Q}} (1-e^{-i\beta_{p}}) \left( N_{Q} \tilde{\bar{F}}_{p-1,c} e^{-i\gamma_{p}\varepsilon} \right) \,, \\
+\tilde{\bar{F}}_{p, c} &= e^{-i\gamma_{p} \varepsilon_{k}} \tilde{\bar{F}}_{p-1, c} \\ 
+&- \frac{1}{N_Q} (1-e^{-i\beta_{p}}) \left( N_{Q} \tilde{\bar{F}}_{p-1, c} e^{-i\gamma_{p}\varepsilon} \right) \,.
+\end{aligned}
+\end{equation}
+Note that $\tilde{F}_{p,c}$ does not depend anymore on $\lvert G_{c} \rvert$. The success rate is then given by:
+\begin{equation}
+r_{\varphi_{c}} =  \left\lvert  \sqrt{ \frac{\lvert G_{c} \rvert }{N_{Q}} } \tilde{F}_{p, c} \right\rvert^{2} \,.
+\end{equation}
+This probability only changes with $\lvert G_{c} \rvert / N_{Q}$. In the JVV algorithm, the most probable variable is always picked as we follow the most probable path. For GM-QAOA, we are ensured that we pick the most probable variable after sampling a polynomial number of solutions, because every solution has the same amplitude. Suppose that at the step $q$ in the JVV procedure, we have fixed the last $q$ qubits to a bitstring $c$. At the following step $q'=q+1$, say we choose the bitstring $c'$ over the bitstring $\bar{c}'$. We then have that $\lvert G_{c'} \rvert \geq \lvert G_{\bar{c}'} \rvert$. Since $N_{Q} = \frac{N}{Q} = 2^{n-q}$, we find that
+\begin{equation}
+\frac{\lvert G_{c} \rvert }{N_{Q}} = \frac{\lvert G_{c'} \rvert + \lvert G_{\bar{c}'} \rvert }{2N_{Q'} } \leq \frac{\lvert G_{c'} \rvert }{N_{Q'}} \,.
+\end{equation}
+Therefore, we have that $\lvert G \rvert / N \leq \lvert G_{c} \rvert / N_{Q}$, and then that $r_{\varphi} \leq r_{\varphi_{c}}$.
 
 %-----------------------------------------------------------------------------%
