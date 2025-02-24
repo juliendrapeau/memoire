@@ -86,36 +86,30 @@ Comment est-ce que l'algorithme VQCount opère? Soit un problème SAT, décrit p
 
 
 
-
-\begin{algorithm}[b!]
+\begin{algorithm}[hb!]
     \caption{VQCount}\label{alg:vqcount}
     \begin{algorithmic}[1]
-    \REQUIRE CNF formula: $f(n, m)$, Problem: $P$,  Depth: $p$, Minimum energy: $E_{min}$, Accuracy: $\varepsilon$, Confidence: $\delta$, Optimizer: $O$, Optimization tolerance: $\varepsilon_{opt}$, Maximum number of optimization steps: $n_{opt}^{max}$
+    \REQUIRE Problem Hamiltonian: $H_P$, Mixer Hamiltonian: $H_D$, Initial parameters: $(\vec{\beta}_0, \vec{\gamma}_0)$, Depth: $p$, Number of optimization steps: $n_{o}$, Number of solutions to sample: $n_s$
     
-    \STATE $H_P \leftarrow$ Mapping($f(n, m)$, $P$)
-    \STATE $H_D \leftarrow$ Grover-Mixer(n)
-    \STATE $i$, $j$ $\leftarrow$ $0$
-    \STATE $x, r, N \leftarrow [0]^n$
-    \STATE $\Tilde{p} \leftarrow [0]^{n+1}$
-    \FOR{$k \textbf{ in } 1 \textbf{ to } 2\log_{\frac{3}{4}}(\frac{1}{\delta})+1$}
-    \WHILE{$i < n$ \textbf{and} $\Tilde{p}(i) < 1$}
-    \STATE $\gamma$, $\beta$ $\leftarrow$ TQA($H_P$, $H_D$, $p$)
-    \STATE PQC($\gamma$, $\beta$)  $\leftarrow$ VQCount-QAOA($H_P$, $H_D$, $\gamma$, $\beta$, $p$, $x$)
-    \STATE $E$ $\leftarrow$ Energy(PQC($\gamma$, $\beta$))
-    \WHILE{$E > E_{min} (1+\text{sgn}(E_{min})\varepsilon_{opt}) \textbf{ and } j \leq n_{opt}^{max}(i)$}
-    \STATE $\text{PQC}(\gamma, \beta) \leftarrow \text{Optimizer}(\text{PQC}(\gamma, \beta), opt)$
-    \STATE $j \leftarrow j + 1$
+    \STATE PQC($\vec{\beta}_0, \vec{\gamma}_0) \leftarrow \text{QAOA-Circuit}(H_P, H_D, \vec{\beta}_0, \vec{\gamma}_0, p$)
+    \STATE $\text{PQC}(\vec{\beta}, \vec{\gamma}) \leftarrow \text{Optimize}(\text{PQC}(\vec{\beta}_0, \vec{\gamma}_0), n_{o})$
+    \STATE $w \leftarrow \texttt{""}$ 
+    \STATE $\tilde{N} \leftarrow 1$
+    \FOR{$i \in \{1, \dots, n\}$}
+    \STATE $S \leftarrow \{ \ \}$
+    \WHILE{$\abs{S} < n_{s}$}
+    \STATE $m \leftarrow \text{Measure}(\text{PQC}(\vec{\beta}, \vec{\gamma}))$
+    \IF{$\text{Verify-Solution}(m)$}
+    \STATE $S \leftarrow S \cup \{m\}$
+    \ENDIF
     \ENDWHILE
-    \STATE $s \leftarrow \text{Solution-Sampler}(\text{PQC}(\gamma, \beta), n^3)$
-    \STATE $x(i), \Tilde{p}(i+1) \leftarrow \text{Prob}(s)$
-    \STATE $i \leftarrow i + 1$
-    \ENDWHILE
-    \STATE $ \Tilde{p}^* \leftarrow \prod_{q = 0}^{n-1}\Tilde{p}(q)$
-    \STATE $N(i) \leftarrow \frac{1}{\Tilde{p}^*}$
+    \STATE $w, \tilde{p} \leftarrow \text{Majority-Prefix}(S)$
+    \STATE $\text{PQC}(\vec{\beta}, \vec{\gamma}) \leftarrow \text{Self-Reduce}(\text{PQC}(\vec{\beta}, \vec{\gamma}), w)$
+    \STATE $\tilde{N} \leftarrow \tilde{N} / \tilde{p}$
     \ENDFOR
-    \STATE $N^* \leftarrow \text{Median}(N)$
-    \STATE Return $N^*$
-    \end{algorithmic}
+    
+    \RETURN $\tilde{N}$
+\end{algorithmic}
 \end{algorithm}
     
 

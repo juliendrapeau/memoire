@@ -10,6 +10,9 @@
     Suppose that a Grover-Mixer quantum alternating operator ansatz (GM-QAOA) circuit efficiently generates approximate solutions to a self-reducible problem $\varphi$ in $\#P$. Then, this circuit can be modified, without altering the circuit's parameters, to approximately solve every sub-problem $\varphi_{c}$ of $\varphi$ while conserving the properties of GM-QAOA. 
 \end{maintheorem}
 
+\noindent
+\textbf{Preuve:} 
+
 Let $\varphi$ in $\#P$ be the problem instance of size $n$ we want to solve  with GM-QAOA. The instance can be encoded into a problem Hamiltonian $H_{p}$ with eigenvalues $E=0$ for solutions and $E=\varepsilon_{k}>0$ for non-solutions. The operator $U_{P}$ corresponding with $H_{p}$ can then be written as:
 \begin{equation}
     U_{P} = \sum_{j \in G} \ket{j}\bra{j} + \sum_{k} e^{-i \gamma \varepsilon_{k}} \sum_{j \in E^{(k)}} \ket{j}\bra{j} \,,
