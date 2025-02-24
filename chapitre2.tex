@@ -107,7 +107,7 @@ L'auto-réductibilité est simplement généralisable aux problèmes dont les va
 
 Par complétude, une définition rigoureuse de l'auto-réductibilité dans le sens de Schnorr~\cite{schnorrOptimalAlgorithmsSelfReducible1976} est donnée. Celle-ci permet l'introduction d'un langage pertinent pour le reste de ce chapitre.
 \begin{maindefinition}{Auto-réductibilité descendante}{auto-reductibilite-formel}
-    Soit $\Sigma^{*}$ un ensemble fixe et fini encodant les instances d'un problème ainsi que leurs solutions. Soit $R \subseteq \Sigma^{*} \times \Sigma^{*}$ une relation binaire assignant à chaque instance de problème $x \in \Sigma^{*}$ un ensemble de solutions $\set{ y \in \Sigma^{*} \mid xRy }$. Une relation $R \subseteq \Sigma^{*} \times \Sigma^{*}$ est auto-réductible si et seulement si
+    Soit $\Sigma^{*}$ un ensemble fixe et fini encodant les instances d'un problème ainsi que leurs solutions. Soit $R \subseteq \Sigma^{*} \times \Sigma^{*}$ une relation binaire assignant à chaque instance de problème $x \in \Sigma^{*}$ un ensemble de solutions $\set{ y \in \Sigma^{*} : xRy }$. Une relation $R \subseteq \Sigma^{*} \times \Sigma^{*}$ est auto-réductible si et seulement si
     \begin{enumerate}
         \item il existe une fonction calculable en temps polynomial $g \in \Sigma^{*} \to \mathbb{N}$ tel que $xRy \implies \lvert y \rvert = g(x)$;
         \item il existe une fonction calculable en temps polynomial $\psi \in \Sigma^{*} \times \Sigma^{*} \to \Sigma^{*}$ et $\sigma \in \Sigma^{*} \to \mathbb{N}$ satisfaisant
@@ -127,12 +127,13 @@ Démystifions cette définition. Le problème SAT est un exemple de relation bin
 
 \begin{equation}
     \begin{aligned}
-    R = \{ (x, y) : &x \in \Sigma^{*} \text{ encode une formule booléenne } B, \\ 
-    &y \in \Sigma^{*} \text{ est un assignement satifaisable de } B \} \,.
+    R = \{ \braket{x, y} : \ & x \in \Sigma^{*} \text{ encode une formule booléenne } B, \\ 
+    & y \in \Sigma^{*} \text{ est un assignement satifaisable de } B \} \,.
     \end{aligned}
 \end{equation}
 
 \textcolor{mydarkred}{\textit{https://era.ed.ac.uk/bitstream/handle/1842/11392/Sinclair1988.pdf?sequence=1}}
+\textcolor{mydarkred}{\textit{$\Sigma$ contre $\Sigma^{*}$}}
 
 La notation $xRy$ signifie que $y$ est une solution valide à l'instance $x$. La première condition implique que la taille des solutions, donnée par la fonction $g$, est bornée par une fonction calculable en temps polynomial. La deuxième condition implique que, pour une instance $x$ et un préfixe $w$ de taille $g(x)$ de n'importe quelle solution $y$ au problème $x$, $\psi$ donne une instance $x'$ dont les solutions sont exactement celles qui, lorsque concaténées avec $w$, forme les solutions de $x$. La fonction $\sigma$ donne alors la granularité des solutions, c'est-à-dire le nombre de caractères de $y$ utilisés pour réduire l'instance $x$. Plus précisément, $\psi(x, w) \leq \lvert x \rvert$ assure que la taille du problème diminue à mesure que la réduction se poursuit. L'implication $g(x) > 0 \implies  \sigma(x) > 0$ signifie que la réduction continue si la taille de l'instance $x$ est non-nulle. La dernière relation énonce que la résolution du problème pour $\braket{x, y}$ peut être réduite à la résolution d'instances de taille inférieure, c'est-à-dire que $\braket{x, y_{1}\dots y_{n}}$ est reliée à $\braket{\psi(x, y_{1}\dots y_{n}), y_{\sigma(x)+1}\dots y_{n}}$.
 
@@ -143,6 +144,7 @@ La définition de l'auto-réductibilité utilisée dans cette section s'applique
 %-----------------------------------------------------------------------------%
 
 \section{Échantillonnage quasi uniforme}
+\label{sec:echantillonnage-quasi-uniforme}
 
 \begin{comment}
 \subsection*{Plan}
@@ -190,6 +192,7 @@ Un échantillonneur quasi uniforme de tolérance $\xi$ possède en conséquence 
 %-----------------------------------------------------------------------------%
 
 \section{Comptage approximatif randomisé}
+\label{sec:comptage-approximatif-randomise}
 
 \begin{comment}
 \subsection*{Plan}
@@ -303,26 +306,19 @@ où $\tilde{N}_{z_{:i}}$ est le nombre de solutions dans l'ensemble d'échantill
 
 % Comme décrit à la section~\ref{sec:auto-reductibilite}, chaque noeud de l'arbre est associé une chaîne de bits $w$ de taille $m$ fixant les $m$ premières variables de la formule $\varphi$ ainsi qu'une formule partielle $\varphi_{w}$. 
 
-
 \begin{algorithm}[hb!]
     \caption{Algorithme de JVV}\label{alg:algorithme-jvv}
     \begin{algorithmic}[1]
-    \REQUIRE Problem Hamiltonian: $H_P$, Mixer Hamiltonian: $H_D$, Initial parameters: $(\vec{\beta}_0, \vec{\gamma}_0)$, Depth: $p$, Number of optimization steps: $n_{o}$, Number of solutions to sample: $n_s$
-    
-    \STATE PQC($\vec{\beta}_0, \vec{\gamma}_0) \leftarrow \text{QAOA-Circuit}(H_P, H_D, \vec{\beta}_0, \vec{\gamma}_0, p$)
-    \STATE $\text{PQC}(\vec{\beta}, \vec{\gamma}) \leftarrow \text{Optimize}(\text{PQC}(\vec{\beta}_0, \vec{\gamma}_0), n_{o})$
+    \REQUIRE Formule CNF: $f(n, m)$, Nombre d'échantillons: $n_{s}$
+
     \STATE $w \leftarrow \texttt{""}$ 
     \STATE $\tilde{N} \leftarrow 1$
     \FOR{$i \in \{1, \dots, n\}$}
     \STATE $S \leftarrow \{ \ \}$
     \WHILE{$\abs{S} < n_{s}$}
     \STATE $m \leftarrow \text{Measure}(\text{PQC}(\vec{\beta}, \vec{\gamma}))$
-    \IF{$\text{Verify-Solution}(m)$}
-    \STATE $S \leftarrow S \cup \{m\}$
-    \ENDIF
     \ENDWHILE
-    \STATE $w, \tilde{p} \leftarrow \text{Majority-Prefix}(S)$
-    \STATE $\text{PQC}(\vec{\beta}, \vec{\gamma}) \leftarrow \text{Self-Reduce}(\text{PQC}(\vec{\beta}, \vec{\gamma}), w)$
+    \STATE $w, \tilde{p} \leftarrow \arg \max_{w' \in \set{ w + 0, w + 1 }} \lvert \set{ s \in S : s_{:\lvert w' \rvert } = w' } \rvert / \lvert S \rvert$
     \STATE $\tilde{N} \leftarrow \tilde{N} / \tilde{p}$
     \ENDFOR
     
