@@ -93,12 +93,14 @@ Cette relation implique que l'ensemble de solutions d'une instance donnée peut 
 La relation~\ref{rel:auto-reductibilite-sat} exemplifie une deuxième façon de voir l'auto-réductibilité: la résolution partielle d'une instance d'un problème laisse une plus petite instance du même type de problème. Une interprétation alternative est qu'une instance peut être résolue en résolvant des plus petites instances et en assemblant les sous-instances ensemble, tel l'assemblage d'un casse-tête. 
 
 Afin d'obtenir une meilleure perspective sur la notion d'auto-réductibilité, il est pertinent d'exprimer la structure d'une relation auto-réductible $\varphi$ sous la forme d'un arbre orienté, nommé \textit{arbre d'auto-réductibilité}, illustré à la figure~\ref{fig:arbre-auto-reductibilite}. Dans cet arbre, les sommets représentent à la fois une chaîne de bits $w$ de taille $m$ et une instance de problème $\varphi_{w}$, où $\varphi_{w}$ représente la sous-instance du problème $\varphi$ dont les premières variables sont remplacées par la chaîne de bits $w$. Le sous-problème est alors dit \textit{fixé} par le préfixe $w$. Les arrêtes du graphe représentent l'assignement d'une variable. La racine de l'arbre correspond à l'instance du problème initial $\varphi$ ainsi qu'à une solution partielle nulle. Les enfants de cette racine sont par la suite donnés par les sous-instances $\varphi_{w}$ pour tous les préfixes $w$ de taille $1$ possibles. Le reste de l'arbre est défini récursivement de la même manière en augmentant la taille de la chaîne de bits $w$ à chaque niveau jusqu'aux feuilles de l'arbre. Ces feuilles représentent finalement une entrée au problème $\varphi$, étant soit une solution ou une non-solution au problème.
+
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.6\textwidth]{figures/jvv-algorithm.pdf}
     \caption[Arbre d'auto-réductibilité]{}
     \label{fig:arbre-auto-reductibilite}
 \end{figure}
+
 L'auto-réductibilité est simplement généralisable aux problèmes dont les variables peuvent prendre $d$ valeurs, dit auto-réductibilité $d$-disjonctive, en prenant la disjonction sur les $d$ valeurs possibles. Le degré de l'arbre est en conséquence donné par $d$. Notons aussi que l'arbre d'auto-réductibilité est aussi parfois défini tel les feuilles correspondent uniquement à des solutions au problème auto-réductible. Dans ce cas, les non-solutions ne sont pas incluses dans les ramifications de l'arbre.
 
 \textcolor{mydarkred}{\textit{https://ics.uci.edu/~vazirani/book.pdf}}
@@ -268,7 +270,7 @@ Pour mieux comprendre son exécution, l'arbre d'auto-réductibilité, présenté
 \end{equation}
   
 
-Quelques notes sont ici nécessaires. Le chemin des probabilités maximales est choisi...
+Quelques notes sont ici nécessaires. Le chemin des probabilités maximales est choisi... \textcolor{mydarkred}{\textit{pour maximiser la probabilité et pour éviter d'obtenir une probabilité nulle.}}
 
 
 Jusqu'à maintenant, le générateur a été considéré comme uniforme. 

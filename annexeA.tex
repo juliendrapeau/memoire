@@ -3,6 +3,7 @@
 
 
 \chapter{Auto-réductibilité du circuit GM-QAOA}
+\label{ann:auto-reductibilite-du-circuit-gm-qaoa}
 
 %-----------------------------------------------------------------------------%
 
@@ -10,10 +11,9 @@
     Supposons qu'un circuit GM-QAOA génère efficacement des solutions approximatives à un problème auto-réductible $\varphi$ dans \textsf{\#P}. Alors, ce circuit peut être modifié, sans modifier les paramètres du circuit, pour résoudre approximativement tous les sous-problèmes $\varphi_{c}$ de $\varphi$ en conservant les propriétés de GM-QAOA.
 \end{maintheorem}
 
-\noindent
-\textbf{Preuve:} 
-
-Soit $\varphi$ une instance d'un problème de \textsf{\#P} de taille $n$ que nous voulons résoudre avec GM-QAOA. Cette instance peut être encodée dans un Hamiltonien de problème $H_{P}$ avec des valeurs propres $E = 0$ pour les solutions et $E = \varepsilon_{k} > 0$ pour les non-solutions. L'opérateur $U_{P}$ correspondant avec $H_{P}$ s'écrit alors comme:
+\begin{proof}
+    
+Soit $\varphi$ une instance d'un problème de \textsf{\#P} de taille $n$ que nous voulons résoudre avec GM-QAOA. Cette instance peut être encodée dans un hamiltonien de problème $H_{P}$ avec des valeurs propres $E = 0$ pour les solutions et $E = \varepsilon_{k} > 0$ pour les non-solutions. L'opérateur $U_{P}$ correspondant avec $H_{P}$ s'écrit alors comme:
 
 \begin{equation}
     U_{P} = \sum_{j \in G} \ket{j}\bra{j} + \sum_{k} e^{-i \gamma \varepsilon_{k}} \sum_{j \in E^{(k)}} \ket{j}\bra{j} \,,
@@ -50,7 +50,7 @@ Pour résoudre le sous-problème, modifions le circuit original tel qu'illustré
 
 \begin{enumerate}
     \item Remplacer la porte $H$ initial par une porte $X$ conditionnée par la valeur à laquelle le qubit est fixé.
-    \item Enlever l'Hamiltonien de forçage du qubit fixé.
+    \item Enlever l'hamiltonien de forçage du qubit fixé.
 \end{enumerate}
 
 Nous trouvons par induction que l'état final après ces modifications suivent la même formule récursive que la formule~\ref{eq:recursive-formula} avec les transformations suivantes:
@@ -63,5 +63,6 @@ Nous trouvons par induction que l'état final après ces modifications suivent l
 \end{align*}
 
 où $N_{Q} = 2^{n-q}$. L'état final conserve alors les mêmes propriétés que le circuit GM-QAOA initial.
+\end{proof}
 
 %-----------------------------------------------------------------------------%

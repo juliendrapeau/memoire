@@ -48,10 +48,10 @@ Les algorithmes variationnels quantiques peuvent possiblement résoudre ce probl
 Le \textit{théorème adiabatique}, introduit par Born et Fock~\cite{bornBeweisAdiabatensatzes1928}, peut être énoncé simplement comme suit:
 
 \begin{subtheorem}{Théorème adiabatique}{theoreme-adiabatique}
-    Un système physique demeure dans son état propre instantané si une perturbation donnée agit sur lui suffisamment lentement et s'il y a un intervalle significatif entre la valeur propre et le reste du spectre de l'Hamiltonien.
+    Un système physique demeure dans son état propre instantané si une perturbation donnée agit sur lui suffisamment lentement et s'il y a un intervalle significatif entre la valeur propre et le reste du spectre de l'hamiltonien.
 \end{subtheorem}
 
-Bien que différentes versions de ce théorème furent rigoureusement formulées~\cite{albashAdiabaticQuantumComputing2018}, une version approximative de celui-ci, proposée par Messiah~\cite{messiahQuantumMechanics1999} et rectifiée par Amin~\cite{aminConsistencyAdiabaticTheorem2009}, est présentée ici dans l'objectif d'élucider les mécanismes du théorème. Un système quantique, décrit par un Hamiltonien dépendant du temps $H(t)$, évolue selon l'équation de Schrödinger
+Bien que différentes versions de ce théorème furent rigoureusement formulées~\cite{albashAdiabaticQuantumComputing2018}, une version approximative de celui-ci, proposée par Messiah~\cite{messiahQuantumMechanics1999} et rectifiée par Amin~\cite{aminConsistencyAdiabaticTheorem2009}, est présentée ici dans l'objectif d'élucider les mécanismes du théorème. Un système quantique, décrit par un hamiltonien dépendant du temps $H(t)$, évolue selon l'équation de Schrödinger
 
 % , en commençant par Kant en 1950~\cite{katoAdiabaticTheoremQuantum1950},
 
@@ -59,7 +59,7 @@ Bien que différentes versions de ce théorème furent rigoureusement formulées
    i \hbar \frac{\partial \ket{\psi(t)}}{\partial t} = H(t) \ket{\psi} \,.
 \end{align*}
 
-Considérons ici que l'Hamiltonien $H(t)$ peut s'écrire sous la forme $H(t) = \tilde{H}(s)$, où $s=t/T \in [0,1]$ est le temps adimensionnel, de manière que $T$ contrôle le taux de variation dans le temps de $H(t)$. Soit $\ket{\varepsilon_{j} (s)}$ les états propres instantanés de $\tilde{H}(s)$ avec énergie $\varepsilon_{j}$ (potentiellement dégénérée) tel que
+Considérons ici que l'hamiltonien $H(t)$ peut s'écrire sous la forme $H(t) = \tilde{H}(s)$, où $s=t/T \in [0,1]$ est le temps adimensionnel, de manière que $T$ contrôle le taux de variation dans le temps de $H(t)$. Soit $\ket{\varepsilon_{j} (s)}$ les états propres instantanés de $\tilde{H}(s)$ avec énergie $\varepsilon_{j}$ (potentiellement dégénérée) tel que
 
 \begin{equation}
    \tilde{H}(s) \ket{\varepsilon_{j}(s)} = \varepsilon_{j}(s) \ket{\varepsilon_{j}(s)} \,,
@@ -77,7 +77,7 @@ où $\varepsilon_{j}(s) < \varepsilon_{j+1}(s) \ \forall j,s$ et $j \in \set{ 0,
 
 L'approximation adiabatique est souvent utilisée à partir de l'état fondamental $\ket{\varepsilon_{0}(t)}$, menant à la définition du gap spectral entre l'état fondamental et le premier état excité du système $\Delta(s) = \varepsilon_{1}(s) - \varepsilon_{0}(s)$. Généralement, le maximum de $\braket{ \varepsilon_{i}(s) | \partial_{s} \tilde{H}(s) | \varepsilon_{j}(s)}$ est de l'ordre d'une valeur propre typique de $\tilde{H}$ et petit. Le minimum du carré de l'inverse du gap spectral $\Delta$ constitue alors un critère pratique pour quantifier le temps nécessaire à l'évolution adiabatique. \textcolor{mydarkred}{\textit{Reformuler et faire attention aux symboles.}}
 
-L'\textit{algorithme adiabatique quantique} (« Quantum Adiabatic Algorithm ») (QAA), introduit par Farhi~\cite{farhiQuantumComputationAdiabatic2000}, emploie un ordinateur quantique physique pour la résolution de problèmes d'optimisation combinatoire en se basant sur le théorème adiabatique quantique. Pour ce faire, le système physique est initialement préparé dans l'état fondamental d'un Hamiltonien de forçage $H_{D}$ facile à construire et dont l'état fondamental est simple à trouver. La solution du problème, encodée dans l'état fondamental de l'Hamiltonien de problème $H_{P}$, est alors obtenue en transitionnant de l'Hamiltonien $H_{D}$ à l'Hamiltonien $H_{P}$ par une évolution adiabatique. Plus précisément, l'Hamiltonien du système s'écrit comme
+L'\textit{algorithme adiabatique quantique} (« Quantum Adiabatic Algorithm ») (QAA), introduit par Farhi~\cite{farhiQuantumComputationAdiabatic2000}, emploie un ordinateur quantique physique pour la résolution de problèmes d'optimisation combinatoire en se basant sur le théorème adiabatique quantique. Pour ce faire, le système physique est initialement préparé dans l'état fondamental d'un hamiltonien de forçage $H_{D}$ facile à construire et dont l'état fondamental est simple à trouver. La solution du problème, encodée dans l'état fondamental de l'hamiltonien de problème $H_{P}$, est alors obtenue en transitionnant de l'hamiltonien $H_{D}$ à l'hamiltonien $H_{P}$ par une évolution adiabatique. Plus précisément, l'hamiltonien du système s'écrit comme
 
 
 \begin{equation}
@@ -148,7 +148,7 @@ subsection*{Plan}
 
 Étant une idée prometteuse pour les applications des ordinateurs quantiques, l'algorithme quantique d'optimisation approximative a mené à une quantité incroyable de travaux dans les précédentes années. Ainsi, pour simplifier la compréhension de ce concept, l'algorithme original, dû à Farhi~\cite{farhiQuantumApproximateOptimization2014}, est d'abord présenté.
 
-QAOA repose sur deux différents Hamiltoniens: l'Hamiltonien de phase, ou de problème, $H_{P}$ et l'Hamiltonien de forçage, ou de mélange, $H_{D}$. L'Hamiltonien de problème est formulé de façon à encoder la solution, potentiellement dégénérée, du problème d'optimisation combinatoire dans son état fondamental. L'Hamiltonien de forçage, quant à lui, est donné par
+QAOA repose sur deux différents hamiltoniens: l'hamiltonien de phase, ou de problème, $H_{P}$ et l'hamiltonien de forçage, ou de mélange, $H_{D}$. L'hamiltonien de problème est formulé de façon à encoder la solution, potentiellement dégénérée, du problème d'optimisation combinatoire dans son état fondamental. L'hamiltonien de forçage, quant à lui, est donné par
 
 \begin{equation}
     \label{eq:x-drive}
@@ -157,9 +157,9 @@ QAOA repose sur deux différents Hamiltoniens: l'Hamiltonien de phase, ou de pro
 
 où $X_{i}$ est l'opérateur de Pauli $X$ appliqué sur le qubit $i$ d'un système à $n$ qubits. $H_{D}^{X}$ est construit de manière à induire de l'interférence et ainsi permettre l'exploration de l'espace d'Hilbert. 
 
-Par définition, l'Hamiltonien $H_{p}$ est diagonal dans la base computationnelle, alors que l'Hamiltonien $H_{D}$ comprend des termes hors diagonaux. Deux opérations unitaires paramétrées sont définies à partir des Hamiltoniens $H_{P}$ et $H_{D}$: l'opérateur de problème $U_{P}(\gamma) = e^{-i \gamma H_{P}}$ ainsi que l'opérateur de forçage $U_{D}(\beta) = e^{-i \beta H_{D}}$. L'opérateur $U_{P}$ représente une rotation de phase, paramétrisée par $\gamma$, des états de la base computationnelle dépendamment de leur énergie donné par $H_{P}$. L'opérateur $U_{D}$, paramétrisé par $\beta$, superpose différents états de la base computationnelle ayant précédemment acquis différents facteurs de phase, menant ainsi à de l'interférence.
+Par définition, l'hamiltonien $H_{p}$ est diagonal dans la base computationnelle, alors que l'hamiltonien $H_{D}$ comprend des termes hors diagonaux. Deux opérations unitaires paramétrées sont définies à partir des hamiltoniens $H_{P}$ et $H_{D}$: l'opérateur de problème $U_{P}(\gamma) = e^{-i \gamma H_{P}}$ ainsi que l'opérateur de forçage $U_{D}(\beta) = e^{-i \beta H_{D}}$. L'opérateur $U_{P}$ représente une rotation de phase, paramétrisée par $\gamma$, des états de la base computationnelle dépendamment de leur énergie donné par $H_{P}$. L'opérateur $U_{D}$, paramétrisé par $\beta$, superpose différents états de la base computationnelle ayant précédemment acquis différents facteurs de phase, menant ainsi à de l'interférence.
 
-En tant que VQA, QAOA est un algorithme hybride composé d'un circuit quantique paramétré et d'un optimiseur classique. Le circuit quantique est d'abord préparé dans un état propre de l'Hamiltonien de forçage. Pour l'Hamiltonien~\ref{eq:x-drive}, un exemple d'état initial possible serait $\ket{\psi_{0}} = \ket{+}^{\otimes n}$. Le produit des opérateurs $U_{D}U_{P}$ est alors appliqué en alternance $p$ fois sur l'état initial $\ket{\psi_{0}}$, donnant l'état suivant:
+En tant que VQA, QAOA est un algorithme hybride composé d'un circuit quantique paramétré et d'un optimiseur classique. Le circuit quantique est d'abord préparé dans un état propre de l'hamiltonien de forçage. Pour l'hamiltonien~\ref{eq:x-drive}, un exemple d'état initial possible serait $\ket{\psi_{0}} = \ket{+}^{\otimes n}$. Le produit des opérateurs $U_{D}U_{P}$ est alors appliqué en alternance $p$ fois sur l'état initial $\ket{\psi_{0}}$, donnant l'état suivant:
 
 \begin{equation}
     \label{eq:final-state}
@@ -197,7 +197,7 @@ L'algorithme peut se résumer par les étapes suivantes:
 \subsubsection{Préparation de l'état initial}
 \label{subsec:encodage-probleme}
 
-\textcolor{mydarkred}{\textit{Est-ce que l'état initial doit être dans un état propre de l'Hamiltonien de forçage?}}
+\textcolor{mydarkred}{\textit{Est-ce que l'état initial doit être dans un état propre de l'hamiltonien de forçage?}}
 
 %-----------------------------------------------------------------------------%
 
@@ -222,20 +222,20 @@ TO QUADRATIC UNCONSTRAINED BINARY OPTIMISATION PROBLEMS. (CORRECTION DE 1)
 
 \end{comment}
 
-Comment est-ce qu'un problème d'optimisation combinatoire $\varphi(x):\set{ 0, 1 }^{\otimes n} \to \set{ 0, 1 }$ peut être encodé par un Hamiltonien $H_{P}$? D'abord, les entrées $x = x_{1} \dots x_{n}$ du problème sont caractérisées par une fonction de coût $C(x):\set{ +1, -1 }^{\otimes n} \to \mathbb{R}_{\geq 0}$. Une entrée optimale est associée à un coût nul, alors qu'une entrée non optimale est associée à un coût positif, en fonction de son optimalité. Résoudre le problème correspond alors à trouver l'entrée optimale, c'est-à-dire l'entrée $x^{*}$ minimisant la fonction de coût. L'Hamiltonien de problème se définit alors par
+Comment est-ce qu'un problème d'optimisation combinatoire $\varphi(x):\set{ 0, 1 }^{\otimes n} \to \set{ 0, 1 }$ peut être encodé par un hamiltonien $H_{P}$? D'abord, les entrées $x = x_{1} \dots x_{n}$ du problème sont caractérisées par une fonction de coût $C(x):\set{ +1, -1 }^{\otimes n} \to \mathbb{R}_{\geq 0}$. Une entrée optimale est associée à un coût nul, alors qu'une entrée non optimale est associée à un coût positif, en fonction de son optimalité. Résoudre le problème correspond alors à trouver l'entrée optimale, c'est-à-dire l'entrée $x^{*}$ minimisant la fonction de coût. L'hamiltonien de problème se définit alors par
 
 \begin{equation}
     H_{P} \ket{x} = C(x) \ket{x}
 \end{equation}
 
-Cette équation implique que l'état fondamental de l'Hamiltonien $H_{P}$ encode les solutions au problème donné. 
+Cette équation implique que l'état fondamental de l'hamiltonien $H_{P}$ encode les solutions au problème donné. 
 
 \textcolor{mydarkred}{\textit{Parler de QUBO.}}
 
 \textcolor{mydarkred}{\textit{Il s'agit donc de terms de pénalités.}}
 
 
-Comme trouver l'état fondamental d'un modèle d'Ising constitue un problème NP, il existe alors nécessairement une réduction entre ce problème et les différents problèmes NP. Bien que ces réductions ne sont pas nécessairement évidentes, plusieurs de celles-ci ont été formulées pour le recuit quantique~\cite{lucasIsingFormulationsMany2014,lodewijksMappingNPhardNPcomplete2020} \textcolor{mydarkred}{\textit{recuit ou AQO?}}. Une réduction intéressante relie le problème positif NAE3SAT au modèle d'Ising antiferromagnétique. Soit la formule propositionnelle $f(x_{1}, x_{2}, x_{3}) = (x_{1} \lor x_{2} \lor x_{3})$. En associant chaque variable $x_{i}$ à un spin $\sigma_{i}$, cette formule se réduit à un modèle d'Ising en considérant un réseau triangulaire composé des spins $\sigma_{i}$, où chacun de ceux-ci sont reliés aux deux autres spins. L'Hamiltonien d'un tel modèle est donné par
+Comme trouver l'état fondamental d'un modèle d'Ising constitue un problème NP, il existe alors nécessairement une réduction entre ce problème et les différents problèmes NP. Bien que ces réductions ne sont pas nécessairement évidentes, plusieurs de celles-ci ont été formulées pour le recuit quantique~\cite{lucasIsingFormulationsMany2014,lodewijksMappingNPhardNPcomplete2020} \textcolor{mydarkred}{\textit{recuit ou AQO?}}. Une réduction intéressante relie le problème positif NAE3SAT au modèle d'Ising antiferromagnétique. Soit la formule propositionnelle $f(x_{1}, x_{2}, x_{3}) = (x_{1} \lor x_{2} \lor x_{3})$. En associant chaque variable $x_{i}$ à un spin $\sigma_{i}$, cette formule se réduit à un modèle d'Ising en considérant un réseau triangulaire composé des spins $\sigma_{i}$, où chacun de ceux-ci sont reliés aux deux autres spins. L'hamiltonien d'un tel modèle est donné par
 
 \begin{equation}
     H_{P} = \sigma_{1}\sigma_{2} + \sigma_{2}\sigma_{3} + \sigma_{3}\sigma_{1}
@@ -288,7 +288,7 @@ Les énergies associées à chaque combinaison possible des spins sont présent�
     \caption{Énergie de chaque entrée dans le modèle d'Ising pour le problème NAE3SAT (a) et 1-in-3SAT (b).}
 \end{table*}
 
-Plus généralement, tous les problèmes positifs NAE3SAT sont représentables par un modèle d'Ising en appliquant la transformation précédente sur chacune des clauses de la formule, tel qu'illustré à la figure~\ref{fig:transformation-ising}, donnant ainsi l'Hamiltonien 
+Plus généralement, tous les problèmes positifs NAE3SAT sont représentables par un modèle d'Ising en appliquant la transformation précédente sur chacune des clauses de la formule, tel qu'illustré à la figure~\ref{fig:transformation-ising}, donnant ainsi l'hamiltonien 
 
 \begin{equation}
     H_P = - \sum_{(i,j) \in E} J_{ij} \sigma_i \sigma_j - \sum_{i \in V} h_i \sigma_i \,,
@@ -338,7 +338,7 @@ où $E$ est l'ensemble d'arêtes et $V$ est l'ensemble de sommets.
     \end{itemize}
 \end{comment}
 
-Pour établir un lien entre QAA et QAOA, l'évolution de l'Hamiltonien doit être rendu discrète. Pour ce faire, la décomposition de Susuki-Trotter au premier ordre, donnée par $e^{A+B} = \lim_{n \to \infty} e^{\frac{A}{n}} e^{\frac{B}{n}}$ pour deux opérateurs $A$ et $B$, est utilisée. Cette décomposition permet de discrétiser l'opérateur d'un Hamiltonien $H$ tel que
+Pour établir un lien entre QAA et QAOA, l'évolution de l'hamiltonien doit être rendu discrète. Pour ce faire, la décomposition de Susuki-Trotter au premier ordre, donnée par $e^{A+B} = \lim_{n \to \infty} e^{\frac{A}{n}} e^{\frac{B}{n}}$ pour deux opérateurs $A$ et $B$, est utilisée. Cette décomposition permet de discrétiser l'opérateur d'un hamiltonien $H$ tel que
 
 \begin{equation}
     e^{-i\Delta t H(t)} \approx e^{-i \beta H_D} e^{-i \gamma H_P} + O(\Delta t^2)
@@ -372,9 +372,9 @@ Pour établir un lien entre QAA et QAOA, l'évolution de l'Hamiltonien doit êtr
 2. Bärtschi, A. and Eidenbenz, S. Grover Mixers for QAOA: Shifting Complexity from Mixer Design to State Preparation. in 2020 IEEE International Conference on Quantum Computing and Engineering (QCE) 72–82 (2020). doi:10.1109/QCE49297.2020.00020.
 \end{comment}
 
-L'algorithme quantique d'optimisation approximative applique en alternance un Hamiltonien de problème et un Hamiltonien de forçage, guidé par l'approche quantique adiabatique. Cet algorithme comporte une limitation importante: les opérateurs appliqués doivent être sous la forme d'une évolution temporelle d'un Hamiltonien local fixe. Cette restriction entrave la construction d'opérateurs unitaires potentiellement plus efficaces.
+L'algorithme quantique d'optimisation approximative applique en alternance un hamiltonien de problème et un hamiltonien de forçage, guidé par l'approche quantique adiabatique. Cet algorithme comporte une limitation importante: les opérateurs appliqués doivent être sous la forme d'une évolution temporelle d'un hamiltonien local fixe. Cette restriction entrave la construction d'opérateurs unitaires potentiellement plus efficaces.
 
-L'\textit{approche quantique des opérateurs alternants} (« Quantum Alternating Operator Ansatz») (QAOA), introduit par Hadfield et coll.~\cite{hadfieldQuantumApproximateOptimization2019}, généralise l'algorithme quantique d'optimisation approximative en permettant l'alternance de familles générales d'opérateurs unitaires paramétrisés plutôt qu'uniquement des opérateurs basés sur un Hamiltonien. Cette approche supporte ainsi la représentation d'un plus grand nombre d'états, pouvant possiblement être construit de manière plus efficace. L'algorithme quantique d'approximation quantique et l'approche quantique des opérateurs alternants possèdent le même acronyme. Comme cette dernière étend le premier, l'acronyme QAOA fera référence à l'approche quantique des opérateurs alternant pour le reste de la présente section.
+L'\textit{approche quantique des opérateurs alternants} (« Quantum Alternating Operator Ansatz») (QAOA), introduit par Hadfield et coll.~\cite{hadfieldQuantumApproximateOptimization2019}, généralise l'algorithme quantique d'optimisation approximative en permettant l'alternance de familles générales d'opérateurs unitaires paramétrisés plutôt qu'uniquement des opérateurs basés sur un hamiltonien. Cette approche supporte ainsi la représentation d'un plus grand nombre d'états, pouvant possiblement être construit de manière plus efficace. L'algorithme quantique d'approximation quantique et l'approche quantique des opérateurs alternants possèdent le même acronyme. Comme cette dernière étend le premier, l'acronyme QAOA fera référence à l'approche quantique des opérateurs alternant pour le reste de la présente section.
 
 Cette extension trouve son utilité principale dans la création d'opérateurs de forçage. Restreindre l'espace des configurations d'un problème selon les contraintes de celui-ci permet d'éviter.
 
@@ -489,4 +489,4 @@ Le recuit quantique n'échantillonne pas les états fondamentaux uniformément e
 Comme le recuit quantique et QAOA sont fortement liés, il est ainsi peu probable que QAOA puisse échantillonner les états fondamentaux de manière uniforme.
 
 
-Une propriété de l'algorithme GM-QAOA devient alors d'un intérêt considérable: l'équiprobabilité des états de même énergie. Dans GM-QAOA, les solutions sont encodées dans l'état fondamental de l'Hamiltonien de problème, ceux-ci posséderont alors la même amplitude et donc la même probabilité. Ainsi, en ne considérant que les solutions, l'état préparé par le circuit GM-QAOA possède toujours une non-uniformité nulle. 
+Une propriété de l'algorithme GM-QAOA devient alors d'un intérêt considérable: l'équiprobabilité des états de même énergie. Dans GM-QAOA, les solutions sont encodées dans l'état fondamental de l'hamiltonien de problème, ceux-ci posséderont alors la même amplitude et donc la même probabilité. Ainsi, en ne considérant que les solutions, l'état préparé par le circuit GM-QAOA possède toujours une non-uniformité nulle. 

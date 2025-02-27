@@ -21,7 +21,7 @@ Borne sur le comptage ("a tighter bound for counting max-weight solutions to 2SA
     \end{enumerate}
 \end{comment}
 
-Les problèmes de comptage surgissent dans de nombreuses disciplines, avec des applications en raisonnement probabiliste~\cite{rothHardnessApproximateReasoning1996, sangPerformingBayesianInference2005, abramsonHailfinderBayesianSystem1996}, en fiabilité des réseaux~\cite{valiantComplexityEnumerationReliability1979, duenas-osorioCountingBasedReliabilityEstimation2017}, en mécanique statistique~\cite{jerrumPolynomialtimeApproximationAlgorithms1993} et en intelligence artificielle~\cite{balutaQuantitativeVerificationNeural2019}.
+Les problèmes de comptage surgissent dans de nombreuses disciplines, avec des applications en raisonnement probabiliste~\cite{rothHardnessApproximateReasoning1996, sangPerformingBayesianInference2005, abramsonHailfinderBayesianSystem1996}, en fiabilité des réseaux~\cite{valiantComplexityEnumerationReliability1979b, duenas-osorioCountingBasedReliabilityEstimation2017}, en mécanique statistique~\cite{jerrumPolynomialtimeApproximationAlgorithms1993} et en intelligence artificielle~\cite{balutaQuantitativeVerificationNeural2019}.
 
 Il est souvent favorable de décrire la théorie de la complexité à l'aide du concept de \textit{machine de Turing}. Cependant, ce mémoire suppose que la thèse de Church-Turing soit vraie, et donc que n'importe quel modèle de calcul puisse être utilisé de manière équivalente, pour faire abstraction de ce langage et simplifier les idées présentées.
 
@@ -106,7 +106,7 @@ La classe \textsf{NP} est aussi définie comme la classe de problèmes pouvant �
 % \textcolor{mydarkred}{\textit{NP pour temps non-déterministique.}}
 % \textcolor{mydarkred}{\textit{La conjecture "Exponential Time Hypothesis" suggère que certains problèmes dans NP prennent un temps exponentiel.  (voir https://arxiv.org/pdf/1611.04471 pour plus d'information)}}
 
-La classe de complexité d'intérêt dans le cadre de ce mémoire est la classe \textsf{\#P}. Cette classe, définie par extension à la classe \textsf{NP}, cherche non seulement à déterminer si un problème de décision possède une solution, mais aussi à spécifier le nombre de solutions à ce problème. Ainsi, un \textit{problème de comptage} consiste à trouver le nombre de solutions d'un problème de décision. Un problème de comptage est donc défini par rapport à un problème de décision. Prenons par exemple le problème du commis voyageur. Le problème de décision généralement défini cherche un trajet de taille inférieure à une certaine distance. Le problème de comptage adjoint exige alors le nombre de trajets possibles de taille inférieure à la distance donnée. 
+La classe de complexité d'intérêt dans le cadre de ce mémoire est la classe \textsf{\#P} introduit par Valiant~\cite{valiantComplexityComputingPermanent1979}. Cette classe, définie par extension à la classe \textsf{NP}, cherche non seulement à déterminer si un problème de décision possède une solution, mais aussi à spécifier le nombre de solutions à ce problème. Ainsi, un \textit{problème de comptage} consiste à trouver le nombre de solutions d'un problème de décision. Un problème de comptage est donc défini par rapport à un problème de décision. Prenons par exemple le problème du commis voyageur. Le problème de décision généralement défini cherche un trajet de taille inférieure à une certaine distance. Le problème de comptage adjoint exige alors le nombre de trajets possibles de taille inférieure à la distance donnée. 
 
 \begin{maindefinition}{Classe de complexité \textsf{\#P}}{classe-sharp-p}
     Une fonction $A$ fait partie de la classe de complexité $\textsf{\#P}$ si et seulement si une fonction $B \in \textsf{P}$ existe tel que
@@ -125,16 +125,18 @@ Comme que les problèmes de la classe \textsf{P} font aussi partie de la classe 
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.6\textwidth]{figures/complexity-classes.jpg}
+    \includegraphics[width=0.5\textwidth]{figures/complexity-classes.jpg}
     \caption[Classes de complexité]{}
     \label{fig:complexity-classes}
 \end{figure}
 
-L'importance des problèmes \textsf{\#P} au sein de la théorie de la complexité s'observe entre autres par le théorème de Toda~\cite{todaPPHardPolynomialTime1991}. Ce résultat marquant montre que tous les problèmes de la hiérarchie polynomiale \textsf{PH} peuvent être résolus en temps polynomial avec un oracle résolvant instantanément les problèmes \textsf{\#P}. La hiérarchie polynomiale généralise les classes de complexité \textsf{P}, \textsf{NP} et \textsf{co-NP} en capturant les classes de problèmes exprimés par une alternance de quantificateurs d'existence ($\exists$) ou d'universalité ($\forall$) (voir la définition~\ref{def:classe-p} pour un exemple). Ainsi, cette hiérarchie \textsf{PH} est comprise dans la classe de complexité $\textsf{P}^{\textsf{\#P}}$, c'est-à-dire les problèmes résolubles avec un oracle \textsf{\#P}. Comme la hiérarchie polynomiale contient de nombreux problèmes importants, ce théorème suggère l'incroyable puissance des problèmes de comptage.
+L'importance des problèmes \textsf{\#P} au sein de la théorie de la complexité s'observe entre autres par le théorème de Toda~\cite{todaPPHardPolynomialTime1991}. Ce résultat marquant montre que tous les problèmes de la hiérarchie polynomiale \textsf{PH} peuvent être résolus en temps polynomial avec un oracle résolvant instantanément les problèmes \textsf{\#P}. La hiérarchie polynomiale généralise les classes de complexité \textsf{P}, \textsf{NP} et \textsf{co-NP} en capturant les classes de problèmes exprimés par une alternance de quantificateurs d'existence ($\exists$) ou d'universalité ($\forall$) (voir la définition~\ref{def:classe-np} pour un exemple contenant un seul quantificateur d'existence). Ainsi, cette hiérarchie \textsf{PH} est comprise dans la classe de complexité $\textsf{P}^{\textsf{\#P}}$, c'est-à-dire les problèmes résolubles avec un oracle \textsf{\#P}. Comme la hiérarchie polynomiale contient de nombreux problèmes importants, ce théorème suggère l'incroyable puissance des problèmes de comptage.
 
 \begin{subtheorem}{Théorème de Toda}{toda}
     La hiérarchie polynomiale \textsf{PH} est contenue dans $\textsf{P}^{\textsf{\#P}}$.
 \end{subtheorem}
+
+\textcolor{mydarkred}{\textit{https://www.cs.cornell.edu/~sabhar/chapters/ModelCounting-SAT-Handbook-prelim.pdf}}
 
 % L'ordinateur quantique boulverse le domaine de la complexité classique. En effet, la thèse de Church-Turing, stipulant qu'un algorithme est calculable si et seulement s'il est calculable par une machine de Turing, ne prend pas en compte les processus physiques. Le principe de Church-Turing-Deustch généralise la thèse de Church-Turing en énoncçant qu'un dispositif de calcul universel peut simuler n'importe quel processus physique. \textcolor{mydarkred}{\textit{Enlever?}}
 
@@ -152,7 +154,7 @@ L'ordinateur quantique bouleverse le domaine de la complexité classique. Les pr
 % \textcolor{mydarkred}{\textit{Parler des problèmes d'optimisation combinatoire.}}
 
 \textcolor{mydarkred}{\textit{Ajouter une figure sur les classes de complexité.}}
-
+\textcolor{mydarkred}{\textit{Classe PP}}
 % \textcolor{mydarkred}{\textit{Classes de complexité quantique}}
 
 %-----------------------------------------------------------------------------%
@@ -210,10 +212,10 @@ Dans l'étude du problème SAT, les formules propositionnelles sont souvent expr
 
 \textcolor{mydarkred}{\textit{Tables de vérité?}}
 
-Le problème kSAT constitue un cas spécial du problème SAT, où le nombre de littéraux appartenant à chaque clause d'une formule CNF est restreint à $k$ littéraux au maximum. Notons que le problème kSAT est trivial pour $k=1$, résoluble en temps linéaire pour $k=2$~\cite{kromDecisionProblemClass1967}, et \textsf{NP}-complet pour $k \geq 3$~\cite{karpReducibilityCombinatorialProblems1972}.
+Le problème kSAT constitue un cas spécial du problème SAT, où le nombre de littéraux appartenant à chaque clause d'une formule CNF est restreint à $k$ littéraux au maximum. Notons que le problème kSAT est trivial pour $k=1$, résoluble en temps linéaire pour $k=2$~\cite{kromDecisionProblemClass1967}, et \textsf{NP}-complet pour $k \geq 3$~\cite{karpReducibilityCombinatorialProblems1972}. Surprenamment, les problèmes de comptage correspondant, \#2SAT et \#3SAT, appartiennent tous les deux à la classe \textsf{\#P}-complet~\cite{valiantComplexityEnumerationReliability1979b}. Ainsi, compter le nombre de solutions à un problème \textsf{NP}-complet peut être difficile même s'il est possible de trouver une solution efficacement.
 
 Dans ce mémoire, deux variantes de 3SAT seront portées à l'étude: le problème Pas-Tous-Égaux 3SAT (« Not-All-Equal 3-Satisfiability ») (NAE3SAT) et le problème 1-dans-3 3SAT (« One-in-Three 3-Sastisfiability ») (1-in-3SAT). 
-Comme le problème SAT, ces problèmes appartiennent aussi à la classe de complexité \textsf{NP}-complet. Surprenamment, les versions monotones de ces problèmes, où la négation de variables n'est pas permise, sont aussi \textsf{NP}-complet par le théorème de dichotomie de Schaefer~\cite{schaeferComplexitySatisfiabilityProblems1978}. Ces problèmes de décision peuvent être associés aux problèmes de comptage \#NAE3SAT et \#1-in-3SAT de la classe de complexité \textsf{\#P}.
+Comme le problème SAT, ces problèmes appartiennent aussi à la classe de complexité \textsf{NP}-complet. Les versions monotones de ces problèmes, où la négation de variables n'est pas permise, sont étonnament aussi \textsf{NP}-complet par le théorème de dichotomie de Schaefer~\cite{schaeferComplexitySatisfiabilityProblems1978}. Ces problèmes de décision peuvent être associés aux problèmes de comptage \#NAE3SAT et \#1-in-3SAT de la classe de complexité \textsf{\#P}.
 
 \begin{maindefinition}{Problème NAE3SAT}{probleme-nae3sat}
     Soit une formule CNF $\varphi(x_{1}, x_{2}, \dots, x_{n})$ pour laquelle chaque clause $C$ contient au maximum 3 littéraux. Existe-t-il une assignation des variables $x_{1}, x_{2}, \dots, x_{n}$ telle que $\varphi$ soit satisfaisable tout en s'assurant que tous les littéraux de chaque clause $C$ ne soient pas égaux?
@@ -256,12 +258,14 @@ L'intraitabilité de tels problèmes mène alors à un paradigme différent; Sac
 Les problèmes de décision ne possédant que deux solutions, oui ou non, il n'est pas possible de fournir une solution approximative. Un \textit{problème d'optimisation}, défini en conjonction à un problème de décision, est alors une notion plus adéquate pour incorporer la notion d'approximation. Ces problèmes ne cherchent plus à trouver la solution optimale, mais plutôt à obtenir une réponse suffisamment près de la valeur optimale. Un exemple de problème d'optimisation, particulièrement étudié dans le domaine de l'optimisation quantique en raison de sa simplicité d'implémentation sur du matériel informatique quantique, est le problème de coupe maximum (­« Maximum Cut ») (Max-Cut). Ce problème cherche une coupe séparant les sommets d'un graphe en deux ensembles complémentaires tel que le nombre d'arêtes séparant les deux ensemble soit maximal. Le problème Max-Cut étant \textsf{NP}-complet, il est difficile d'obtenir une coupe optimale, mais une coupe sous-optimale peut possiblement être trouvée efficacement.
 
 Un problème d'optimisation $\Pi$ est constitué d'un ensemble d'instances valides $I_{\Pi}$, où chaque instance $x \in I_{\Pi}$ possède un ensemble de solutions faisables $S_{\Pi}(x)$. Une fonction objectif $\text{obj}_{\Pi}$, aussi nommée fonction de coût ou de perte, quantifie la qualité d'une solution approximative $y$ de $x$ en lui assignant un nombre réel. En conséquence, résoudre approximativement un problème d'optimisation correspond à minimiser ou maximiser la fonction de coût. Une mesure de succès fréquemment utilisée, autant classiquement que quantiquement, est le \textit{ratio d'approximation},
-
 \begin{equation}
     r(x, y) = \frac{\text{obj}_{\Pi}(x, y)}{\text{OBJ}_{\Pi}(x)} \,,
 \end{equation}
+où $\text{OBJ}_{\Pi}(x) = \min_{y} \text{obj}_{\Pi} (x, y)$. Ce type de problème est formalisé sous le nom de problème d'optimisation \textsf{NP}, mais une définition détaillée est évitée ici par simplicité. Bien que les algorithmes d'approximation heuristiques offrent fréquemment de bons résultats, ceux-ci ne possèdent aucune garantie quant à la qualité de ces solutions.
 
-où $\text{OBJ}_{\Pi}(x) = \min_{y} \text{obj}_{\Pi} (x, y)$. Ce type de problème est formalisé sous le nom de problème d'optimisation \textsf{NP}, mais une définition détaillée est évitée ici par simplicité. Bien que les algorithmes d'approximation heuristiques offrent fréquemment de bons résultats, ceux-ci ne possèdent aucune garantie quant à la qualité de ces solutions. Un \textit{algorithme d'approximation de tolérance $\varepsilon$} pallie ce problème en garantissant une solution optimale à une erreur multiplicative près~\cite{vaziraniApproximationAlgorithms2003}. Pour un problème de minimisation $\Pi$, cet algorithme produit une solution $s$ pour toutes instances $x \in I_{\Pi}$ tel que $f_{\Pi}(x, y) \leq \varepsilon(\lvert x \rvert ) \cdot \text{OBJ}(x)$ où $\lvert  x \rvert $ est la taille de l'instance et $\varepsilon \geq 1   $. Cette définition peut être détendue en permettant à l'algorithme de produire une telle solution avec une certaine probabilité. Cette variante, l'\textit{algorithme d'approximation randomisé de tolérance $\varepsilon$}, introduit des concepts pertinents pour le chapitre~\ref{cha:echantillonnage-quasi-uniforme-comptage-approximatif-randomise}. En effet, les algorithmes classiques comprennent souvent le couple de paramètres $(\varepsilon, \delta)$, où $\varepsilon$ est la tolérance et $\delta$ est la confiance du résultat (ici $\delta=1/2$). \textcolor{mydarkred}{\textit{Ajouter...}}
+Pour pallier ce problème, des algorithmes approximatifs avec garantis sont définis en fonction de deux paramètres: la tolérance $\varepsilon$ et la confiance $\delta$. La tolérance indique l'erreur multiplicative maximale de l'approximation et la confiance indique la probabilité de succès de l'algorithme. Ce couple de paramètres est souvent utilisés pour décrire les algorithmes approximatifs.
+
+Un \textit{algorithme d'approximation de tolérance $\varepsilon$} pallie ce problème en garantissant une solution optimale à une erreur multiplicative près~\cite{vaziraniApproximationAlgorithms2003}. Pour un problème de minimisation $\Pi$, cet algorithme produit une solution $s$ pour toutes instances $x \in I_{\Pi}$ tel que $f_{\Pi}(x, y) \leq \varepsilon(\lvert x \rvert ) \cdot \text{OBJ}(x)$ où $\lvert  x \rvert $ est la taille de l'instance et $\varepsilon \geq 1   $. Cette définition peut être détendue en permettant à l'algorithme de produire une telle solution avec une certaine probabilité. Cette variante, l'\textit{algorithme d'approximation randomisé de tolérance $\varepsilon$}, introduit des concepts pertinents pour le chapitre~\ref{cha:echantillonnage-quasi-uniforme-comptage-approximatif-randomise}.
 
 \textcolor{mydarkred}{\textit{What is $f$?}}
 
@@ -278,7 +282,7 @@ En relaxant la condition d'exactitude, il est attendu qu'un gain en possible en 
 
 %-----------------------------------------------------------------------------%
 
-\section{Complexité et bornes sur le comptage}
+\section{Comptage de modèles}
 \label{sec:complexite-et-bornes-sur-le-comptage}
 
 \begin{comment}
@@ -299,18 +303,40 @@ En relaxant la condition d'exactitude, il est attendu qu'un gain en possible en 
 2. Sinclair, A. and Jerrum, M. Approximate counting, uniform generation and rapidly mixing Markov chains. Information and Computation 82, 93–133 (1989).
 \end{comment}
 
-Sachant désormais que le comptage est un problème difficile, est-il possible de préciser sa complexité?
+% est-il possible de préciser sa complexité dans le pire des cas? Une quantité signifiante de travaux s'intéresse à cette question.
 
-La théorie de la complexité est un domaine surprenant. Comme vu à la section~\ref{sec:satisfaisabilite-booleenne}, le problème 2SAT est traitable au contraire du problème 3SAT. Surprenamment, les problèmes de comptage correspondant, \#2SAT et \#3SAT, appartiennent tous les deux à la classe \textsf{\#P}-complet. 
+Sachant désormais que le comptage est un problème difficile, comment résoudre celui-ci? Le comptage des solutions d'une formule propositionnelle est spécifiquement connu dans la littérature sous le nom de \textit{comptage de modèles}. De nombreuses méthodes, autant exactes qu'approximatives, ont été développées pour sa résolution~\cite{biereHandbookSatisfiabilityVolume2009}. 
+
+Les méthodes exactes attaquent généralement le problème en explorant exhaustivement l'espace des solutions possibles, de manière similaire à l'algorithme de Davis-Putnam-Logemann-Loveland (DPLL) pour les problèmes SAT~\cite{davisMachineProgramTheoremproving1962}. Les algorithmes de recherche locale pour SAT, tel l'algorithme WalkSAT, peuvent aussi être étendus pour résoudre \#SAT. Toutefois, les solveurs les plus performants actuellement sont basés sur les réseaux de tenseurs, un object mathématique provenant du domaine de la matière condensée~\cite{kourtisFastCountingTensor2019a, dudekEfficientContractionLarge2020, dudekParallelWeightedModel2021}. Ces réseaux sont utiles dans de nombreux autres domaines et sont d'ailleurs utilisés dans ce travail pour la simulation de circuit quantique et font donc l'objet de l'annexe~\ref{ann:simulation-circuits-quantiques-avec-reseaux-de-tenseurs}. Bien que différents développements accentuent la taille des systèmes résolubles exactement, les solveurs ont de la difficulté à trouver l'ensemble de solutions de l'espace de recherche. 
+
+Les méthodes approximatives allègent ce problème à l'aide d'heuristiques fournissant des estimations avec ou sans garanties. Plusieurs applications du comptage ne nécessitent pas un résultat exact; distinguer la différence entre $10^{30}$ et $10^{30}+1$ solutions n'est pas toujours pertinent. L'algorithme de Stockmeyer, qui approxime le nombre de solutions à un facteur deux avec un nombre polynomial d'appels à un oracle \textsf{NP} en s'appuyant sur les fonctions de hachage, fut un pas majeur pour le comptage approximatif~\cite{stockmeyerComplexityApproximateCounting1983b}. Plusieurs modifications ont propulsé le domaine vers des performances accrues de sorte que la majorité des méthodes modernes se basent effectivement sur les fonctions de hachage. Cependant, une méthode alternative due à Jerrum, Valiant et Vazirani utilise plutôt la relation entre l'échantillonnage aléatoire de solutions et le comptage approximatif pour résoudre le problème. Malgré l'originalité de cette idée, la recherche dans cette direction s'est estompée en raison de la difficulté de l'échantillonnage de solutions avec les conditions nécessaires. Ce travail relance cette possibilité en pourvoyant une nouvelle façon d'échantillonner avec les algorithmes variationnels quantiques. Une discussion approfondie est présentée au chapitre~\ref{cha:echantillonnage-quasi-uniforme-comptage-approximatif-randomise}.
+
+Les avancées en physique, tel les réseaux de tenseurs, présentent des avantages pour le comptage de modèle, mais l'inverse est aussi vrai. Le problème du comptage est intimement reliée au domaine de la mécanique statistique. En effet, déterminer la fonction de partition d'un système à température nulle est en réalité équivalent à un problème de comptage~\cite{timmeCountingComplexDisordered2009}. Considérons la fonction de partition $Z$ pour un Hamiltonien $H$ où l'énergie fondamentale est fixée à $E_{0} = 0$,
+\begin{equation}
+    Z = \sum_{i} e^{-\beta E_{i}} \,,
+\end{equation}
+où $\beta = \frac{1}{k_{b} T}$, $k_{B}$ est la constante de Boltzmann et $T$ est la température. Dans la limite $T \to 0$, les seuls termes non-nuls de la somme sont $e^{-\beta E_{0}}$, c'est-à-dire les termes associés aux états fondamentaux du système. Ainsi, pour un système dégénéré de $N_{0}$ états fondamentaux, la fonction de partition devient $Z = N_{0}$. Calculer la fonction de partition correspond ainsi à déterminer le nombre d'états fondamentaux.
+
+Le développement du calcul quantique a aussi mené à de fructueux aboutissements. L'algorithme de comptage quantique prend avantage de l'algorithme de Grover et de l'algorithme d'estimation de phase quantique pour approximer le nombre de solutions à l'aide de $(\sqrt{\frac{N}{M}})$ itérations, où $M$ est le nombre de solutions, de taille exponentielle pour les problèmes SAT et $N$ est le nombre d'états possibles~\cite{brassardQuantumCounting1998}. Le nombre d'itérations nécessaires profite ainsi d'un gain quadratique par rapport à la complexité optimale classique de $O(\frac{N}{M})$.
+
+Notons que dans tous les cas, le comptage de solutions aux formules CNF, l'objet de ce travail, ne s'effectue jamais en temps polynomial. Même les approches approximatives nécessitent un nombre exponentiel d'opérations, indiquant davantage la difficulté de ce problème.
+
 
 \textcolor{mydarkred}{\textit{Model counting!}}
 \textcolor{mydarkred}{\textit{Hashing based}}
-
+\textcolor{mydarkred}{\textit{JVV}}
+\textit{}
 \textcolor{mydarkred}{\textit{Permanent}}
 
 \textcolor{mydarkred}{\textit{Quantum counting?}}
 
 \textcolor{mydarkred}{\textit{https://www.scottaaronson.com/papers/apxcount.pdf}}
+
+\textcolor{mydarkred}{\textit{https://www.cs.cornell.edu/~sabhar/chapters/ModelCounting-SAT-Handbook-prelim.pdf}}
+
+\textcolor{mydarkred}{\textit{https://www.cs.toronto.edu/~meel/Papers/handbook-chapter.pdf}}
+
+\textcolor{mydarkred}{\textit{Partition function}}
 
 %-----------------------------------------------------------------------------%
 
@@ -339,9 +365,16 @@ La théorie de la complexité est un domaine surprenant. Comme vu à la section~
 
 La complexité d'une instance aléatoire d'un problème \textsf{NP} n'est pas toujours équivalente. En réalité, certaines instances sont résolubles en temps polynomial, alors que d'autres sont intraitables. Les discussions autour des classes de complexité s'intéressent principalement à la complexité dans le pire des cas pour décrire la difficulté inhérente d'un problème. Cependant, certaines instances peuvent posséder une complexité inférieure, pouvant alors être pris en avantage par certains algorithmes. 
 
-Pour les problèmes SAT, la difficulté d'une instance aléatoire est grandement dépendante sur le ratio $\alpha = \frac{m}{n}$, où $m$ est le nombre de clauses et $n$ est le nombre de variables. Intuitivement, cette difficulté provient de l'ajout de contraintes au problème sous la forme de clauses. Plus surprenamment, la complexité d'une telle instance suit une transition de phase nommée \textit{transition de phase critique}. En effet, il existe une valeur critique $\alpha_{c}$ où les instances du problème SAT passe de satisfaisable à insatisfaisable dans la limite asymptotique de $n$. La difficulté du problème SAT est maximale juste avant cette transition.
+Pour les problèmes SAT, la difficulté d'une instance aléatoire est grandement dépendante sur le ratio $\alpha = \frac{m}{n}$, où $m$ est le nombre de clauses et $n$ est le nombre de variables. Intuitivement, cette difficulté provient de l'ajout de contraintes au problème sous la forme de clauses. Plus surprenamment, la complexité d'une telle instance suit une transition de phase nommée \textit{transition de phase critique}. En effet, il existe une valeur critique $\alpha_{c}$ où les instances du problème SAT passe de satisfaisable à insatisfaisable dans la limite asymptotique de $n$. La difficulté du problème SAT est maximale juste avant cette transition. Pourquoi est-ce le cas?
 
-Plusieurs autres transitions de phase existent avant la transition critique telle qu'illustré à la figure~\ref{fig:transitions-de-phase}. D'abord, la \textit{distance de Hamming} entre deux chaînes de bits de même taille correspond au nombre de positions dans les chaînes où les bits correspondants diffèrent. Cette mesure permet entre autres d'expliciter la similarité entre deux entrées au problème SAT. Avant la première transition de phase, la transition de regroupement, toutes les solutions d'une instance du problème SAT sont situées au sein du même amas, chacune à une distance d'Hamming polynomiale selon la taille de l'instance.
+Plusieurs autres transitions de phase existent avant la transition critique telle qu'illustré à la figure~\ref{fig:transitions-de-phase}. Ces transitions, similairement aux transitions de phase du modèle d'Ising, correspondent à des changements dans l'organisation de l'ensemble des solutions. Pour décrire cette réorganisation, une mesure de similarité est nécessaire pour comparer les différentes entrées au problème SAT. La \textit{distance de Hamming} entre deux chaînes de bits de même taille correspond au nombre de positions dans les chaînes où les bits correspondants diffèrent. 
+
+
+Avant la première transition de phase, la \textit{transition de phase de regroupement}, toutes les solutions d'une instance du problème SAT sont situées au sein du même amas, chacune à une distance d'Hamming polynomiale selon la taille de l'instance.
+
+\textit{transition de phase de congélation}
+
+
 
 \begin{figure}[h]
     \centering
@@ -349,6 +382,9 @@ Plusieurs autres transitions de phase existent avant la transition critique tell
     \caption[Transitions de phase du problème SAT]{}
     \label{fig:transitions-de-phase}
 \end{figure}
+
+Les approches locales semblent échouer à la transition de condensation, alors que la difficulté du problème SAT semble provenir de la transition de congélation.
+
 
 NAE3SAT: $\alpha_{c} \approx 2.1$~\cite{achlioptasPhaseTransition1ink2001}
 1-in-3SAT: $\alpha_{c} \approx 2/3$~\cite{raymondPhaseDiagram1in32007}
@@ -359,4 +395,8 @@ NAE3SAT: $\alpha_{c} \approx 2.1$~\cite{achlioptasPhaseTransition1ink2001}
 
 \textcolor{mydarkred}{\textit{Locked problems.}}
 
-Les instances du problème \#1-in-3SAT près du seuil critique appartiennent à la catégorie des problèmes bloqués. Les problèmes \#P dans ce régime sont parmi les plus difficiles~\cite{zdeborovaStatisticalPhysicsHard2008}. 
+Les instances du problème \#1-in-3SAT près du seuil critique appartiennent à la catégorie des problèmes bloqués. Les problèmes \#P dans ce régime sont parmi les plus difficiles~\cite{zdeborovaStatisticalPhysicsHard2008}.
+
+\textcolor{mydarkred}{\textit{Voir papier de stefanos fast counting, plus d'informations et de références.}}
+
+\textcolor{mydarkred}{\textit{Algorithme local vs global}}

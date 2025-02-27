@@ -188,6 +188,18 @@
   file = {/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/CJ2QWSJ6/Biamonte and Bergholm - 2017 - Tensor Networks in a Nutshell.pdf;/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/6WPFVU9S/1708.html}
 }
 
+@book{biereHandbookSatisfiabilityVolume2009,
+  title = {Handbook of {{Satisfiability}}: {{Volume}} 185 {{Frontiers}} in {{Artificial Intelligence}} and {{Applications}}},
+  shorttitle = {Handbook of {{Satisfiability}}},
+  author = {Biere, A. and Biere, A. and Heule, M. and family=Maaren, given=H., prefix=van, useprefix=true and Walsh, T.},
+  date = {2009-01},
+  publisher = {IOS Press},
+  location = {NLD},
+  abstract = {'Satisfiability (SAT) related topics have attracted researchers from various disciplines: logic, applied areas such as planning, scheduling, operations research and combinatorial optimization, but also theoretical issues on the theme of complexity and much more, they all are connected through SAT. My personal interest in SAT stems from actual solving: The increase in power of modern SAT solvers over the past 15 years has been phenomenal. It has become the key enabling technology in automated verification of both computer hardware and software. Bounded Model Checking (BMC) of computer hardware is now probably the most widely used model checking technique. The counterexamples that it finds are just satisfying instances of a Boolean formula obtained by unwinding to some fixed depth a sequential circuit and its specification in linear temporal logic. Extending model checking to software verification is a much more difficult problem on the frontier of current research. One promising approach for languages like C with finite word-length integers is to use the same idea as in BMC but with a decision procedure for the theory of bit-vectors instead of SAT. All decision procedures for bit-vectors that I am familiar with ultimately make use of a fast SAT solver to handle complex formulas. Decision procedures for more complicated theories, like linear real and integer arithmetic, are also used in program verification. Most of them use powerful SAT solvers in an essential way. Clearly, efficient SAT solving is a key technology for 21st century computer science. I expect this collection of papers on all theoretical and practical aspects of SAT solving will be extremely useful to both students and researchers and will lead to many further advances in the field.' Edmund Clarke (FORE Systems University Professor of Computer Science and Professor of Electrical and Computer Engineering at Carnegie Mellon University)},
+  isbn = {978-1-58603-929-5},
+  pagetotal = {980}
+}
+
 @article{bittelTrainingVariationalQuantum2021,
   title = {Training {{Variational Quantum Algorithms Is NP-Hard}}},
   author = {Bittel, Lennart and Kliesch, Martin},
@@ -240,6 +252,21 @@
   langid = {english},
   keywords = {Computational science,Quantum information},
   file = {/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/Z9IAUEDT/Bouland et al. - 2019 - On the complexity and verification of quantum random circuit sampling.pdf}
+}
+
+@inproceedings{brassardQuantumCounting1998,
+  title = {Quantum Counting},
+  booktitle = {Automata, {{Languages}} and {{Programming}}},
+  author = {Brassard, Gilles and HØyer, Peter and Tapp, Alain},
+  editor = {Larsen, Kim G. and Skyum, Sven and Winskel, Glynn},
+  date = {1998},
+  pages = {820--831},
+  publisher = {Springer},
+  location = {Berlin, Heidelberg},
+  doi = {10.1007/BFb0055105},
+  abstract = {We study some extensions of Grover's quantum searching algorithm. First, we generalize the Grover iteration in the light of a concept called amplitude amplification. Then, we show that the quadratic speedup obtained by the quantum searching algorithm over classical brute force can still be obtained for a large family of search problems for which good classical heuristics exist. Finally, as our main result, we combine ideas from Grover's and Shor's quantum algorithms to perform approximate counting, which can be seen as an amplitude estimation process.},
+  isbn = {978-3-540-68681-1},
+  langid = {english}
 }
 
 @article{bridgemanHandwavingInterpretiveDance2017a,
@@ -320,6 +347,54 @@
   abstract = {It is shown that any recognition problem solved by a polynomial time-bounded nondeterministic Turing machine can be “reduced” to the problem of determining whether a given propositional formula is a tautology. Here “reduced” means, roughly speaking, that the first problem can be solved deterministically in polynomial time provided an oracle is available for solving the second. From this notion of reducible, polynomial degrees of difficulty are defined, and it is shown that the problem of determining tautologyhood has the same polynomial degree as the problem of determining whether the first of two given graphs is isomorphic to a subgraph of the second. Other examples are discussed. A method of measuring the complexity of proof procedures for the predicate calculus is introduced and discussed.},
   isbn = {978-1-4503-7464-4},
   file = {/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/MS5Z85WS/Cook - 1971 - The complexity of theorem-proving procedures.pdf}
+}
+
+@article{davisMachineProgramTheoremproving1962,
+  title = {A Machine Program for Theorem-Proving},
+  author = {Davis, Martin and Logemann, George and Loveland, Donald},
+  date = {1962-07-01},
+  journaltitle = {Commun. ACM},
+  volume = {5},
+  number = {7},
+  pages = {394--397},
+  issn = {0001-0782},
+  doi = {10.1145/368273.368557},
+  url = {https://dl.acm.org/doi/10.1145/368273.368557},
+  urldate = {2025-02-26},
+  abstract = {The programming of a proof procedure is discussed in connection with trial runs and possible improvements.},
+  file = {/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/M64GW6SG/Davis et al. - 1962 - A machine program for theorem-proving.pdf}
+}
+
+@online{dudekEfficientContractionLarge2020,
+  title = {Efficient {{Contraction}} of {{Large Tensor Networks}} for {{Weighted Model Counting}} through {{Graph Decompositions}}},
+  author = {Dudek, Jeffrey M. and Dueñas-Osorio, Leonardo and Vardi, Moshe Y.},
+  date = {2020-04-27},
+  eprint = {1908.04381},
+  eprinttype = {arXiv},
+  eprintclass = {cs},
+  doi = {10.48550/arXiv.1908.04381},
+  url = {http://arxiv.org/abs/1908.04381},
+  urldate = {2025-02-26},
+  abstract = {Constrained counting is a fundamental problem in artificial intelligence. A promising new algebraic approach to constrained counting makes use of tensor networks, following a reduction from constrained counting to the problem of tensor-network contraction. Contracting a tensor network efficiently requires determining an efficient order to contract the tensors inside the network, which is itself a difficult problem. In this work, we apply graph decompositions to find contraction orders for tensor networks. We prove that finding an efficient contraction order for a tensor network is equivalent to the well-known problem of finding an optimal carving decomposition. Thus memory-optimal contraction orders for planar tensor networks can be found in cubic time. We show that tree decompositions can be used both to find carving decompositions and to factor tensor networks with high-rank, structured tensors. We implement these algorithms on top of state-of-the-art solvers for tree decompositions and show empirically that the resulting weighted model counter is quite effective and useful as part of a portfolio of counters.},
+  pubstate = {prepublished},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Data Structures and Algorithms,Computer Science - Logic in Computer Science},
+  file = {/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/9KARQTGF/Dudek et al. - 2020 - Efficient Contraction of Large Tensor Networks for Weighted Model Counting through Graph Decompositi.pdf;/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/3IH8IPFF/1908.html}
+}
+
+@online{dudekParallelWeightedModel2021,
+  title = {Parallel {{Weighted Model Counting}} with {{Tensor Networks}}},
+  author = {Dudek, Jeffrey M. and Vardi, Moshe Y.},
+  date = {2021-06-14},
+  eprint = {2006.15512},
+  eprinttype = {arXiv},
+  eprintclass = {cs},
+  doi = {10.48550/arXiv.2006.15512},
+  url = {http://arxiv.org/abs/2006.15512},
+  urldate = {2025-02-26},
+  abstract = {A promising new algebraic approach to weighted model counting makes use of tensor networks, following a reduction from weighted model counting to tensor-network contraction. Prior work has focused on analyzing the single-core performance of this approach, and demonstrated that it is an effective addition to the current portfolio of weighted-model-counting algorithms. In this work, we explore the impact of multi-core and GPU use on tensor-network contraction for weighted model counting. To leverage multiple cores, we implement a parallel portfolio of tree-decomposition solvers to find an order to contract tensors. To leverage a GPU, we use TensorFlow to perform the contractions. We compare the resulting weighted model counter on 1914 standard weighted model counting benchmarks and show that it significantly improves the virtual best solver.},
+  pubstate = {prepublished},
+  keywords = {Computer Science - Data Structures and Algorithms},
+  file = {/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/PGL86BD4/Dudek and Vardi - 2021 - Parallel Weighted Model Counting with Tensor Networks.pdf;/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/G8LXNIGB/2006.html}
 }
 
 @article{duenas-osorioCountingBasedReliabilityEstimation2017,
@@ -696,6 +771,23 @@
   file = {/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/W399M6GT/Kourtis et al. - 2019 - Fast counting with tensor networks.pdf;/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/JMQSAJ96/SciPostPhys.7.5.html}
 }
 
+@article{kourtisFastCountingTensor2019a,
+  title = {Fast Counting with Tensor Networks},
+  author = {Kourtis, Stefanos and Chamon, Claudio and Mucciolo, Eduardo and Ruckenstein, Andrei E.},
+  date = {2019-11-12},
+  journaltitle = {SciPost Physics},
+  volume = {7},
+  number = {5},
+  pages = {060},
+  issn = {2542-4653},
+  doi = {10.21468/SciPostPhys.7.5.060},
+  url = {https://scipost.org/SciPostPhys.7.5.060},
+  urldate = {2025-02-26},
+  abstract = {SciPost Journals Publication Detail SciPost Phys. 7, 060 (2019) Fast counting with tensor networks},
+  langid = {english},
+  file = {/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/X2MNNTNN/Kourtis et al. - 2019 - Fast counting with tensor networks.pdf}
+}
+
 @article{kromDecisionProblemClass1967,
   title = {The {{Decision Problem}} for a {{Class}} of {{First-Order Formulas}} in {{Which}} All {{Disjunctions}} Are {{Binary}}},
   author = {Krom, M. R.},
@@ -978,6 +1070,19 @@
   institution = {Master’s thesis, Universität Hanover}
 }
 
+@inproceedings{selmanNewMethodSolving1992,
+  title = {A New Method for Solving Hard Satisfiability Problems},
+  booktitle = {Proceedings of the Tenth National Conference on {{Artificial}} Intelligence},
+  author = {Selman, Bart and Levesque, Hector and Mitchell, David},
+  date = {1992-07-12},
+  series = {{{AAAI}}'92},
+  pages = {440--446},
+  publisher = {AAAI Press},
+  location = {San Jose, California},
+  abstract = {We introduce a greedy local search procedure called GSAT for solving propositional satisfiability problems. Our experiments show that this procedure can be used to solve hard, randomly generated problems that are an order of magnitude larger than those that can be handled by more traditional approaches such as the Davis-Putnam procedure or resolution. We also show that GSAT can solve structured satisfiability problems quickly. In particular, we solve encodings of graph coloring problems, N-queens, and Boolean induction. General application strategies and limitations of the approach are also discussed.GSAT is best viewed as a model-finding procedure. Its good performance suggests that it may be advantageous to reformulate reasoning tasks that have traditionally been viewed as theorem-proving problems as model-finding tasks.},
+  isbn = {978-0-262-51063-9}
+}
+
 @article{sharmaGANAKScalableProbabilistic2019,
   title = {{{GANAK}}: {{A Scalable Probabilistic Exact Model Counter}}},
   shorttitle = {{{GANAK}}},
@@ -1003,6 +1108,42 @@
   langid = {english},
   pagetotal = {482},
   keywords = {Computers / Computer Science}
+}
+
+@inproceedings{stockmeyerComplexityApproximateCounting1983b,
+  title = {The Complexity of Approximate Counting},
+  booktitle = {Proceedings of the Fifteenth Annual {{ACM}} Symposium on {{Theory}} of Computing},
+  author = {Stockmeyer, Larry},
+  date = {1983-12-01},
+  series = {{{STOC}} '83},
+  pages = {118--126},
+  publisher = {Association for Computing Machinery},
+  location = {New York, NY, USA},
+  doi = {10.1145/800061.808740},
+  url = {https://dl.acm.org/doi/10.1145/800061.808740},
+  urldate = {2025-02-25},
+  abstract = {There are several computational problems that can be formulated as problems of counting the number of objects having a certain property. Valiant [22] has introduced the class \#P which includes a variety of counting problems such as counting the number of perfect matchings in a graph, computing the permanent of a matrix [22], finding the size of a backtrack search tree [14], and computing the probability that a network remains connected when links can fail with a certain probability [23].We define and study a class of restricted, but very natural, probabilistic sampling methods motivated by the particular counting problems mentioned above. Instead of “singleton sampling” the algorithm is allowed to sample a large set S ample; U in one step; the information returned from the sample is whether S contains any element having the property being counted.We attempt to classify the complexity of computing approximate solutions to problems in \#P. The classification is done in terms of the polynomial-time hierarchy (for short, P-hierarchy) [21].We give a relativization result that complements a recent result of Sipser and Gaacute;c [19] that BPP is contained in the second level of the P-hierarchy.},
+  isbn = {978-0-89791-099-6},
+  file = {/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/ZNWLPFF8/Stockmeyer - 1983 - The complexity of approximate counting.pdf}
+}
+
+@article{timmeCountingComplexDisordered2009,
+  title = {Counting Complex Disordered States by Efficient Pattern Matching: Chromatic Polynomials and {{Potts}} Partition Functions},
+  shorttitle = {Counting Complex Disordered States by Efficient Pattern Matching},
+  author = {Timme, Marc and family=Bussel, given=Frank, prefix=van, useprefix=true and Fliegner, Denny and Stolzenberg, Sebastian},
+  date = {2009-02},
+  journaltitle = {New Journal of Physics},
+  shortjournal = {New J. Phys.},
+  volume = {11},
+  number = {2},
+  pages = {023001},
+  issn = {1367-2630},
+  doi = {10.1088/1367-2630/11/2/023001},
+  url = {https://dx.doi.org/10.1088/1367-2630/11/2/023001},
+  urldate = {2025-02-26},
+  abstract = {Counting problems, determining the number of possible states of a large system under certain constraints, play an important role in many areas of science. They naturally arise for complex disordered systems in physics and chemistry, in mathematical graph theory, and in computer science. Counting problems, however, are among the hardest problems to access computationally. Here, we suggest a novel method to access a benchmark counting problem, finding chromatic polynomials of graphs. We develop a vertex-oriented symbolic pattern matching algorithm that exploits the equivalence between the chromatic polynomial and the zero-temperature partition function of the Potts antiferromagnet on the same graph. Implementing this bottom-up algorithm using appropriate computer algebra, the new method outperforms standard top-down methods by several orders of magnitude, already for moderately sized graphs. As a first application, we compute chromatic polynomials of samples of the simple cubic lattice, for the first time computationally accessing three-dimensional lattices of physical relevance. The method offers straightforward generalizations to several other counting problems.},
+  langid = {english},
+  file = {/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/9Y6JIGUJ/Timme et al. - 2009 - Counting complex disordered states by efficient pattern matching chromatic polynomials and Potts pa.pdf}
 }
 
 @article{todaPPHardPolynomialTime1991,
@@ -1033,21 +1174,36 @@
   publisher = {Russian Academy of Sciences}
 }
 
-@article{valiantComplexityEnumerationReliability1979,
+@article{valiantComplexityComputingPermanent1979,
+  title = {The Complexity of Computing the Permanent},
+  author = {Valiant, L. G.},
+  date = {1979-01-01},
+  journaltitle = {Theoretical Computer Science},
+  shortjournal = {Theoretical Computer Science},
+  volume = {8},
+  number = {2},
+  pages = {189--201},
+  issn = {0304-3975},
+  doi = {10.1016/0304-3975(79)90044-6},
+  url = {https://www.sciencedirect.com/science/article/pii/0304397579900446},
+  urldate = {2025-02-26},
+  abstract = {It is shown that the permanent function of (0, 1)-matrices is a complete problem for the class of counting problems associated with nondeterministic polynomial time computations. Related counting problems are also considered. The reductions used are characterized by their nontrivial use of arithmetic.},
+  file = {/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/IAVK386V/Valiant - 1979 - The complexity of computing the permanent.pdf;/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/ZA6545KA/0304397579900446.html}
+}
+
+@article{valiantComplexityEnumerationReliability1979b,
   title = {The {{Complexity}} of {{Enumeration}} and {{Reliability Problems}}},
   author = {Valiant, Leslie G.},
-  date = {1979-08},
-  journaltitle = {SIAM Journal on Computing},
-  shortjournal = {SIAM J. Comput.},
+  date = {1979-08-01},
+  journaltitle = {SIAM J. Comput.},
   volume = {8},
   number = {3},
   pages = {410--421},
-  publisher = {{Society for Industrial and Applied Mathematics}},
   issn = {0097-5397},
   doi = {10.1137/0208032},
-  url = {https://epubs.siam.org/doi/10.1137/0208032},
-  urldate = {2024-01-04},
-  abstract = {Alternating Turing machines (ATMs) with bounded number of reversals are considered. It is proved that the machines making fewer than \$\textbackslash log \textasciicircum\{*\} n\$ reversals can recognize only regular languages. On the other hand, the class of languages that can be recognized by ATMs using \$\textbackslash log \textasciicircum\{*\} n\$ reversals is very wide. The authors prove that above this limit even a slight increase of the number of reversals leads to a considerably larger class of languages. It is also proved that every \$T(n)\$-time bounded ATM may be replaced by an equivalent machine working in the same time and making no more than \$\textbackslash log \textasciicircum\{*\} (T(n))\$ reversals.}
+  url = {https://doi.org/10.1137/0208032},
+  urldate = {2025-02-26},
+  abstract = {The class of \$\# P\$-complete problems is a class of computationally eqivalent counting problems (defined by the author in a previous paper) that are at least as difficult as the \$NP\$-complete problems. Here we show, for a large number of natural counting problems for which there was no previous indication of intractability, that they belong to this class. The technique used is that of polynomial time reduction with oracles via translations that are of algebraic or arithmetic nature.}
 }
 
 @book{vaziraniApproximationAlgorithms2003,
@@ -1062,6 +1218,21 @@
   isbn = {978-3-642-08469-0 978-3-662-04565-7},
   langid = {english},
   keywords = {algorithm analysis and problem complexity,algorithm design,algorithms,Approximation algorithms,Combinatorial optimization,combinatorics,complexity,complexity theory,Computer,Erfüllbarkeitsproblem der Aussagenlogik,linear optimization,NP-complete problems,Operations Research,optimization,programming,Scheduling}
+}
+
+@inproceedings{vigerEfficientSimpleGeneration2005,
+  title = {Efficient and {{Simple Generation}} of {{Random Simple Connected Graphs}} with {{Prescribed Degree Sequence}}},
+  booktitle = {Computing and {{Combinatorics}}},
+  author = {Viger, Fabien and Latapy, Matthieu},
+  editor = {Wang, Lusheng},
+  date = {2005},
+  pages = {440--449},
+  publisher = {Springer},
+  location = {Berlin, Heidelberg},
+  doi = {10.1007/11533719_45},
+  abstract = {We address here the problem of generating random graphs uniformly from the set of simple connected graphs having a prescribed degree sequence. Our goal is to provide an algorithm designed for practical use both because of its ability to generate very large graphs (efficiency) and because it is easy to implement (simplicity).},
+  isbn = {978-3-540-31806-4},
+  langid = {english}
 }
 
 @article{virtanenSciPy10Fundamental2020,
