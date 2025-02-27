@@ -234,7 +234,7 @@ De la même façon que pour le problème NAE3SAT, le problème 1-in-3SAT se tran
 %-----------------------------------------------------------------------------%
 
 \section{Intraitabilité, approximation et optimisation}
-\label{intractabilite-approximation-et-optimisation}
+\label{sec:intractabilite-approximation-et-optimisation}
 
 \begin{comment}
 \subsection*{Plan}
@@ -259,7 +259,7 @@ Les problèmes de décision ne possédant que deux solutions, oui ou non, il n'e
 
 Un problème d'optimisation $\Pi$ est constitué d'un ensemble d'instances valides $I_{\Pi}$, où chaque instance $x \in I_{\Pi}$ possède un ensemble de solutions faisables $S_{\Pi}(x)$. Une fonction objectif $\text{obj}_{\Pi}$, aussi nommée fonction de coût ou de perte, quantifie la qualité d'une solution approximative $y$ de $x$ en lui assignant un nombre réel. En conséquence, résoudre approximativement un problème d'optimisation correspond à minimiser ou maximiser la fonction de coût. Une mesure de succès fréquemment utilisée, autant classiquement que quantiquement, est le \textit{ratio d'approximation},
 \begin{equation}
-    r(x, y) = \frac{\text{obj}_{\Pi}(x, y)}{\text{OBJ}_{\Pi}(x)} \,,
+    \alpha(x, y) = \frac{\text{obj}_{\Pi}(x, y)}{\text{OBJ}_{\Pi}(x)} \,,
 \end{equation}
 où $\text{OBJ}_{\Pi}(x) = \min_{y} \text{obj}_{\Pi} (x, y)$. Ce type de problème est formalisé sous le nom de problème d'optimisation \textsf{NP}, mais une définition détaillée est évitée ici par simplicité. Bien que les algorithmes d'approximation heuristiques offrent fréquemment de bons résultats, ceux-ci ne possèdent aucune garantie quant à la qualité de ces solutions.
 

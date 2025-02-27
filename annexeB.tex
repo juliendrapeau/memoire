@@ -6,7 +6,7 @@
 
 La simulation classique d'états quantiques est tout sauf évidente. Ces états, appartenant à l'espace d'Hilbert, sont décrit par des vecteurs d'état de taille exponentielle empêchant ainsi leur caractérisation même pour des systèmes de taille modeste. Cette difficulté, présente dans de nombreux domaines tel l'apprentissage-machine, est aussi connue sous le nom de la \textit{malédiction de la dimensionalité}. Cependant, la représentation de certains états physiques intéressants contient parfois de l'information superflue ou une structure inhérente. Par exemple, un état quantique général de $n$ qubits requiert en théorie un vecteur d'état à $2^{n}$ bits, mais un état quantique non-intriqué nécessite seulement $2n$ bits en raison de l'absence de corrélation. Cette idée a alors mené au développement des méthodes de réseaux de tenseurs pour l'étude de système quantique à plusieurs corps en matière condensé dans l'objectif d'obtenir une représentation des états quantiques plus efficace. 
 
-Cette annexe décrit seulement en surface les méthodes de réseaux de tenseur pour la simulation de circuits quantiques. Pour comprendre les différentes méthodes plus en profondeur, de nombreux tutoriels ont été écrits~\cite{bridgemanHandwavingInterpretiveDance2017a,biamonteTensorNetworksNutshell2017a,bakerMethodesCalculAvec2021a}
+Cette annexe décrit seulement en surface les méthodes de réseaux de tenseur. Pour comprendre les différentes méthodes plus en profondeur, de nombreux tutoriels ont été écrits~\cite{bridgemanHandwavingInterpretiveDance2017a,biamonteTensorNetworksNutshell2017a,bakerMethodesCalculAvec2021a}
 
 %-----------------------------------------------------------------------------%
 
@@ -64,6 +64,11 @@ Un \textit{état en produit de matrices} (« Matrix Product State ») (MPS) est 
 \end{comment}
 
 
-Afin d'obtenir des échantillons à partir d'un réseau de tenseur, deux méthodes sont possibles. D'abord, une réprésentation dense de la fonction d'onde peut être obtenue en contractant le réseau. Les états sont alors simplement obtenus en pigeant selon la distribution de probabilité trouvée. Une méthode alternative ne nécessitant pas un vecteur d'état ~\cite{ferrisPerfectSamplingUnitary2012}. 
+Afin d'obtenir des échantillons à partir d'un réseau de tenseur, deux méthodes sont possibles. D'abord, une réprésentation dense de la fonction d'onde peut être obtenue en contractant le réseau. Les états sont alors simplement obtenus en pigeant selon la distribution de probabilité trouvée. Une méthode alternative utilise plutôt ~\cite{ferrisPerfectSamplingUnitary2012}. 
+
+
+
+
+
 
 %-----------------------------------------------------------------------------%
