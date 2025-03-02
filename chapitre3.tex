@@ -23,11 +23,11 @@
 
 En général, le comptage est un problème ardu. En acceptant une solution approximative, la complexité de ce problème peut être déplacée à l'échantillonnage quasi uniforme de solutions à ce problème grâce à l'algorithme de JVV. Toutefois, la construction d'un tel générateur n'a pas encore été évoquée. En fait, la majorité des solutionneurs de problème \textsf{\#P} ne se basent pas sur l'échantillonnage en raison de la difficulté d'obtenir une distribution uniforme composée de solutions. Est-ce que le calcul quantique peut offrir une méthode efficace pour la génération uniforme de solutions?
 
-Les \textit{algorithmes variationnels quantiques} (« Quantum Variational Algorithms ») (VQA) sont des algorithmes hybrides, c'est-à-dire composés d'une partie quantique et d'une partie classique, conçus pour exploiter les avantages du calcul quantique tout en profitant de la puissance des algorithmes classiques~\cite{cerezoVariationalQuantumAlgorithms2021}. Ces algorithmes ont émergés comme la stratégie dominante pour atteindre l'avantage quantique avec le matériel informatique quantique actuel, connu sous le nom des ordinateurs quantiques bruités de taille intermédiaire (« Noisy Intermediate-Scale Quantum ») (NISQ). En effet, les algorithmes quantiques possédant un avantage par rapport aux algorithmes classiques sont présentement hors d'atteinte pour les ordinateurs quantiques du moment en raison de la taille des systèmes nécessaires et des erreurs causées par le bruit. Le concept derrière des VQA s'inspire des méthodes d'apprentissage automatique pour permettre la résolution de problèmes d'optimisation combinatoire avec des circuits de faible profondeur sans se soucier de la correction des erreurs des qubits. Un circuit quantique paramétré est d'abord préparé sur un ordinateur quantique et un optimiseur classique modifie itérativement les paramètres de ce circuit pour minimiser la fonction de coût d'un problème à l'aide des mesures du circuit préparé. Cette approche limite les inconvénients causés par le bruit en raison de la taille limité des circuits utilisés.
+Les \textit{algorithmes variationnels quantiques} (« Quantum Variational Algorithms ») (VQA) sont des algorithmes hybrides, c'est-à-dire composés d'une partie quantique et d'une partie classique, conçus pour exploiter les avantages du calcul quantique tout en profitant de la puissance des algorithmes classiques~\cite{cerezoVariationalQuantumAlgorithms2021}. Ces algorithmes ont émergés comme la stratégie dominante pour atteindre l'avantage quantique avec le matériel informatique quantique actuel, connu sous le nom des ordinateurs quantiques bruités de taille intermédiaire (« Noisy Intermediate-Scale Quantum ») (NISQ). En effet, les algorithmes quantiques possédant un avantage par rapport aux algorithmes classiques sont présentement hors d'atteinte pour les ordinateurs quantiques du moment en raison de la taille des systèmes nécessaires et des erreurs causées par le bruit. Le concept derrière des VQA s'inspire des méthodes d'apprentissage automatique pour résoudre des problèmes d'optimisation combinatoire avec des circuits de faible profondeur sans se soucier de la correction des erreurs des qubits. Un état quantique initial facile à préparer est évolué unitairement avec un circuit quantique paramétré et la valeur moyenne d'une fonction de coût est estimé par de multiples mesures du circuit dans une base appropriée. Les paramètres du circuit sont alors ajustés itérativement avec un optimiseur classique pour minimiser la fonction de coût et ainsi préparer un état près d'une superposition des solutions du problème. Cette approche limite les inconvénients causés par le bruit en raison de l'utilisation de circuits paramétrés limitant la taille des circuits utilisés.
 
-Un état quantique initial facile à préparer est évolué unitairement avec un circuit quantique paramétré et la valeur moyenne d'une fonction de coût est estimé par de multiples mesures du circuit dans une base appropriée. Les paramètres du circuit sont alors ajustés itérativement avec un optimiseur classique pour minimiser la fonction de coût et ainsi préparer un état près d'une superposition des solutions du problème.
+% Un circuit quantique paramétré est d'abord préparé sur un ordinateur quantique et un optimiseur classique modifie itérativement les paramètres de ce circuit pour minimiser la fonction de coût d'un problème à l'aide des mesures du circuit préparé. 
 
-Les algorithmes variationnels quantiques peuvent possiblement résoudre le problème d'échantillonnage de l'algorithme de JVV. Ceux-ci sont connus pour être en mesure de préparer des distributions difficile à imiter par des ordinateurs classiques~\cite{aaronsonComputationalComplexityLinear2011, boulandComplexityVerificationQuantum2019}.
+Les algorithmes variationnels quantiques peuvent possiblement résoudre le problème d'échantillonnage de l'algorithme de JVV. Ceux-ci sont en effet connus pour être en mesure de préparer des distributions difficile à imiter par des ordinateurs classiques~\cite{aaronsonComputationalComplexityLinear2011, boulandComplexityVerificationQuantum2019}.
 
 Cette section introduit d'abord l'algorithme adiabatique , qui fonde   Différentes variantes de QAOA sont ensuite explorées, tel GM-QAOA, 
 
@@ -36,6 +36,7 @@ Cette section introduit d'abord l'algorithme adiabatique , qui fonde   Différen
 %-----------------------------------------------------------------------------%
 
 \section{Algorithme adiabatique quantique}
+\label{sec:algorithme-adiabatique-quantique}
 
 \begin{comment}
 \subsection{Plan}
@@ -85,7 +86,7 @@ L'\textit{algorithme adiabatique quantique} (« Quantum Adiabatic Algorithm ») 
     \tilde{H}(s) = \left(1-s\right) H_{D} + s H_{P} \,.
 \end{equation}
 
-Ainsi, en présumant que le gap spectral entre l'état fondamental et l'état excité est non-nul, la solution du problème est toujours obtenue à partir de l'état fondamental obtenu si l'évolution est suffisamment lente tel que garantit par le théorème adiabatique quantique.
+Ainsi, en présumant que le gap spectral entre l'état fondamental et l'état excité est non-nul, la solution du problème est toujours obtenue à partir de l'état fondamental obtenu si l'évolution, donnée par l'opérateur $U(t) = e^{-i \int_{0}^{1} \tilde{H}(s) ds}$, est suffisamment lente tel que garantit par le théorème adiabatique quantique. Si le temps d'évolution est trop petit, une \textit{transition diabatique}, c'est-à-dire une transition de l'état fondamental à un état excité, peuvent empêcher l'évolution adiabatique.
 
 \begin{figure}[ht!]
     \centering
@@ -101,15 +102,15 @@ Ainsi, en présumant que le gap spectral entre l'état fondamental et l'état ex
         \caption{}
         \label{fig:algorithmne-adiabatique-quantique-2}
     \end{subfigure}
-    \caption{\textcolor{mydarkred}{\textit{Refaire les figures.}}}
+    \caption[Algorithme adiabatique quantique]{\textcolor{mydarkred}{\textit{Refaire les figures.}}}
     \label{fig:algorithme-adiabatique-quantique}
 \end{figure}
 
-Typiquement, le gap spectral est non-nul~\cite{farhiQuantumComputationAdiabatic2000}, mais cela n'est pas suffisant pour rendre l'algorithme utile comme ce gap doit être assez grand pour limiter le temps d'évolution. Le gap spectral peut être suffisamment grand pour permettre une évolution adiabatique dans un temps réaliste pour certains problèmes, mais ce n'est pas toujours possible~\cite{altshulerAndersonLocalizationMakes2010}. Une alternative consiste à trouver un compromis entre le temps d'évolution et la proximité de l'état final avec l'état fondamental espéré. Le choix du chemin adiabatique utilisé pour transitionner de $H_{D}$ à $H_{P}$ peut aussi différer de l'équation~\ref{eq:chemin-adiabatique} pour maximiser le gap au long du chemin et donc minimiser le temps d'évolution~\cite{nishimoriExponentialEnhancementEfficiency2017, hormoziNonstoquasticHamiltoniansQuantum2017}.
+Typiquement, le gap spectral est non-nul~\cite{farhiQuantumComputationAdiabatic2000}, mais cela n'est pas suffisant pour rendre l'algorithme utile comme ce gap doit être assez grand pour limiter le temps d'évolution. Le gap spectral peut être suffisamment grand pour permettre une évolution adiabatique dans un temps réaliste pour certains problèmes, mais ce n'est pas toujours possible~\cite{altshulerAndersonLocalizationMakes2010}. Une alternative consiste à trouver un compromis entre le temps d'évolution et la proximité de l'état final avec l'état fondamental espéré. Le choix du chemin adiabatique utilisé pour transitionner de $H_{D}$ à $H_{P}$ peut aussi différer de l'équation~\ref{eq:chemin-adiabatique} dans l'objectif de maximiser le gap au long du chemin et donc minimiser le temps d'évolution~\cite{nishimoriExponentialEnhancementEfficiency2017, hormoziNonstoquasticHamiltoniansQuantum2017}.
 
 L'algorithme adiabatique quantique se place au sein du \textit{calcul adiabatique quantique}, qui regroupe différentes méthodes similaires. Un autre membre de ce groupe est le \textit{recuit quantique} qui représente généralement l'emploi de QAA dans un environnement bruité, menant ainsi à une version plus réaliste sans contrainte d'adiabaticité ou d'universalité. Cet algorithme partage plusieurs similitudes avec l'algorithme quantique d'optimisation approximative qui seront explorées dans les prochaines sections. 
 
-\textcolor{mydarkred}{\textit{https://arthurpesah.me/assets/pdf/introduction-quantum-annealing.pdf}}
+% \textcolor{mydarkred}{\textit{https://arthurpesah.me/assets/pdf/introduction-quantum-annealing.pdf}}
 
 %-----------------------------------------------------------------------------%
 
@@ -137,12 +138,14 @@ L'algorithme adiabatique quantique se place au sein du \textit{calcul adiabatiqu
 6. Parler la adiabatic quantum computation https://arxiv.org/abs/1611.04471
 \end{comment}
 
-Bien que le calcul adiabatique quantique soit utilisé pour résoudre les problèmes d'optimisation combinatoire (\textcolor{mydarkred}{\textit{Source?}}), le temps nécessaire pour une évolution adiabatique constitue un facteur limitant pour de nombreux problèmes. L'\textit{algorithme quantique d'optimisation approximative} (« Quantum Approximate Optimization Algorithm ») (QAOA)~\cite{farhiQuantumApproximateOptimization2014} propose ainsi une alternative, un raccourci à l'adiabaticité: la contre-diabacité. \textcolor{mydarkred}{\textit{NOT TRUE I THINK}}
+Bien que le calcul adiabatique quantique soit utilisé pour résoudre les problèmes d'optimisation combinatoire, le temps nécessaire pour une évolution adiabatique constitue un facteur limitant pour de nombreux problèmes. L'\textit{algorithme quantique d'optimisation approximative} (« Quantum Approximate Optimization Algorithm ») (QAOA)~\cite{farhiQuantumApproximateOptimization2014} propose alors une alternative, sous la forme d'un algorithme variationnel quantique, discrétisant l'évolution continue de QAA. Bien que cette approche s'éloigne de l'évolution adiabatique, celle-ci prend avantage des transitions diabatiques entre l'état fondamental et les états excités pour réduire le temps d'évolution. L'optimisation des paramètres du circuit quantique paramétré permet de naviguer efficacement l'espace de Hilbert pour atteindre une bonne solution approximative. En fait, QAOA est contre-adiabatique et non seulement adiabatique, signifiant que des raccourcis à l'adiabacité sont possibles~\cite{wurtzCounterdiabaticityQuantumApproximate2022}
 
 QAOA trouve des bonnes approximations pour de nombreux problèmes d'optimisation, comme les problèmes de coupe maximum
 \textcolor{mydarkred}{\textit{Applications}}
 
 De nombreuses extensions à QAOA ont été présentés au cours des dernières années~\cite{blekosReviewQuantumApproximate2024}.
+
+D'abord, l'algorithme tel qu'initialement proposé est introduit. Une discussion plus poussée détaille ensuite les composantes importantes de l'algorithme et un lien avec le calcul adiabatique quantique est présenté pour finir.
 
 %-----------------------------------------------------------------------------
 
@@ -165,7 +168,7 @@ subsection*{Plan}
 
 Étant une idée prometteuse pour les applications des ordinateurs quantiques, l'algorithme quantique d'optimisation approximative a mené à une quantité incroyable de travaux dans les précédentes années. Ainsi, pour simplifier la compréhension de ce concept, l'algorithme original, dû à Farhi, Goldstone et Gutmann~\cite{farhiQuantumApproximateOptimization2014}, est d'abord présenté.
 
-QAOA repose sur deux différents hamiltoniens: l'hamiltonien de problème, ou de phase, $H_{P}$ et l'hamiltonien de forçage, ou de mélange, $H_{D}$. L'hamiltonien de problème est formulé de façon à encoder la solution, potentiellement dégénérée, du problème d'optimisation combinatoire dans son état fondamental. Celui-ci prend typiquement la forme de l'hamiltonien du modèle d'Ising. L'hamiltonien de forçage, quant à lui, est donné par
+QAOA repose sur deux différents hamiltoniens: l'hamiltonien de problème, ou de phase, $H_{P}$ et l'hamiltonien de forçage, ou de mélange, $H_{D}$. L'hamiltonien de problème est formulé de façon à encoder la solution, potentiellement dégénérée, du problème d'optimisation combinatoire dans son état fondamental. Pour ce faire, celui-ci est défini en fonction de la fonction de coût $C$ de l'instance du problème: $H_{P}\ket{x} = C(x)\ket{x}$. $H_{P}$ prend typiquement la forme de l'hamiltonien du modèle d'Ising. L'hamiltonien de forçage, quant à lui, est donné par
 
 \begin{equation}
     \label{eq:x-drive}
@@ -174,9 +177,9 @@ QAOA repose sur deux différents hamiltoniens: l'hamiltonien de problème, ou de
 
 où $X_{i}$ est l'opérateur de Pauli $X$ appliqué sur le qubit $i$ d'un système à $n$ qubits. $H_{D}^{X}$ est construit de manière à induire de l'interférence et ainsi permettre l'exploration de l'espace de Hilbert. 
 
-Par définition, l'hamiltonien $H_{p}$ est diagonal dans la base computationnelle, alors que l'hamiltonien $H_{D}$ comprend des termes hors diagonaux de sorte que ceux-ci ne commutent pas entre eux. Deux opérations unitaires paramétrées sont définies à partir des hamiltoniens $H_{P}$ et $H_{D}$: l'opérateur de problème $U_{P}(\gamma) = e^{-i \gamma H_{P}}$ ainsi que l'opérateur de forçage $U_{D}(\beta) = e^{-i \beta H_{D}}$. L'opérateur $U_{P}$ représente une rotation de phase, paramétrisée par $\gamma$, des états de la base computationnelle en fonction de leur énergie donné par $H_{P}$. L'opérateur $U_{D}$, paramétrisé par $\beta$, superpose différents états de la base computationnelle ayant précédemment acquis différents facteurs de phase, menant ainsi à de l'interférence.
+Par définition, l'hamiltonien $H_{p}$ est diagonal dans la base computationnelle, alors que l'hamiltonien $H_{D}$ comprend des termes hors diagonaux de sorte que ceux-ci ne commutent pas entre eux. Deux opérations unitaires paramétrées sont définies à partir des hamiltoniens $H_{P}$ et $H_{D}$: l'opérateur de problème $U_{P}(\gamma) = e^{-i \gamma H_{P}}$ ainsi que l'opérateur de forçage $U_{D}(\beta) = e^{-i \beta H_{D}}$, où $\gamma$ et $\beta$ sont des paramètres réels. L'opérateur $U_{P}$ représente une rotation de phase, paramétrisée par $\gamma$, des états de la base computationnelle en fonction de leur énergie donné par $H_{P}$. L'opérateur $U_{D}$, paramétrisé par $\beta$, superpose différents états de la base computationnelle ayant précédemment acquis différents facteurs de phase, menant ainsi à de l'interférence.
 
-En tant que VQA, QAOA est un algorithme hybride composé d'un circuit quantique paramétré et d'un optimiseur classique. Le circuit quantique est d'abord préparé dans un état propre de l'hamiltonien de forçage. Pour l'hamiltonien~\ref{eq:x-drive}, un exemple d'état initial possible est $\ket{\psi_{0}} = \ket{+}^{\otimes n}$. Le produit des opérateurs $U_{D}U_{P}$ est alors appliqué en alternance $p$ fois sur l'état initial $\ket{\psi_{0}}$, donnant l'état suivant:
+En tant que VQA, QAOA est un algorithme hybride composé d'un circuit quantique paramétré et d'un optimiseur classique. Le circuit quantique est d'abord préparé dans un état propre de l'hamiltonien de forçage. Pour l'hamiltonien~\ref{eq:x-drive}, un exemple d'état initial possible est dans une superposition égale des états possibles $= \ket{+}^{\otimes n}$. Le produit des opérateurs $U_{D}U_{P}$ est alors appliqué en alternance $p$ fois sur l'état initial $\ket{\psi_{0}}$, donnant l'état suivant:
 
 \begin{equation}
     \label{eq:final-state}
@@ -189,7 +192,7 @@ où $\vec{\gamma} = (\gamma_{1}, \dots, \gamma_{p})$ et $\vec{\beta} = (\beta_{1
     E_{P} (\vec{\gamma}, \vec{\beta}) = \braket{ \psi(\vec{\gamma}, \vec{\beta}) | H_{P} | \psi(\vec{\gamma}, \vec{\beta}) } \,.
 \end{equation}
 
-L'énergie trouvée quantifie l'optimalité de l'état préparé. Par la suite, une méthode d'optimisation classique continue, comme la descente de gradient stochastique, est employé pour mettre à jour itérativement les paramètres $\gamma$ et $\beta$ du circuit paramétré de manière à minimiser la valeur moyenne $E_{P} (\vec{\gamma}, \vec{\beta})$:
+L'énergie trouvée quantifie l'optimalité de l'état préparé. Par la suite, une méthode d'optimisation classique continue, comme la descente de gradient stochastique, est employée pour mettre à jour itérativement les paramètres $\gamma$ et $\beta$ du circuit paramétré de manière à minimiser la valeur moyenne $E_{P} (\vec{\gamma}, \vec{\beta})$:
 
 \begin{equation}
     (\vec{\gamma}^{*}, \vec{\beta}^{*}) = \arg \min_{{\vec{\gamma}, \vec{\beta}}} E_{P}(\vec{\gamma}, \vec{\beta}) \,.
@@ -198,7 +201,7 @@ L'énergie trouvée quantifie l'optimalité de l'état préparé. Par la suite, 
 Si l'optimisation aboutit de manière espérée, l'état final $\ket{\psi(\vec{\gamma}^{*}, \vec{\beta}^{*})}$ correspond à une superposition des états fondamentaux de $H_{P}$ et donc aux différentes solutions du problème étudié. Si ce n'est pas le cas, le ratio d'approximation $\alpha$ est utilisé pour décrire la qualité de la solution trouvée comme à la section~\ref{sec:intractabilite-approximation-et-optimisation}:
 
 \begin{equation}
-    \alpha = \frac{ E_{p} (\vec{\gamma}^{*}, \vec{\beta}^{*})}{\min_{(\vec{\gamma}, \vec{\beta})} E_{p} (\vec{\gamma}, \vec{\beta}) }
+    \alpha_{\vec{\gamma}^{*}, \vec{\beta}^{*}} = \frac{ E_{p} (\vec{\gamma}^{*}, \vec{\beta}^{*})}{\min_{(\vec{\gamma}, \vec{\beta})} E_{p} (\vec{\gamma}, \vec{\beta}) }
 \end{equation}
 
 Ce ratio augmente théoriquement avec le nombre de couches $p$ utilisées comme QAOA équivaut à une évolution adiabatique dans la limite $p \to \infty$~\cite{farhiQuantumApproximateOptimization2014}. Notons que pour l'utilisation de QAOA sur des graphes, la valeur de $p$ doit augmenter avec la taille du graphe pour ne pas être limité par la localité de QAOA~\cite{farhiQuantumApproximateOptimization2020}.
@@ -363,7 +366,8 @@ L'hamiltonien de forçage $H_{D}$ initialement proposé avec QAOA prends son ins
 
 %-----------------------------------------------------------------------------%
 
-\subsection{Contre-diabacité}
+\subsection{Relation avec l'algorithme adiabatique quantique}
+\label{subsec:discretisation-qaoa}
 
 \begin{comment}
     \begin{itemize}
@@ -372,23 +376,19 @@ L'hamiltonien de forçage $H_{D}$ initialement proposé avec QAOA prends son ins
     \end{itemize}
 \end{comment}
 
-Pour établir un lien entre QAA et QAOA, l'évolution de l'hamiltonien doit être rendu discrète. Pour ce faire, la décomposition de Susuki-Trotter au premier ordre, donnée par $e^{A+B} = \lim_{n \to \infty} e^{\frac{A}{n}} e^{\frac{B}{n}}$ pour deux opérateurs $A$ et $B$, est utilisée. Cette décomposition permet de discrétiser l'opérateur d'un hamiltonien $H$ tel que
+QAA requiert une évolution continue de l'état, alors que QAOA repose sur l'application de portes quantiques. Pour établir un lien entre QAA et QAOA, l'évolution de l'hamiltonien doit donc être rendu discrète. Pour ce faire, la décomposition de Suzuki-Trotter, donnée par $e^{(A+B)t} = \lim_{n \to \infty} (e^{At / n} e^{Bt / n})^{n}$ pour deux opérateurs $A$ et $B$, est employée. Le premier ordre de cette décomposition permet de discrétiser l'opérateur de l'hamiltonien dépendant du temps $H(t)=(1-\frac{t}{T})H_{D} + \frac{t}{T}H_{P}$ de QAA (voir l'équation~\ref{eq:chemin-adiabatique}), où $t \in [0, T]$, tel que
 
 \begin{equation}
-    e^{-i\Delta t H(t)} \approx e^{-i \beta H_D} e^{-i \gamma H_P} + O(\Delta t^2)
+    e^{-i\Delta t H(t)} \approx e^{-i (1 - \frac{t}{T}) H_D \Delta t} e^{-i \frac{t}{T} H_P \Delta t} + O(\Delta t^2) \,,
 \end{equation}
 
-~\cite{wurtzCounterdiabaticityQuantumApproximate2022}
+où $\Delta t$ est le pas de temps. Ainsi, l'évolution unitaire de QAA peut être émulée avec des portes quantiques en décomposant $U(t) = e^{-i \int_{0}^{T} H(t) dt}$ en séquence de petits pas de temps à l'aide de la formule de Suzuki-Trotter au premier ordre:
 
-\textcolor{mydarkred}{\textit{Voir mon rapport de stage.}}
+\begin{align*}
+   U(t) \approx \prod_{k=0}^{t / \Delta t -1} e^{-i H(k \Delta t) \Delta t} = \prod_{k=0}^{t / \Delta t -1} e^{-i (1 - \frac{k \Delta t}{T}) H_{D} \Delta t} e^{- i \frac{k \Delta t}{T} H_{P} \Delta t} \,.
+\end{align*}
 
-\textcolor{mydarkred}{\textit{Expliquer la contre-diabacité.}}
-
-\textcolor{mydarkred}{\textit{Expliquer la trotterisation (voir citation dans notre papier).}}
-
-\textcolor{mydarkred}{\textit{Parler de QAOA lorsque $p \to \infty$}}
-
-\textcolor{mydarkred}{\textit{Level crossings?}}
+Ce processus est généralement nommé \textit{évolution adiabatique trottérisée} d'après la décomposition de Suzuki-Trotter. La forme de QAOA est alors retrouvée en remplaçant $(\frac{kt}{T}) \Delta t$ et $(1 - \frac{kt}{T}) \Delta t$ par les paramètres $\gamma$ et $\beta$. Dans la limite $p \to \infty$, la condition adiabatique est satisfaite comme une évolution adiabatique trottérisé est retrouvée. Par contre, pour une profondeur de circuit $p$ finie, plus les paramètres $\gamma$ et $\beta$ est petits, plus les erreurs dues à la décomposition, dites erreurs de Trotter, sont petites. Cependant, cela implique aussi que le temps d'évolution adiabatique $T$ est plus petit et donc que des excitations diabatiques affectent négativement la performance de l'algorithme. Au contraire, si les paramètres sont grands, le temps d'évolution augmente aux dépens de l'impact des erreurs de Trotter. Un compromis entre ces deux facteurs doit être choisi.
 
 %-----------------------------------------------------------------------------%
 
@@ -411,7 +411,7 @@ Pour établir un lien entre QAA et QAOA, l'évolution de l'hamiltonien doit êtr
 
 L'algorithme quantique d'optimisation approximative applique en alternance un hamiltonien de problème et un hamiltonien de forçage, guidé par l'approche quantique adiabatique. Cet algorithme comporte une limitation importante: les opérateurs appliqués doivent être sous la forme d'une évolution temporelle d'un hamiltonien local fixe. Cette restriction entrave la construction d'opérateurs unitaires potentiellement plus efficaces.
 
-L'\textit{approche quantique des opérateurs alternants} (« Quantum Alternating Operator Ansatz») (QAOA), introduit par Hadfield et coll.~\cite{hadfieldQuantumApproximateOptimization2019}, généralise l'algorithme quantique d'optimisation approximative en permettant l'alternance de familles générales d'opérateurs unitaires paramétrisés plutôt qu'uniquement des opérateurs basés sur un hamiltonien. Cette approche supporte ainsi la représentation d'un plus grand nombre d'états, pouvant possiblement être construit de manière plus efficace. L'algorithme quantique d'approximation quantique et l'approche quantique des opérateurs alternants possèdent le même acronyme. Comme cette dernière étend le premier, l'acronyme QAOA fera référence à l'approche quantique des opérateurs alternant pour le reste de la présente section.
+L'\textit{ansatz quantique à opérateurs alternants} (« Quantum Alternating Operator Ansatz») (QAOA), introduit par Hadfield et coll.~\cite{hadfieldQuantumApproximateOptimization2019}, généralise l'algorithme quantique d'optimisation approximative en permettant l'alternance de familles générales d'opérateurs unitaires paramétrisés plutôt qu'uniquement des opérateurs basés sur un hamiltonien. Notons qu'un \textit{ansatz} décrit typiquement une sous-routine composée d'une séquence de portes appliquées sur des qubits spécifiques. Cette approche supporte ainsi la représentation d'un plus grand nombre d'états, pouvant possiblement être construit de manière plus efficace. De plus, celle-ci facilite l'utilisation d'opérateur de mélange plus facilement implémentable sur le matériel informatique quantique actuel. L'algorithme quantique d'approximation quantique et l'approche quantique des opérateurs alternants possèdent le même acronyme. Comme cette dernière étend le premier, l'acronyme QAOA fera référence à l'approche quantique des opérateurs alternant pour le reste de la présente section.
 
 Cette extension trouve son utilité principale dans la création d'opérateurs de forçage. Restreindre l'espace des configurations d'un problème selon les contraintes de celui-ci permet d'éviter une recherche de l'espace de Hilbert complet.
 
@@ -420,22 +420,20 @@ Cette extension trouve son utilité principale dans la création d'opérateurs d
 
 \subsection{Description de l'approche}
 
+Soit un problème d'optimisation combinatoire $\varphi(x)$ et une fonction de coût $C(x)$ décrivant la qualité des entrées $x$ de $\varphi$. Généralisant l'algorithme de Farhi et coll., QAOA est constitué de deux familles d'opérateurs: les opérateurs de séparation de phase $U_{P}(\gamma)$ et les opérateurs de forçage $U_{D}(\beta)$ où $\gamma$ et $\beta$ sont des paramètres réels. Notons que $U_{P}$ et $U_{D}$ ne sont pas restreints aux opérateurs $e^{-i \gamma H}$. Le circuit QAOA est construit en appliquant en alternance $p$ couches d'opérateurs des deux familles précédentes à un état initial donné.
+        
+Plutôt que de prendre en compte l'espace de Hilbert complet, un \textit{sous-espace faisable} est considéré. Cette espace ne représente qu'un sous-ensemble de l'espace des configurations possibles, où seules les configurations respectant les contraintes du problème sont présentes. La restriction provient de la famille d'opérateurs de forçage encodant les différentes contraintes du problème $\varphi$. QAOA est donc particulièrement utile pour les problèmes comportant des contraintes rigides. Par exemple, le problème de recouvrement de sommets maximal nécessite doivent prendre la forme d'état de Dicke, c'est-à-dire une superposition de tous les états de même poids d'Hamming. Intuitivement, limiter l'espace des configurations devrait améliorer la performance de l'algorithme. Ainsi, l'état initial est généralement construit en ne considérant que les états respectant toutes les contraintes.
+
+Quelques restrictions sont appliquées dans la conception des composantes de QAOA. D'abord, l'état initial doit être trivial à implémenter, c'est-à-dire implémentable avec un circuit de profondeur constante. Les unitaires de séparation de phases doivent être diagonales dans la base computationnelle et sont dans pris dans la majorité des cas comme $U_{P}(\gamma) = e^{-i \gamma H_{P}}$. La construction des unitaires de forçage est ici de plus grand intérêt. Ceux-ci doivent préserver le sous-espace faisable et donc transformer les états réalistes en états réalistes. Les unitaires de forçage doivent aussi fournir des transitions entre toutes les paires d'état correspondant aux états réalistes.
+
+
 %-----------------------------------------------------------------------------%
-
-
-
 
 \subsection{Forçage de Grover}
 
-\textit{L'approche quantique des opérateurs alternants avec forçage de Grover} («Grover-Mixer Quantum Alternating Operator Ansatz») (GM-QAOA) fut proposé par Bärtschi et coll.~\cite{bartschiGroverMixersQAOA2020} pour déplacer la complexité de la conception de l'opérateur de forçage à la préparation de l'état initial en s'inspirant de l'algorithme de Grover. 
+\textit{L'approche quantique des opérateurs alternants avec forçage de Grover} («Grover-Mixer Quantum Alternating Operator Ansatz») (GM-QAOA) fut proposé par Bärtschi et coll.~\cite{bartschiGroverMixersQAOA2020} pour déplacer la complexité de la conception de l'opérateur de forçage à la préparation de l'état initial en s'inspirant de l'algorithme de Grover. Cette algorithme se base sur le cadre théorique défini dans la section précédente pour produire efficacement une superposition égale de toutes les solutions réaliste.
 
-
-
-\begin{equation}
-    U_D^{\mathrm{Grover}} = U_{S}\left[ \mathds{1} -\left(1-e^{-i \beta}\right) (\ket{0}\!\bra{0})^{\otimes n} \right] U_{S}^{\dagger} \,,
-\end{equation}
-
-\textcolor{mydarkred}{\textit{Décrire l'algorithme de Grover.}}
+Décrivons d'abord le circuit QAOA, tel qu'illustré à la figure~\ref{fig:gm-qaoa}. Un opérateur unitaire de préparation d'état $U_{S}$ crée une superposition égale de toutes les solutions réalistes $\ket{F}$ dans le sous-espace faisable $F$. Par la suite, les unitaires de forçage $U_{D}$ et de problème $U_{P}$ sont appliquées en alternance $p$ fois. Finalement, une mesure est effectuée dans la base computationnelle.
 
 \begin{figure}[ht!]
     \centering
@@ -443,6 +441,16 @@ Cette extension trouve son utilité principale dans la création d'opérateurs d
     \caption[Circuit GM-QAOA]{\textcolor{mydarkred}{\textit{Refaire la figure.}}}
     \label{fig:gm-qaoa}
 \end{figure}
+
+L'innovation principale de travail provient de l'opérateur de mélange $U_{D}$, défini comme:
+
+\begin{equation}
+    U_D^{\mathrm{Grover}} = e^{-i \beta \ket{F}\!\bra{}} = U_{S}\left[ \mathds{1}^{\otimes n} -\left(1-e^{-i \beta}\right) (\ket{0}\!\bra{0})^{\otimes n} \right] U_{S}^{\dagger} \,.
+\end{equation}
+
+Cet opérateur ressemble aux opérateurs de diffusion utilisés dans l'algorithme d'amplification d'amplitude, où les opérateurs de déphasage $e^{-i\beta}$ remplacent les opérateurs d'inversion de phase $e^{-i\beta}$. $U_{D}$ est alors implémenté en utilisant les unitaires $U_{S}$ et $U_{S}^{\dagger}$, deux couches d'opérateur de Pauli $X$ et un opérateur de déphasage $Z^{-\beta/\pi}$ contrôlés sur tous les qubits.
+
+Une des conséquences de l'inspiration de l'algorithme de Grover signifie GM-QAOA peut préparer des superpositions égales d'états de même énergie. De plus, comme cette approche ne possède pas d'erreur de simulation d'Hamiltonien, comme les erreurs de Trotter. Notons que les problèmes NAE3SAT ET 1-in-3SAT ne sont pas contraints et donc que l'espace faisable demeure le même que pour QAOA, c'est-à-dire que $\ket{F} = \ket{+}^{\otimes n}$.
 
 %-----------------------------------------------------------------------------%
 
@@ -474,16 +482,20 @@ Peut-être une référence de plus qui traite directement des barrens plateau?
 
 La capacité d'entraînement des réseaux de neurones à partir d'une simple descente de gradient fut en partie à l'origine de leur succès retentissant sur de nombreux différents problèmes. L'optimisation des paramètres se fait simplement, même avec des fonctions de coût non convexe, tout en offrant de puissants résultats. Une des attentes des VQA fut de posséder ce même comportement et de pouvoir ainsi pousser les limites des algorithmes variationnels. En effet, l'optimisation classique des paramètres de QAOA fait partie intégrante du concept d'algorithme variationnel quantique. Grâce à celle-ci, il est en théorie possible de prendre avantage des algorithmes quantiques en recourant à des ordinateurs quantiques bruités. Cependant, de nombreuses embûches rendent présentement cette tâche difficile. 
 
-D'abord, l'estimation du gradient de coût est difficile dans de nombreuses situations en raison de la présence de plateaux stériles~\cite{mccleanBarrenPlateausQuantum2018, laroccaReviewBarrenPlateaus2024}, où le gradient devient exponentiellement petit selon la taille du système. Un nombre exponentiel de mesures devient alors nécessaires pour pouvoir identifier la direction minimisant la fonction de coût. Ces complications se présentent surtout pour des circuits de grande profondeur, mais d'autres surgissent même pour ceux de petites tailles. Un grand nombre de minima locaux sont effectivement considérés comme pauvre, c'est-à-dire qu'ils possèdent une énergie petite par rapport au minimum global, augmentant la difficulté d'atteindre une solution approximative de bonne qualité~\cite{anschuetzQuantumVariationalAlgorithms2022}. De plus, l'optimisation des paramètres des VQA est \textsf{NP}-difficile, et donc intraitables dans le pire des cas~\cite{bittelTrainingVariationalQuantum2021}. Ces difficultés sont d'autant plus importantes comme la complexité de l'espace des paramètres augmente avec le nombre de paramètres d'un circuit, impliquant une plus grande difficulté d'optimisation pour les circuits profonds. 
+D'abord, l'estimation du gradient de coût est difficile dans de nombreuses situations en raison de la présence de plateaux stériles~\cite{mccleanBarrenPlateausQuantum2018, laroccaReviewBarrenPlateaus2024}, où le gradient devient exponentiellement petit avec la taille du système. Un nombre exponentiel de mesures devient alors nécessaires pour pouvoir identifier la direction minimisant la fonction de coût. Ces complications se présentent surtout pour des circuits de grande profondeur, mais d'autres surgissent même pour ceux de petites tailles. Un grand nombre de minima locaux sont effectivement considérés comme pauvres, c'est-à-dire qu'ils possèdent une énergie petite par rapport au minimum global, augmentant la difficulté d'atteindre une solution approximative de bonne qualité~\cite{anschuetzQuantumVariationalAlgorithms2022}. De plus, l'optimisation des paramètres des VQA est \textsf{NP}-difficile, et donc intraitables dans le pire des cas~\cite{bittelTrainingVariationalQuantum2021}. Ces difficultés sont d'autant plus importantes comme la complexité de l'espace des paramètres augmente avec le nombre de paramètres d'un circuit, impliquant une plus grande difficulté d'optimisation pour les circuits profonds. 
 
-Cet ensemble de complication implique alors qu'une bonne initialisation des paramètres est nécessaire au succès de QAOA. Des paramètres initiaux suffisamment près de l'extremum global peuvent contourner les problèmes énoncés précédemment. L'initialisation de bons paramètres demeure une question ouverte, mais plusieurs approches permettent d'amoindrir ces problèmes. Sack et Serbyn propose entre autres une stratégie d'initialisation basée sur le recuit quantique trottérisé (« Trotterized Quantum Annealing ») (TQA)~\cite{sackQuantumAnnealingInitialization2021}. Cette méthode, utilisé pour les simulations de ce travail,   
+Cet ensemble de complication implique alors qu'une bonne initialisation des paramètres est nécessaire au succès de QAOA. Des paramètres initiaux suffisamment près de l'extremum global peuvent contourner les problèmes énoncés précédemment. L'initialisation de bons paramètres demeure une question ouverte, mais plusieurs approches permettent d'amoindrir ces problèmes. Sack et Serbyn propose entre autres une stratégie d'initialisation basée sur le recuit quantique trottérisé (« Trotterized Quantum Annealing ») (TQA)~\cite{sackQuantumAnnealingInitialization2021}. Cette méthode, utilisée pour les simulations de ce travail, offre la même performance qu'un nombre exponentiel d'initialisations aléatoires. Comme vu à la section~\ref{subsec:discretisation-qaoa}, un juste milieu doit être choisi entre le temps d'évolution et les erreurs de Trotter. L'initialisation TQA trouve ainsi le temps d'évolution optimale à une profondeur de circuit $p$ fixe. Pour ce faire, la décomposition décrite à la section~\ref{subsec:discretisation-qaoa} est appliquée sur une grille uniformément discrétisée des temps d'évolution $t_{k} = k \Delta t$, avec $k = 1,\dots, p$, avec un pas de temps $\Delta t = T / p$. Les angles du circuit QAOA correspondant sont alors:
 
+\begin{equation}
+    \gamma_{i} = \frac{i}{p} \Delta t \,, \beta = (1 - \frac{i}{p}) \Delta t \,.
+\end{equation}
 
+Le pas de temps est optimisé de manière à minimiser la valeur moyenne de l'Hamiltonien de problème $H_{P}$. 
 
 %-----------------------------------------------------------------------------%
 
-\section{Échantillonage et biais}
-\label{sec:echantillonage-et-biais}
+\section{Échantillonnage et biais}
+\label{sec:echantillonnage-et-biais}
 
 \begin{comment} 
 \subsection*{Plan}
@@ -510,4 +522,4 @@ L'allure de la distribution obtenue par QAOA est dans notre cas essentiel. Afin 
 
 Le recuit quantique n'échantillonne pas les états fondamentaux uniformément en général~\cite{matsudaGroundstateStatisticsAnnealing2009, mandraExponentiallyBiasedGroundState2017}. Certains états sont exponentiellement supprimés et nécessitent alors un nombre exponentiel de mesures pour être détectés. Comme le recuit quantique et QAOA sont fortement liés, il est ainsi peu probable que QAOA puisse échantillonner les états fondamentaux de manière uniforme.
 
-Une propriété de l'algorithme GM-QAOA devient alors d'un intérêt considérable: l'équiprobabilité des états de même énergie. Dans GM-QAOA, les solutions sont encodées dans l'état fondamental de l'hamiltonien de problème, ceux-ci posséderont alors la même amplitude et donc la même probabilité. Ainsi, en ne considérant que les solutions, l'état préparé par le circuit GM-QAOA possède toujours une non-uniformité nulle. 
+Une propriété de l'algorithme GM-QAOA devient alors d'un intérêt considérable: l'équiprobabilité des états de même énergie. Les solutions sont encodées dans l'état fondamental de l'hamiltonien de problème, ceux-ci posséderont alors la même amplitude et donc la même probabilité. Ainsi, en ne considérant que les solutions, l'état préparé par le circuit GM-QAOA possède toujours une non-uniformité nulle. 

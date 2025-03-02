@@ -84,13 +84,20 @@ L'algorithme VQCount utilise l'état préparé par un circuit GM-QAOA comme gén
 
 Comment est-ce que l'algorithme VQCount opère? Soit un problème SAT, décrit par une formule CNF $\varphi(x)$. Ce problème   
 
+\begin{equation}
+    r = \braket{ \psi(\vec{\gamma}, \vec{\beta}) | \hat{\mathcal{P}}_{G} | \psi(\vec{\gamma}, \vec{\beta}) }
+\end{equation}
+
+\begin{equation}
+    \hat{\mathcal{P}}_{G} = \sum_{x \in G} \ket{x}\!\bra{x}
+\end{equation}
 
 \textcolor{mydarkred}{\textit{A classical algorithm can be used after a certain point.}}
 
 \begin{algorithm}[hb!]
     \caption{VQCount}\label{alg:vqcount}
     \begin{algorithmic}[1]
-    \REQUIRE Problem Hamiltonian: $H_P$, Mixer Hamiltonian: $H_D$, Initial parameters: $(\vec{\beta}_0, \vec{\gamma}_0)$, Depth: $p$, Number of optimization steps: $n_{o}$, Number of solutions to sample: $n_s$
+    \REQUIRE Hamiltonien de problème: $H_P$, Hamiltonien de forçage: $H_D$, Paramètres initiaux: $(\vec{\beta}_0, \vec{\gamma}_0)$, Profondeur: $p$, Nombre d'étapes d'optimisation: $n_{o}$, Nombre de solutions à échantilloner: $n_s$
     
     \STATE PQC($\vec{\beta}_0, \vec{\gamma}_0) \leftarrow \text{QAOA-Circuit}(H_P, H_D, \vec{\beta}_0, \vec{\gamma}_0, p$)
     \STATE $\text{PQC}(\vec{\beta}, \vec{\gamma}) \leftarrow \text{Optimize}(\text{PQC}(\vec{\beta}_0, \vec{\gamma}_0), n_{o})$
@@ -121,11 +128,11 @@ Comment est-ce que l'algorithme VQCount opère? Soit un problème SAT, décrit p
 
 \subsection*{Plan}
 
+\begin{comment}
 \begin{enumerate}
     \item Faire la preuve de l'auto-réductibilité des algorithmes variationnels quantiques
 \end{enumerate}
-
-\subsection*{Références}
+\end{comment}
 
 % \begin{figure}[t]
 %     \centering
@@ -169,6 +176,12 @@ Comment est-ce que l'algorithme VQCount opère? Soit un problème SAT, décrit p
 %     \caption{}
 %     \label{fig:..}
 % \end{figure}
+
+L'algorithme VQCount ne comprend qu'une optimisation des paramètres du circuit quantique paramétré avant la procédure d'auto-réduction. Toutefois, un autre cycle d'optimisation est en principe nécessaire pour chaque circuit réduit afin d'atteindre un état optimal représentant les solutions à la sous-instance du problème. Ce choix mène alors à la question suivante: Est-ce que la probabilité de succès $r$ du circuit réduit est égale ou supérieur à celle du circuit orignal avec les mêmes paramètres? Dans ce cas, l'optimisation n'est nécessaire que pour le circuit original et peut être sauter pour les circuits réduits.
+
+La réponse à cette question est positive dans le cas de circuits GM-QAOA peu profonds dans la limite $\gamma_{i}=\beta_{i}$, $i=1,\dots,p$. Dans cette limite, GM-QAOA se réduit à l'algorithme de Grover. 
+
+
 
 \begin{figure*}[t]
     \centering
