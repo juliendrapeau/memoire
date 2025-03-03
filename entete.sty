@@ -1,51 +1,74 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesPackage{entete}[2015/09/15]
 
-% Paquets utilisés
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[greek, english, french]{babel}
-\usepackage[squaren,Gray]{SIunits}
-\usepackage{graphicx,listings,color,comment}
-\usepackage{microtype}
-\usepackage{geometry}  % Loadé dans switchboard, selon la version que l'on fait.
-\usepackage[usenames,dvipsnames,svgnames,x11names]{xcolor}
-\usepackage{mathtools,amsmath,amssymb,bm,upgreek}%,esint}
-\usepackage{multirow,multicol,comment,array,listings,url}
-\usepackage{subcaption}
-\usepackage{caption}
-\usepackage{dcolumn}
-\usepackage{setspace}           % Gère l'interligne
-\usepackage{float, placeins}
-\usepackage[bottom]{footmisc}   % Flush les footnote au tout bas de la page
-%\usepackage[version=3]{mhchem} % La commande \ce{} permet d'écrire des formules chimiques
-\usepackage{etoolbox}           % Permet les toggles
-%\usepackage{pdfpages}          % Insère des pdf directement dans le document
-%\usepackage{minted}
-\usepackage{kantlipsum}         % Pour générer le texte bidon du gabarit
-%\usepackage[square, numbers]{natbib} % sort&compress -> bug backrefs.
-% \usepackage{cite}               % Fourni \citen entre autres
-\usepackage{xspace}
-\usepackage{pdflscape}
-\usepackage{xstring}
-\usepackage[backend=biber, style=nature]{biblatex}
-\addbibresource{memoire.bib}
-\usepackage{hyperref}
-\usepackage{csquotes}
-\usepackage{tikz}
-\usetikzlibrary{quantikz}
-\usepackage{xcolor}
-\usetikzlibrary{external}
-\tikzset{external/force remake}
-\tikzexternalize[prefix=tikz/]
-\usepackage{braket}
-\usepackage{dsfont}
-\usepackage[ruled,vlined]{algorithm2e}
-\usepackage{algorithmic}
-\usepackage[shortlabels]{enumitem}
-\usepackage{amsthm}
-\usepackage{epigraph}
-\usepackage{subcaption}
+% Paquets de base
+\usepackage[T1]{fontenc}                % Encodage des fontes
+\usepackage[utf8]{inputenc}             % Encodage des caractères
+\usepackage[greek, english, french]{babel} % Langues utilisées
+
+% Paquets pour les unités et les mathématiques
+\usepackage[squaren,Gray]{SIunits}      % Unités SI
+\usepackage{amsmath}                    % Environnement mathématique
+\usepackage{amssymb}                    % Symboles mathématiques
+\usepackage{mathtools}                  % Améliorations de amsmath
+\usepackage{bm}                         % Gras mathématique
+\usepackage{upgreek}                    % Lettres grecques non-italiques
+
+% Paquets pour les graphiques et les couleurs
+\usepackage{graphicx}                   % Inclusion des images
+\usepackage{color}                      % Gestion des couleurs
+\usepackage[usenames,dvipsnames,svgnames,x11names]{xcolor} % Couleurs supplémentaires
+\usepackage{tikz}                       % Dessins vectoriels
+\usetikzlibrary{quantikz}               % Bibliothèque quantikz pour TikZ
+\usetikzlibrary{external}               % Externalisation des dessins TikZ
+\tikzset{external/force remake}         % Forcer la recréation des dessins TikZ
+\tikzexternalize[prefix=tikz/]          % Externaliser les dessins TikZ
+
+% Paquets pour les tableaux et les listes
+\usepackage{multirow}                   % Cellules multi-lignes dans les tableaux
+\usepackage{multicol}                   % Colonnes multiples
+\usepackage{array}                      % Améliorations des tableaux
+\usepackage{dcolumn}                    % Colonnes alignées sur les décimales
+\usepackage[shortlabels]{enumitem}      % Listes avec labels courts
+
+% Paquets pour les légendes et les flottants
+\usepackage{subcaption}                 % Sous-légendes pour les figures
+\usepackage{caption}                    % Gestion des légendes
+\usepackage{float}                      % Gestion des flottants
+\usepackage{placeins}                   % Gestion des flottants
+\usepackage[bottom]{footmisc}           % Notes de bas de page en bas de page
+
+% Paquets pour la typographie et la mise en page
+\usepackage{microtype}                  % Amélioration de la typographie
+\usepackage{geometry}                   % Gestion des marges (loadé dans switchboard)
+\usepackage{setspace}                   % Gestion de l'interligne
+\usepackage{pdflscape}                  % Pages en mode paysage
+
+% Paquets pour les algorithmes et le code
+\usepackage{listings}                   % Inclusion de listings de code
+\usepackage[ruled,vlined]{algorithm2e}  % Algorithmes
+\usepackage{algorithmic}                % Algorithmes
+
+% Paquets pour la bibliographie et les citations
+\usepackage[backend=biber, style=nature]{biblatex} % Gestion de la bibliographie
+\addbibresource{memoire.bib}            % Fichier de bibliographie
+\usepackage{csquotes}                   % Gestion des citations
+
+% Autres paquets divers
+\usepackage{url}                        % Gestion des URLs
+\usepackage{comment}                    % Gestion des commentaires
+\usepackage{etoolbox}                   % Outils pour les toggles
+\usepackage{kantlipsum}                 % Génération de texte bidon
+\usepackage{xspace}                     % Gestion des espaces après les commandes
+\usepackage{xstring}                    % Manipulation de chaînes de caractères
+\usepackage{hyperref}                   % Hyperliens dans le document
+\usepackage{braket}                     % Notation de Dirac
+\usepackage{dsfont}                     % Fonte pour les ensembles
+\usepackage{amsthm}                     % Environnements de théorèmes
+\usepackage{epigraph}                   % Épigraphe
+
+% Configuration des sous-légendes
+\captionsetup[subfigure]{singlelinecheck=false} % Configuration des sous-légendes
 
 % \definecolor{myblue}{rgb}{0.33725490196078434, 0.7058823529411765, 0.9137254901960784}
 \definecolor{myblue}{rgb}{0.48137254901960785, 0.757843137254902, 0.9137254901960784}

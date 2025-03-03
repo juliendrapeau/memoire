@@ -1232,6 +1232,22 @@
   file = {/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/U9U87UQV/Stockmeyer - 1983 - The complexity of approximate counting.pdf;/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/XFED8IKP/800061.pdf;/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/ZNWLPFF8/Stockmeyer - 1983 - The complexity of approximate counting.pdf}
 }
 
+@online{sundarQuantumAlgorithmCount2019,
+  title = {A Quantum Algorithm to Count Weighted Ground States of Classical Spin {{Hamiltonians}}},
+  author = {Sundar, Bhuvanesh and Paredes, Roger and Damanik, David T. and Dueñas-Osorio, Leonardo and Hazzard, Kaden R. A.},
+  date = {2019-08-05},
+  eprint = {1908.01745},
+  eprinttype = {arXiv},
+  eprintclass = {quant-ph},
+  doi = {10.48550/arXiv.1908.01745},
+  url = {http://arxiv.org/abs/1908.01745},
+  urldate = {2025-03-02},
+  abstract = {Ground state counting plays an important role in several applications in science and engineering, from estimating residual entropy in physical systems, to bounding engineering reliability and solving combinatorial counting problems. While quantum algorithms such as adiabatic quantum optimization (AQO) and quantum approximate optimization (QAOA) can minimize Hamiltonians, they are inadequate for counting ground states. We modify AQO and QAOA to count the ground states of arbitrary classical spin Hamiltonians, including counting ground states with arbitrary nonnegative weights attached to them. As a concrete example, we show how our method can be used to count the weighted fraction of edge covers on graphs, with user-specified confidence on the relative error of the weighted count, in the asymptotic limit of large graphs. We find the asymptotic computational time complexity of our algorithms, via analytical predictions for AQO and numerical calculations for QAOA, and compare with the classical optimal Monte Carlo algorithm (OMCS), as well as a modified Grover's algorithm. We show that for large problem instances with small weights on the ground states, AQO does not have a quantum speedup over OMCS for a fixed error and confidence, but QAOA has a sub-quadratic speedup on a broad class of numerically simulated problems. Our work is an important step in approaching general ground-state counting problems beyond those that can be solved with Grover's algorithm. It offers algorithms that can employ noisy intermediate-scale quantum devices for solving ground state counting problems on small instances, which can help in identifying more problem classes with quantum speedups.},
+  pubstate = {prepublished},
+  keywords = {Quantum Physics},
+  file = {/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/FQAR7UC2/Sundar et al. - 2019 - A quantum algorithm to count weighted ground state.pdf;/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/RBB2K5V2/Sundar et al. - 2019 - A quantum algorithm to count weighted ground states of classical spin Hamiltonians.pdf;/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/NPE8YBPA/1908.html;/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/RRAJB4E6/1908.html}
+}
+
 @article{timmeCountingComplexDisordered2009,
   title = {Counting Complex Disordered States by Efficient Pattern Matching: Chromatic Polynomials and {{Potts}} Partition Functions},
   shorttitle = {Counting Complex Disordered States by Efficient Pattern Matching},
@@ -1374,7 +1390,24 @@
   urldate = {2025-03-01},
   abstract = {Jonathan Wurtz and Peter J. Love, Quantum 6, 635 (2022). The quantum approximate optimization algorithm (QAOA) is a near-term hybrid algorithm intended to solve combinatorial optimization problems, such as MaxCut. QAOA can be made to mimic an adia…},
   langid = {british},
-  file = {/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/SRIPRLLE/Wurtz and Love - 2022 - Counterdiabaticity and the quantum approximate opt.pdf;/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/Z9VMMAIC/Wurtz and Love - 2022 - Counterdiabaticity and the quantum approximate optimization algorithm.pdf;/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/PFZ2VPBI/q-2022-01-27-635.html}
+  file = {/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/SRIPRLLE/Wurtz and Love - 2022 - Counterdiabaticity and the quantum approximate opt.pdf;/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/VSW7RWMC/Wurtz and Love - 2022 - Counterdiabaticity and the quantum approximate optimization algorithm.pdf;/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/PFZ2VPBI/q-2022-01-27-635.html}
+}
+
+@article{xiePerformanceUpperBound2025,
+  title = {Performance Upper Bound of a {{Grover-mixer}} Quantum Alternating Operator Ansatz},
+  author = {Xie, Ningyi and Xu, Jiahua and Chen, Tiejin and Lee, Xinwei and Saito, Yoshiyuki and Asai, Nobuyoshi and Cai, Dongsheng},
+  date = {2025-01-02},
+  journaltitle = {Physical Review A},
+  shortjournal = {Phys. Rev. A},
+  volume = {111},
+  number = {1},
+  pages = {012401},
+  publisher = {American Physical Society},
+  doi = {10.1103/PhysRevA.111.012401},
+  url = {https://link.aps.org/doi/10.1103/PhysRevA.111.012401},
+  urldate = {2025-03-03},
+  abstract = {The quantum alternating operator ansatz (QAOA) represents a branch of quantum algorithms for solving combinatorial optimization problems. A specific variant, the Grover-mixer (GM) QAOA, ensures uniform amplitude across states that share equivalent objective values. This property makes the algorithm independent of the problem structure, focusing instead on the distribution of objective values within the problem. In this work we provide an alternative proof for the upper bound on the probability of measuring a computational basis state from a GM QAOA circuit with a given depth, which is a critical factor in QAOA cost. Using this, we derive the upper bounds for the probability of sampling an optimal solution and for the approximation ratio of maximum optimization problems, both dependent on the objective value distribution. Through numerical analysis, we link the distribution to the problem size and build the regression models that relate the problem size, QAOA depth, and performance upper bound. Our results suggest that the GM QAOA provides a quadratic enhancement in sampling probability and requires circuit depth that scales exponentially with problem size to maintain consistent performance.},
+  file = {/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/73WKUYTQ/Xie et al. - 2025 - Performance upper bound of a Grover-mixer quantum alternating operator ansatz.pdf;/home/local/USHERBROOKE/draj1605/snap/zotero-snap/common/Zotero/storage/9J74A9I9/PhysRevA.111.html}
 }
 
 @online{zdeborovaStatisticalPhysicsHard2008,

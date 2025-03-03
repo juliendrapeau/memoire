@@ -13,19 +13,16 @@
 \end{enumerate}
 \end{comment}
 
-L'apport principal de ce travail réside dans la combinaison des algorithmes variationnels quantique avec l'algorithme de JVV.
+Les chapitres précédents ont laissés transparaître l'intuition derrière l'approche empruntée dans ce travail: Est-il possible d'utiliser les algorithmes variationnels comme générateur de solutions à l'algorithme de JVV pour la résolution approximative des problèmes de comptage? Avant d'introduire le fruit du travail de ce mémoire, l'algorithme VQCount, énumérons les difficultés liées à la résolution de problèmes de comptage avec les algorithmes variationnels quantiques. D'abord, les circuits quantiques doivent produire une grande séparation entre les amplitudes des solutions et les non-solutions de l'état produit pour pouvoir produire même une seule solution avec un nombre tractable de mesures. Ensuite, même si les amplitudes des non-solutions sont nulles, si les amplitudes d'un sous-ensemble non négligeable des solutions sont significativement supprimés par rapport aux autres amplitudes, la mesure des états supprimés entraîne une surcharge computationnelle, potentiellement exponentielle, du nombre de répétitions. Finalement, même si toutes les solutions possèdent environ des amplitudes égales et si les non-solutions ne sont pas présentes dans l'état produit, un nombre exponentiel de mesures est en théorie nécessaire pour énumérer naïvement les solutions de manière exhaustive comme le nombre de solutions est exponentiel pour les problèmes d'intérêt.
 
+L'apport principal de ce travail réside dans la combinaison des algorithmes variationnels quantique et l'algorithme de JVV. L'algorithme VQCount échantillonne la distribution préparée par un algorithme variationnel quantique afin de produire un compte approximatif à l'aide de l'algorithme de JVV. Cette approche tente de minimiser l'impact des obstacles précédents, en particulier la deuxième et troisième difficulté. L'utilisation de GM-QAOA permet d'éviter la suppression d'amplitude d'un sous-ensemble de solutions en assurant que toutes les solutions aient la même amplitude. De plus, l'algorithme de JVV prend avantage de la structure des problèmes auto-réductibles pour éviter de devoir énumérer naïvement toutes les solutions. 
 
-
-d'échantillonner la distribution préparée par un algorithme variationnel quantique afin de produire un compte approximatif à l'aide de l'algorithme de JVV. 
-
-\textcolor{mydarkred}{\textit{Parler de pourquoi QAOA ne peut pas résoudre efficacement les problèmes de comptage.}}
-
-
+Ce chapitre débute en introduisant l'algorithme VQCount à la section~\ref{sec:algorithme-vqcount}, et décrit la procédure d'auto-réduction nécessaire à l'algorithme VQCount à la section~\ref{sec:procedure-auto-reduction}. Finalement, la section~\ref{sec:module-vqcount} présente rapidement le module VQCount développé dans le langage Python au cours de ce projet.
 
 %-----------------------------------------------------------------------------%
 
 \section{Algorithme VQCount}
+\label{sec:algorithme-vqcount}
 
 \begin{comment}
 \subsection*{Plan}
@@ -41,78 +38,47 @@ d'échantillonner la distribution préparée par un algorithme variationnel quan
 \subsection*{Références}
 \end{comment}
 
-Comment faire le pont entre les algorithmes variationnels quantiques et l'algorithme de JVV pour la résolution de problème de comptage? À priori, l'algorithme de JVV doit tout simplement être implémenté en utilisant un algorithme variationnel quantique comme générateur de solutions. Cependant, plusieurs embûches barrent notre chemin. Décrivons la procédure, nommé VQCount par brièveté, en affrontant ces problèmes en chemin.
+Comment faire le pont entre les algorithmes variationnels quantiques et l'algorithme de JVV pour la résolution de problème de comptage? A priori, l'algorithme de JVV doit tout simplement être implémenté en utilisant un algorithme variationnel quantique comme générateur de solutions. Cependant, plusieurs embûches barrent notre chemin. Décrivons la procédure, nommé VQCount par brièveté, en affrontant ces problèmes en chemin.
 
-Soit une instance de problème SAT, décrite par la formule CNF $\varphi$. Ce problème est auto-réductible par la relation~\ref{rel:auto-reductibilite-sat}. Ce travail se limite à l'étude du problème SAT en gardant en tête que par sa \textsf{NP}-complétude, une réduction existe entre n'importe quel problème de la classe \textsf{NP} et celui-ci. \textcolor{mydarkred}{\textit{Potentiellement d'autres problèmes avec }}. La formule $\varphi$ peut être transformée en un modèle d'Ising, tel que décrit à la section~\ref{subsec:encodage-probleme}, dont l'hamiltonien $H_{P}$ encode le problème. Grâce à cet hamiltonien de problème, il est possible de construire le circuit paramétré quantique de l'algorithme QAOA, préparant l'état $\ket{\psi(\vec{\gamma_{0}}, \vec{\beta_{0}})}$. Négligeons pour le moment le choix de l'état initial et de l'hamiltonien de forçage. Une fois le circuit construit, l'énergie moyenne de $H_{P}$ est évalué en mesurant l'état préparé. Un optimiseur classique modifie alors les paramètres du circuit quantique pour minimiser cette énergie, donnant un circuit quantique paramétré optimisé $\ket{\psi(\vec{\gamma}, \vec{\beta})}$.
+Soit une instance de problème SAT, décrite par la formule CNF $\varphi$. Ce problème est auto-réductible par la relation~\ref{rel:auto-reductibilite-sat}. Ce travail se limite à l'étude du problème SAT en gardant en tête que par sa \textsf{NP}-complétude, une réduction existe entre n'importe quel problème de la classe \textsf{NP} et celui-ci. La formule $\varphi$ peut être transformée en un modèle d'Ising, tel que décrit à la section~\ref{subsec:encodage-probleme}, de l'hamiltonien du modèle d'Ising $H_{P}$ encode le problème. Grâce à cet hamiltonien de problème, il est possible de construire le circuit paramétré quantique de l'algorithme QAOA, préparant l'état $\ket{\psi(\vec{\gamma}_{0}, \vec{\beta}_{0})}$ avec les paramètres initiaux $\vec{\gamma}_0$ et $\vec{\beta}_{0}$. Négligeons pour le moment le choix de l'état initial et de l'hamiltonien de forçage. Une fois le circuit construit, l'énergie moyenne de $H_{P}$ est évalué à l'aide de mesures répétées de l'état préparé. Un optimiseur classique modifie ensuite les paramètres du circuit quantique pour minimiser cette énergie, donnant un circuit quantique paramétré optimisé $\ket{\psi(\vec{\gamma}, \vec{\beta})}$.
 Les échantillons, obtenus par une mesure dans la base computationnelle de l'état préparé par le circuit, contient alors, avec une haute probabilité, des solutions à la formule $\varphi$.
 
-\textcolor{mydarkred}{\textit{Peut-être raccourcir?}}
-
-Comme QAOA est une heuristique, les paramètres optimaux ne sont pas nécessairement atteints, impliquant la présence de non-solutions dans la distribution obtenue en mesurant $\ket{\psi(\vec{\gamma}, \vec{\beta})}$. Comme l'algorithme de JVV nécessite une distribution composée uniquement de solutions, une étape de post-traitement doit être employé pour retirer les non-solutions. Comme le problème SAT appartient à la classe \textsf{NP}, vérifier qu'un échantillon est une solution est un processus efficace. Ainsi, toutes les non-solutions échantillonnées sont retirés de la distribution obtenue. De plus, comme discuté à la section~\ref{sec:echantillonage-et-biais}, la non-uniformité de la distribution obtenue ne respecte pas nécessairement la condition de l'algorithme de JVV. La discussion dans cette section se restreindra alors à la variante GM-QAOA, qui garantie que l'amplitude des solutions de $\ket{\psi(\vec{\gamma}, \vec{\beta})}$ soit égale. 
-
-Ces remarques complétées, $O(\frac{n \log (\delta)}{r \varepsilon^{2}})$ échantillons sont mesurées du circuit. En utilisant ces échantillons, la valeur la plus probable de la première variable $w_{0}$ est déterminée. Selon l'algorithme de JVV, il faut alors résoudre la sous-instance $\varphi_{w_{0}}$. Résoudre directement celle-ci à l'aide du même circuit optimisé demanderait une post-sélection supplémentaire sur la première variable. En réalité, comme il existe un nombre exponentiel de sous-instances, en raison du nombre exponentiel de chaîne de bit possible, il faudrait retirer un nombre exponentiel d'échantillons supplémentaires. Une autre méthode consisterait à construire et optimiser un différent circuit pour résoudre la sous-instance. Pour éviter tout cela, le circuit de GM-QAOA est modifié pour chaque sous-problème tel qu'illustré à la figure~\ref{fig:gm-circuit}. Cette modification permet de conserver la propriété d'égalité des amplitudes de GM-QAOA tout en suggérant qu'il est possible de garder les mêmes paramètres. \textcolor{mydarkred}{\textit{Compléter.}}
-
-Le processus précédent est ensuite répété, jusqu'à ce que toutes les variables sont fixées. Le nombre de solutions est alors données par l'inverse du produit des probabilités conditionnelles.
-
-D'abord, le problème de comptage est encodé dans un circuit quantique selon l'algorithme QAOA. 
-
-
-
-
-Suite à l'optimisation de ce circuit par un optimiseur classique, une distribution de solutions est obtenue. De cette distribution, plusieurs solutions sont échantillonnées. Finalement, QAOA est à nouveau utilisé comme générateur pour les sous-problèmes de manière récursive.
-
-
-
-
-Quelques remarques sont nécessaires avant d'expliquer en profondeur l'algorithme VQCount. Rappelons d'abord les conditions nécessaires à l'algorithme de comptage approximatif.
-
-\begin{enumerate}[(1)]
-    \item \textbf{Auto-réductibilité:} Le problème de comptage doit être auto-réductible.
-    \item \textbf{Générateur de solutions:} Le générateur de solutions doit être en mesure de retourner des solutions pour toutes les sous-instances du problème.
-    \item \textbf{Non-uniformité:} Le générateur de solutions doit être quasi uniforme, c'est-à-dire dont la distribution de solutions tend vers l'inverse du nombre de variables.
-\end{enumerate}
-
-Pour la première contrainte, ce travail se limite à l'étude du problème SAT, auto-réductible par la relation~\ref{rel:auto-reductibilite-sat}. Celui-ci étant \textsf{NP}-complet, une réduction existe alors pour tout problème de la classe \textsf{NP}. \textsf{Autre problème avec transformation d'Ising?}. 
-
-Pour la deuxième contrainte, 
-
-
-
-
-
-L'algorithme VQCount utilise l'état préparé par un circuit GM-QAOA comme générateur de solutions pour obtenir un compte approximatif en se basant sur l'algorithme de JVV. 
-
-Comment est-ce que l'algorithme VQCount opère? Soit un problème SAT, décrit par une formule CNF $\varphi(x)$. Ce problème   
+QAOA étant une méthode heuristique, les paramètres optimaux ne sont pas nécessairement atteints, impliquant la présence de non-solutions dans la distribution obtenue en mesurant $\ket{\psi(\vec{\gamma}, \vec{\beta})}$. L'algorithme de JVV nécessite pourtant une distribution composée uniquement de solutions, impliquant qu'une étape de post-traitement doit être employé pour retirer les non-solutions. Comme le problème SAT appartient à la classe \textsf{NP}, vérifier qu'un échantillon est une solution est un processus efficace. Ainsi, toutes les non-solutions échantillonnées sont retirées de la distribution obtenue. De plus, comme discuté à la section~\ref{sec:echantillonnage-et-biais}, la non-uniformité de la distribution obtenue ne respecte pas nécessairement la condition de l'algorithme de JVV. La discussion dans cette section se restreindra alors à la variante GM-QAOA, qui garantie que les amplitudes des solutions préparées soient égales. Ainsi, le critère de mérite pertinent est la probabilité que le résultat d'une mesure soit une solution, ou plus succinctement le \textit{taux de succès}:
 
 \begin{equation}
     r = \braket{ \psi(\vec{\gamma}, \vec{\beta}) | \hat{\mathcal{P}}_{G} | \psi(\vec{\gamma}, \vec{\beta}) }
 \end{equation}
 
+où $\hat{\mathcal{P}}_{G}$ est le projecteur dans l'espace des solutions $G$, c'est-à-dire l'état fondamental du modèle d'Ising représentant le problème, donné par
+
 \begin{equation}
     \hat{\mathcal{P}}_{G} = \sum_{x \in G} \ket{x}\!\bra{x}
 \end{equation}
 
-\textcolor{mydarkred}{\textit{A classical algorithm can be used after a certain point.}}
+Cette définition permet alors de décrire la performance des différents algorithmes pour le comptage basé sur l'échantillonnage sur un pied d'égalité en utilisant le taux de succès $r$, la tolérance (ou l'erreur multiplicative) $\varepsilon$ ainsi que la confiance $\delta$. Cette caractérisation s'étend aux algorithmes classiques employant un générateur échouant à produire une solution à un taux $1 - r$.
 
-\begin{algorithm}[hb!]
+Ces remarques complétées, des échantillons sont mesurés à partir du circuit $\ket{\vec{\gamma}, \vec{\beta}}$ pour estimer la valeur la plus probable de la première variable $w_{0}$. Selon l'algorithme de JVV, il faut alors échantillonner des solutions à la sous-instance $\varphi_{w_{0}}$. Résoudre directement celle-ci à l'aide du même circuit optimisé demanderait une post-sélection supplémentaire sur la première variable. En réalité, comme il existe un nombre exponentiel de sous-instances en raison du nombre exponentiel de chaînes de bits possibles, un nombre exponentiel d'échantillons supplémentaires devraient être retiré. Une autre méthode consiste à construire et optimiser un différent circuit pour résoudre la sous-instance. Pour éviter cette surcharge computationnelle, le circuit de GM-QAOA est modifié pour résoudre directement la sous-instance. Cette procédure d'auto-réduction, qui consiste à remplacer pour chaque qubit fixé la porte d'Hadamard par une porte de Pauli conditionnée sur la valeur $w_{0}$ du bit fixé et à retirer l'opérateur de l'hamiltonien de forçage sur le qubit associé, est détaillée à la section~\ref{sec:procedure-auto-reduction}.
+Ce changement permet de conserver la propriété d'égalité des amplitudes de GM-QAOA. De plus, celle-ci suggère qu'il soit possible d'éviter d'optimiser à nouveau le circuit en gardant les mêmes paramètres. Ainsi, le circuit est modifié selon la procédure d'auto-réduction sans optimiser les paramètres. Des solutions sont alors encore échantillonnées de ce sous-circuit et le processus est répété de manière récursive jusqu'à ce que toutes les variables soient fixées. Le nombre de solutions est alors données par l'inverse du produit des probabilités conditionnelles tel qu'énoncé par l'algorithme de JVV. L'algorithme~\ref{alg:algorithme-jvv} résume les étapes de l'algorithme VQCount.
+
+\begin{algorithm}[h!]
     \caption{VQCount}\label{alg:vqcount}
     \begin{algorithmic}[1]
-    \REQUIRE Hamiltonien de problème: $H_P$, Hamiltonien de forçage: $H_D$, Paramètres initiaux: $(\vec{\beta}_0, \vec{\gamma}_0)$, Profondeur: $p$, Nombre d'étapes d'optimisation: $n_{o}$, Nombre de solutions à échantilloner: $n_s$
+    \REQUIRE Nombre de variables: $n$, Hamiltonien de problème: $H_P$,\\Hamiltonien de forçage: $H_D$, Paramètres initiaux: $(\vec{\beta}_0, \vec{\gamma}_0)$, Profondeur: $p$, Nombre d'étapes d'optimisation: $n_{o}$, Nombre de solutions à\\échantillonner: $n_s$
     
-    \STATE PQC($\vec{\beta}_0, \vec{\gamma}_0) \leftarrow \text{QAOA-Circuit}(H_P, H_D, \vec{\beta}_0, \vec{\gamma}_0, p$)
-    \STATE $\text{PQC}(\vec{\beta}, \vec{\gamma}) \leftarrow \text{Optimize}(\text{PQC}(\vec{\beta}_0, \vec{\gamma}_0), n_{o})$
+    \STATE PQC($\vec{\beta}_0, \vec{\gamma}_0) \leftarrow \text{Circuit-QAOA}(H_P, H_D, \vec{\beta}_0, \vec{\gamma}_0, p$)
+    \STATE $\text{PQC}(\vec{\beta}, \vec{\gamma}) \leftarrow \text{Optimisation}(\text{PQC}(\vec{\beta}_0, \vec{\gamma}_0), n_{o})$
     \STATE $w \leftarrow \texttt{""}$ 
     \STATE $\tilde{N} \leftarrow 1$
     \FOR{$i \in \{1, \dots, n\}$}
     \STATE $S \leftarrow \{ \ \}$
     \WHILE{$\abs{S} < n_{s}$}
-    \STATE $m \leftarrow \text{Measure}(\text{PQC}(\vec{\beta}, \vec{\gamma}))$
-    \IF{$\text{Verify-Solution}(m)$}
+    \STATE $m \leftarrow \text{Mesure}(\text{PQC}(\vec{\beta}, \vec{\gamma}))$
+    \IF{$\text{Vérification-Solution}(m)$}
     \STATE $S \leftarrow S \cup \{m\}$
     \ENDIF
     \ENDWHILE
-    \STATE $w, \tilde{p} \leftarrow \text{Majority-Prefix}(S)$
-    \STATE $\text{PQC}(\vec{\beta}, \vec{\gamma}) \leftarrow \text{Self-Reduce}(\text{PQC}(\vec{\beta}, \vec{\gamma}), w)$
+    \STATE $w, \tilde{p} \leftarrow \text{Préfixe-Majoritaire}(S)$
+    \STATE $\text{PQC}(\vec{\beta}, \vec{\gamma}) \leftarrow \text{Auto-Réduction}(\text{PQC}(\vec{\beta}, \vec{\gamma}), w)$
     \STATE $\tilde{N} \leftarrow \tilde{N} / \tilde{p}$
     \ENDFOR
     
@@ -120,21 +86,34 @@ Comment est-ce que l'algorithme VQCount opère? Soit un problème SAT, décrit p
 \end{algorithmic}
 \end{algorithm}
     
+Comme l'algorithme VQCount se fonde sur l'algorithme de JVV, son utilisation requiert $O(\frac{n^{2} \log (\frac{1}{\delta})}{r \varepsilon^{2}})$ échantillons pour approximer le nombre d'états fondamentaux à une erreur multiplicative $\varepsilon$ avec une confiance $1 - \delta$. Ce résultat se compare favorablement à un travail similaire évaluant la fonction de partition d'hamiltoniens de spin classiques qui requiert $O(\frac{\sqrt{N \log(1 / \delta)}}{r \varepsilon})$ échantillons pour la même tâche~\cite{sundarQuantumAlgorithmCount2019}. Lorsque $N=O(2^{n})$, VQCount nécessite exponentiellement moins d'échantillons que cette méthode.
+
+Malgré que l'approche présentée résoute certains des problèmes énoncés au début de la section, les problèmes \textsf{\#P}-difficile demeure difficile pour les ordinateurs quantiques. La génération des distributions arbitraires, incluant les distributions uniformes de structures combinatoires, est difficile en général et seulement facile dans des cas exceptionnels~\cite{aaronsonComputationalComplexityLinear2011, boulandComplexityVerificationQuantum2019}. De plus, GM-QAOA requiert en général des profondeurs de circuits de taille exponentielle selon la taille du problème pour atteindre un taux de succès fini~\cite{xiePerformanceUpperBound2025}. 
+
+Notons qu'un algorithme classique peut être utilisé pour résoudre l'instance du problème de comptage lorsque VQCount ait suffisamment réduit celle-ci.
+
+% \begin{enumerate}[(1)]
+%     \item \textbf{Auto-réductibilité:} Le problème de comptage doit être auto-réductible.
+%     \item \textbf{Générateur de solutions:} Le générateur de solutions doit être en mesure de retourner des solutions pour toutes les sous-instances du problème.
+%     \item \textbf{Non-uniformité:} Le générateur de solutions doit être quasi uniforme, c'est-à-dire dont la distribution de solutions tend vers l'inverse du nombre de variables.
+% \end{enumerate}
+
+
 
 
 %-----------------------------------------------------------------------------%
 
-\section{Auto-réductibilité des algorithmes variationnels quantiques}
-
-\subsection*{Plan}
+\section{Procédure d'auto-réduction}
+\label{sec:procedure-auto-reduction}
 
 \begin{comment}
-\begin{enumerate}
+\subsection*{Plan}
+    \begin{enumerate}
     \item Faire la preuve de l'auto-réductibilité des algorithmes variationnels quantiques
 \end{enumerate}
 \end{comment}
 
-% \begin{figure}[t]
+% \begin{figure}[h!]
 %     \centering
 %     \begin{quantikz}[font=\sffamily]
 %       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{1})} & \gate[wires=4, nwires=3, style={fill=myred}][1.30cm]{U_D (\beta_{1})} & \ \ldots\ \qw & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{p})} & \gate[wires=4, nwires=3, style={fill=myred}][1.30cm]{U_D (\beta_{p})} & \qw \\
@@ -145,7 +124,7 @@ Comment est-ce que l'algorithme VQCount opère? Soit un problème SAT, décrit p
 %     \caption{}
 % \end{figure}
 
-% \begin{figure}[t]
+% \begin{figure}[h!]
 %     \centering
 %     \begin{quantikz}
 %       \ket{0} & \gate[style={fill=myyellow!80}][0.80cm]{X^{c}} & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{1})} & \qw & \ \ldots\ \qw & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{p}) } & \qw & \qw \\
@@ -177,29 +156,37 @@ Comment est-ce que l'algorithme VQCount opère? Soit un problème SAT, décrit p
 %     \label{fig:..}
 % \end{figure}
 
-L'algorithme VQCount ne comprend qu'une optimisation des paramètres du circuit quantique paramétré avant la procédure d'auto-réduction. Toutefois, un autre cycle d'optimisation est en principe nécessaire pour chaque circuit réduit afin d'atteindre un état optimal représentant les solutions à la sous-instance du problème. Ce choix mène alors à la question suivante: Est-ce que la probabilité de succès $r$ du circuit réduit est égale ou supérieur à celle du circuit orignal avec les mêmes paramètres? Dans ce cas, l'optimisation n'est nécessaire que pour le circuit original et peut être sauter pour les circuits réduits.
+Pour agir en tant que générateur de solutions à sous-instance de l'instance du problème original, le circuit GM-QAOA doit être modifié pour être en mesure d'échantillonner à partir de la distribution de solutions appropriée. Comme expliqué à la section précédente, il n'est pas suffisant d'échantillonner l'état produit par le circuit original en raison du nombre exponentielle de mesures nécessaires. Une \textit{procédure d'auto-réduction}, illustrée à la figure~\ref{fig:vqcount-circuit}, est ainsi introduite pour résoudre cette complication. Soit une formule CNF $\varphi$ et une sous-formule CNF $\varphi_{w}$ représentant la formule $\varphi$ où les premières variables sont remplacées par $w$. Alors, pour chaque qubit $q$ fixé à $w_{q}$ du circuit GM-QAOA, les opérations suivantes sont appliquées:
 
-La réponse à cette question est positive dans le cas de circuits GM-QAOA peu profonds dans la limite $\gamma_{i}=\beta_{i}$, $i=1,\dots,p$. Dans cette limite, GM-QAOA se réduit à l'algorithme de Grover. 
+\begin{enumerate}[(1)]
+    \item Retirer la porte d'Hadamard $H$ initiale du qubit $q$.
+    \item Insérer un porte de Pauli $X$ conditionnée par la valeur $w_{q}$.
+    \item Retirer l'opérateur de l'hamiltonien de forçage $H_{D}$ du qubit $q$.
+\end{enumerate}
 
+Ces modifications fixent alors l'état du qubit $q$ à $\ket{w_{q}}$ tout en préservant les termes d'interactions encodant les contraintes de la formule $\varphi_{w}$. De plus, le circuit modifié possède les propriétés de GM-QAOA. L'annexe~\ref{ann:auto-reductibilite-du-circuit-gm-qaoa} prouve la validité de ces affirmations.
 
-
-\begin{figure*}[t]
+\begin{figure*}[h!]
     \centering
-    \begin{subfigure}[h]{0.45\textwidth}
+    \begin{subfigure}[h]{0.6\textwidth}
     \centering
+    \caption{}
     \includegraphics[width=1\textwidth]{figures/qaoa-self-reducibility-1.pdf}
-    \caption{}
-    \label{fig:quantum-circuit-a}
+    \label{fig:vqcount-circuit-a}
     \end{subfigure}
-    \begin{subfigure}[h]{0.45\textwidth}
+    \begin{subfigure}[h]{0.6\textwidth}
     \centering
-    \includegraphics[width=1\textwidth]{figures/qaoa-self-reducibility-2.pdf}
     \caption{}
-    \label{fig:quantum-circuit-b}
+    \includegraphics[width=1\textwidth]{figures/qaoa-self-reducibility-2.pdf}
+    \label{fig:vqcount-circuit-b}
     \end{subfigure}
-\caption[Circuit VQCount]{}
+\caption[Procédure d'auto-réduction de VQCount]{Générateur de solutions QAOA avant (a) et après (b) avoir fixé le premier qubit à $c$ durant la procédure d'auto-réduction.}
 \label{fig:vqcount-circuit}
 \end{figure*}
+
+L'algorithme VQCount ne comprend qu'une optimisation des paramètres du circuit quantique paramétré avant la procédure d'auto-réduction. Toutefois, un autre cycle d'optimisation est en principe nécessaire pour chaque circuit réduit afin d'atteindre un état optimal représentant les solutions à la sous-instance du problème. Ce choix mène alors à la question suivante: Est-ce que la probabilité de succès $r$ du circuit réduit est égale ou supérieur à celle du circuit original avec les mêmes paramètres? Dans ce cas, l'optimisation n'est nécessaire que pour le circuit original et peut être sautée pour les circuits réduits.
+
+La réponse à cette question est positive dans le cas de circuits GM-QAOA peu profonds dans la limite $\gamma_{i}=\beta_{i}$, $i=1,\dots,p$. Dans cette limite, GM-QAOA se réduit à l'algorithme de Grover. En effet, pour tous les hamiltoniens de problème $H_{P}$ pouvant être écrit comme une somme de chaînes de Pauli, un circuit peut être construit effondrant tous les niveaux excités de $H_{P}$ à un seul niveau excité, menant à circuit d'évolution d'hamiltonien à deux niveaux $U_{P}$. Avec les paramètres susmentionnés, $U_{P}$ devient un oracle pour les états fondamentaux de $H_{P}$, à une phase constante près, et $U_{D}$ devient l'opérateur de diffusion de Grover. Dans cette limite, à une profondeur constante $p=O(1)$, le taux de succès est une fonction strictement croissante du rapport des solutions au nombre total d'états. Si, en descendant l'arbre d'auto-réductibilité de l'algorithme de JVV, nous choisissons les branches possédant une probabilité plus grande que $1/2$, alors le ratio des solutions au nombre total d'états est aussi strictement croissant. Cela signifie que, pour ce choix de paramètres, un circuit GM-QAOA peu profond pour un problème donné peut être modifié selon la procédure d'auto-réduction pour résoudre les sous-problèmes avec le même ou un meilleur taux de succès. Cet argument est seulement valide dans la limite de Grover, mais suggère que la stratégie d'auto-réduction est possiblement aussi valide dans d'autres cas. Le chapitre suivant introduit des évidences sous la forme de simulations numériques pour confirmer la validité de cette intuition.
 
 % \begin{figure*}[h]
 %     \centering
@@ -210,14 +197,15 @@ La réponse à cette question est positive dans le cas de circuits GM-QAOA peu p
 
 %-----------------------------------------------------------------------------%
 
-\section{Module VQCount}
+% \section{Module VQCount}
+% \label{sec:module-vqcount}
 
-\subsection*{Plan}
+% \begin{comment}
+% \subsection*{Plan}
+% \begin{enumerate}
+%     \item Expliquer les librairies python dévelopées
+%     \item Décrire \textit{qaoa-quimb}
+%     \item Décrire \textit{VQCount}
+% \end{enumerate}
+% \end{comment}
 
-\begin{enumerate}
-    \item Expliquer les librairies python dévelopées
-    \item Décrire \textit{qaoa-quimb}
-    \item Décrire \textit{VQCount}
-\end{enumerate}
-
-\subsection*{Références}

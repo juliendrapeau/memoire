@@ -94,7 +94,7 @@ La relation~\ref{rel:auto-reductibilite-sat} exemplifie une deuxième façon de 
 
 Afin d'obtenir une meilleure perspective sur la notion d'auto-réductibilité, il est pertinent d'exprimer la structure d'une relation auto-réductible $\varphi$ sous la forme d'un arbre orienté, nommé \textit{arbre d'auto-réductibilité}, illustré à la figure~\ref{fig:arbre-auto-reductibilite}. Dans cet arbre, les sommets représentent à la fois une chaîne de bits $w$ de taille $m$ et une instance de problème $\varphi_{w}$, où $\varphi_{w}$ représente la sous-instance du problème $\varphi$ dont les premières variables sont remplacées par la chaîne de bits $w$. Le sous-problème est alors dit \textit{fixé} par le préfixe $w$. Les arrêtes du graphe représentent l'assignement d'une variable. La racine de l'arbre correspond à l'instance du problème initial $\varphi$ ainsi qu'à une solution partielle nulle. Les enfants de cette racine sont par la suite donnés par les sous-instances $\varphi_{w}$ pour tous les préfixes $w$ de taille $1$ possibles. Le reste de l'arbre est défini récursivement de la même manière en augmentant la taille de la chaîne de bits $w$ à chaque niveau jusqu'aux feuilles de l'arbre. Ces feuilles représentent finalement une entrée au problème $\varphi$, étant soit une solution ou une non-solution au problème.
 
-\begin{figure}[ht!]
+\begin{figure}[h!]
     \centering
     \includegraphics[width=0.6\textwidth]{figures/jvv-algorithm.pdf}
     \caption[Arbre d'auto-réductibilité]{\textcolor{mydarkred}{\textit{Refaire la figure.}}}
@@ -110,7 +110,7 @@ L'auto-réductibilité est simplement généralisable aux problèmes dont les va
 Par complétude, une définition rigoureuse de l'auto-réductibilité dans le sens de Schnorr~\cite{schnorrOptimalAlgorithmsSelfReducible1976} est donnée. Celle-ci permet l'introduction d'un langage pertinent pour le reste de ce chapitre.
 \begin{maindefinition}{Auto-réductibilité descendante}{auto-reductibilite-formel}
     Soit $\Sigma^{*}$ un ensemble fixe et fini encodant les instances d'un problème ainsi que leurs solutions. Soit $R \subseteq \Sigma^{*} \times \Sigma^{*}$ une relation binaire assignant à chaque instance de problème $x \in \Sigma^{*}$ un ensemble de solutions $\set{ y \in \Sigma^{*} : xRy }$. Une relation $R \subseteq \Sigma^{*} \times \Sigma^{*}$ est auto-réductible si et seulement si
-    \begin{enumerate}
+    \begin{enumerate}[(1)]
         \item il existe une fonction calculable en temps polynomial $g \in \Sigma^{*} \to \mathbb{N}$ tel que $xRy \implies \lvert y \rvert = g(x)$;
         \item il existe une fonction calculable en temps polynomial $\psi \in \Sigma^{*} \times \Sigma^{*} \to \Sigma^{*}$ et $\sigma \in \Sigma^{*} \to \mathbb{N}$ satisfaisant
         \begin{align*}
@@ -275,7 +275,7 @@ Quelques notes sont ici nécessaires. Le chemin des probabilités maximales est 
 
 Jusqu'à maintenant, le générateur a été considéré comme uniforme. 
 
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
     \includegraphics[width=0.55\textwidth]{figures/jvv-algorithm.pdf}
     \caption[Algorithme de Jerrum-Valiant-Vazirani]{Un exemple de l'arbre d'auto-réductibilité dans l'algorithme de JVV pour une formule CNF $\varphi(x_{1}, x_{2})$, où les solutions sont illustrées par un carré bleu et les non-solutions par un losange rouge. Suivant le chemin des probabilités maximales, le compte approximatif est donné par $N = \frac{1}{P_{0}} \frac{1}{P_{01}} = 3$.}
@@ -308,7 +308,7 @@ où $\tilde{N}_{z_{:i}}$ est le nombre de solutions dans l'ensemble d'échantill
 
 % Comme décrit à la section~\ref{sec:auto-reductibilite}, chaque noeud de l'arbre est associé une chaîne de bits $w$ de taille $m$ fixant les $m$ premières variables de la formule $\varphi$ ainsi qu'une formule partielle $\varphi_{w}$. 
 
-\begin{algorithm}[hb!]
+\begin{algorithm}[h!]
     \caption{Algorithme de JVV}\label{alg:algorithme-jvv}
     \begin{algorithmic}[1]
     \REQUIRE Formule CNF: $f(n, m)$, Nombre d'échantillons: $n_{s}$

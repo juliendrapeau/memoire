@@ -13,23 +13,23 @@ Cette annexe décrit seulement en surface les méthodes de réseaux de tenseur. 
 \section{Réseaux de tenseurs}
 
 
-Un \textit{tenseur} est un tableau multi-linéaire avec un nombre arbitraire de dimensions encodant une certaine quantité d'information. Plus formellement, un tenseur $T[d_{1}, d_{2}, \dots, d_{m}]$ de rang $m$ avec dimensions $d_{1} \times d_{2} \times \dots \times d_{m}$ est un élément de l'ensemble $\mathbb{C}^{d_{1} \times d_{2} \times \dots \times d_{m}}$. Ceux-ci sont aussi interprétés comme une fonction définie sur un domaine discret. Les tenseurs possèdent une représentation géométrique simple, permettant de visualiser aisément leur caractéristiques principales. Par exemple, un scalaire, un vecteur et une matrice, correspondant respectivement à un tenseur de rang 0, 1 et 2, sont représentés par une forme géométrique avec une patte pour chaque indice tel qu'illustré à la figure~\ref{fig:tensor}.
+% Un \textit{tenseur} est un tableau multi-linéaire avec un nombre arbitraire de dimensions encodant une certaine quantité d'information. Plus formellement, un tenseur $T[d_{1}, d_{2}, \dots, d_{m}]$ de rang $m$ avec dimensions $d_{1} \times d_{2} \times \dots \times d_{m}$ est un élément de l'ensemble $\mathbb{C}^{d_{1} \times d_{2} \times \dots \times d_{m}}$. Ceux-ci sont aussi interprétés comme une fonction définie sur un domaine discret. Les tenseurs possèdent une représentation géométrique simple, permettant de visualiser aisément leur caractéristiques principales. Par exemple, un scalaire, un vecteur et une matrice, correspondant respectivement à un tenseur de rang 0, 1 et 2, sont représentés par une forme géométrique avec une patte pour chaque indice tel qu'illustré à la figure~\ref{fig:tensor}.
 
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.6\textwidth]{figures/tensor.png}
-    \caption{}
-    \label{fig:tensor}
-\end{figure}
+% \begin{figure}[ht!]
+%     \centering
+%     \includegraphics[width=0.6\textwidth]{figures/tensor.png}
+%     \caption{}
+%     \label{fig:tensor}
+% \end{figure}
 
 
-Plusieurs opérations peuvent être appliquées sur des tenseurs. La contraction de deux tenseurs 
+% Plusieurs opérations peuvent être appliquées sur des tenseurs. La contraction de deux tenseurs 
 
-D'autres opérations sont aussi importantes. La trace d'un tenseur est la sommation sur les
+% D'autres opérations sont aussi importantes. La trace d'un tenseur est la sommation sur les
 
-D'autres opérations, comme la trace, la décomposition, le regroupement et la séparation.
+% D'autres opérations, comme la trace, la décomposition, le regroupement et la séparation.
 
-Les réseaux de tenseurs sont une collection de tenseurs partageant entre eux certains indices.
+% Les réseaux de tenseurs sont une collection de tenseurs partageant entre eux certains indices.
 
 
 
@@ -38,7 +38,7 @@ Les réseaux de tenseurs sont une collection de tenseurs partageant entre eux ce
 
 \section{État en produit de matrices et opérateur en produit de matrices}
 
-Un \textit{état en produit de matrices} (« Matrix Product State ») (MPS) est une représentation efficace d'un état quantique.
+% Un \textit{état en produit de matrices} (« Matrix Product State ») (MPS) est une représentation efficace d'un état quantique.
 
 
 
@@ -64,7 +64,7 @@ Un \textit{état en produit de matrices} (« Matrix Product State ») (MPS) est 
 \end{comment}
 
 
-Afin d'obtenir des échantillons à partir d'un réseau de tenseur, deux méthodes sont possibles. D'abord, une réprésentation dense de la fonction d'onde peut être obtenue en contractant le réseau. Les états sont alors simplement obtenus en pigeant selon la distribution de probabilité trouvée. Une méthode alternative utilise plutôt ~\cite{ferrisPerfectSamplingUnitary2012}. 
+% Afin d'obtenir des échantillons à partir d'un réseau de tenseur, deux méthodes sont possibles. D'abord, une réprésentation dense de la fonction d'onde peut être obtenue en contractant le réseau. Les états sont alors simplement obtenus en pigeant selon la distribution de probabilité trouvée. Une méthode alternative utilise plutôt ~\cite{ferrisPerfectSamplingUnitary2012}. 
 
 
 
