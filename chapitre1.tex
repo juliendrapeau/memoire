@@ -21,15 +21,16 @@ Borne sur le comptage ("a tighter bound for counting max-weight solutions to 2SA
     \end{enumerate}
 \end{comment}
 
-Cette section explique le contexte autour une classe de problème d'intérêt: les problèmes de comptage. Ces problèmes, consistant à déterminant le nombre de solutions respectant un ensemble de contraintes, sont difficilement résolubles par des algorithmes classiques.
+Qu'est-ce qu'un problème de comptage? Simplement, un tel problème consiste à déterminer le nombre de solutions respectant un ensemble de contraintes. Les problèmes de comptage font partie des problèmes computationnellement difficiles, ce qui signifie qu'il est peu probable que ces problèmes soient résolubles efficacement. Les problèmes de comptage surgissent dans de nombreuses disciplines, avec des applications en raisonnement probabiliste~\cite{rothHardnessApproximateReasoning1996, sangPerformingBayesianInference2005, abramsonHailfinderBayesianSystem1996}, en fiabilité des réseaux~\cite{valiantComplexityEnumerationReliability1979, duenas-osorioCountingBasedReliabilityEstimation2017}, en mécanique statistique~\cite{jerrumPolynomialtimeApproximationAlgorithms1993} et en intelligence artificielle~\cite{balutaQuantitativeVerificationNeural2019}. Contrairement à certains problèmes étudiés en algorithmie quantique, comme l'échantillonnage de bosons~\cite{aaronsonComputationalComplexityLinear2011} ou l'échantillonnage de circuits aléatoires~\cite{boulandComplexityVerificationQuantum2019}, une solution à ces problèmes peuvent avoir un impact concret, justifiant alors l'étude de tels problèmes.
 
-Les problèmes de comptage surgissent dans de nombreuses disciplines, avec des applications en raisonnement probabiliste~\cite{rothHardnessApproximateReasoning1996, sangPerformingBayesianInference2005, abramsonHailfinderBayesianSystem1996}, en fiabilité des réseaux~\cite{valiantComplexityEnumerationReliability1979, duenas-osorioCountingBasedReliabilityEstimation2017}, en mécanique statistique~\cite{jerrumPolynomialtimeApproximationAlgorithms1993} et en intelligence artificielle~\cite{balutaQuantitativeVerificationNeural2019}.
+Ce chapitre tente de décrire le cadre théorique entourant la classe des problèmes de comptage en détails. Pour ce faire, celle-ci est définie à l'aide du langage de la théorie de la complexité à la section~\ref{sec:classes-de-complexite}. Le problème de comptage prototypique, le problème de satisfaisabilité, sert d'exemple et est décrit à la section~\ref{sec:satisfaisabilite-booleenne}. Celui-ci est d'une grande importance pour ce projet et est ainsi référencé tout au long de ce mémoire. La section~\ref{sec:intractabilite-approximation-et-optimisation} explique l'importance des méthodes approximatives alors que la section~\ref{sec:comptage-de-modeles} décrit les solveurs modernes pour les problèmes de comptage. Finalement, le comportement des instances aléatoires pour ces problèmes est présenté à la section~\ref{sec:transitions-de-phase}, où des transitions de phase font étonnamment leurs apparitions.
 
 Il est souvent favorable de décrire la théorie de la complexité à l'aide du concept de \textit{machine de Turing}. Cependant, ce mémoire suppose que la thèse de Church-Turing soit vraie, et donc que n'importe quel modèle de calcul puisse être utilisé de manière équivalente, pour faire abstraction de ce langage et simplifier les idées présentées.
 
 %-----------------------------------------------------------------------------%
 
 \section{Classes de complexité}
+\label{sec:classes-de-complexite}
 
 \begin{comment}
 \subsection*{Plan}
@@ -100,7 +101,9 @@ Une deuxième classe particulièrement importante en théorie de la complexité 
 
 On appelle $B$ le vérificateur du problème de décision $A$ et $y$ le certificat ou le témoin pour l'entrée $x$. Un exemple de problème \textsf{NP} est le problème du commis voyageur. Soit un graphe $x$ représentant les villes d'une région particulière. Est-ce que le commis voyageur peut visiter toutes les villes exactement une fois et revenir à son point de départ en parcourant une distance inférieure à $d$? Dans ce cas, la fonction $A$ détermine le chemin parcouru alors que la fonction $B$ détermine si un chemin $y$ est de taille inférieure à $d$.
 
-La classe \textsf{NP} est aussi définie comme la classe de problèmes pouvant être résolu par une machine de Turing non déterministe en temps polynomiale, d'où son nom. Cette définition est toutefois équivalente à la définition précédente, c'est-à-dire la classe de problèmes vérifiable par une machine de Turing déterministe en temps polynomial~\cite{sipserIntroductionTheoryComputation2012}. Notons que la classe \textsf{P} est contenue dans la classe \textsf{NP}. En effet, comme un problème de \textsf{P} est résoluble en temps polynomial, alors nécessairement une solution à ce problème peut aussi être vérifiée en temps polynomial. Cependant, une question, faisant partie des problèmes du prix du millénaire~\cite{carlsonMillenniumPrizeProblems2006}, demeure ouverte: est-ce que $\textsf{P} = \textsf{NP}$? La conjecture largement répandue répond à cette question par la négative. L'hypothèse de temps exponentiel~\cite{impagliazzoComplexityKSAT2001} suggère par exemple que certains problèmes de \textsf{NP} sont résolubles en temps exponentiel, un résultat significatif sur la difficulté de ces problèmes. En conséquence, un problème est \textit{intraitable} s'il n'est pas résoluble en temps polynomial, par opposition à un problème traitable. \textcolor{mydarkred}{\textit{Conséquences?}}
+La classe \textsf{NP} est aussi définie comme la classe de problèmes pouvant être résolu par une machine de Turing non déterministe en temps polynomiale, d'où son nom. Cette définition est toutefois équivalente à la définition précédente, c'est-à-dire la classe de problèmes vérifiable par une machine de Turing déterministe en temps polynomial~\cite{sipserIntroductionTheoryComputation2012}. Notons que la classe \textsf{P} est contenue dans la classe \textsf{NP}. En effet, comme un problème de \textsf{P} est résoluble en temps polynomial, alors nécessairement une solution à ce problème peut aussi être vérifiée en temps polynomial. Cependant, une question, faisant partie des problèmes du prix du millénaire~\cite{carlsonMillenniumPrizeProblems2006}, demeure ouverte: est-ce que $\textsf{P} = \textsf{NP}$? La conjecture largement répandue répond à cette question par la négative. L'hypothèse de temps exponentiel~\cite{impagliazzoComplexityKSAT2001} suggère par exemple que certains problèmes de \textsf{NP} sont résolubles en temps exponentiel, un résultat significatif sur la difficulté de ces problèmes. En conséquence, un problème est \textit{intraitable} s'il n'est pas résoluble en temps polynomial, par opposition à un problème traitable. 
+
+% \textcolor{mydarkred}{\textit{Conséquences?}}
 
 % \textcolor{mydarkred}{\textit{Parler de non-déterministique. Est-ce pertinent comme il faut introduire les machines de Turing non-déterministe? Autrement, un problème appartient à la classe \textsf{NP} s'il est résoluble en temps polynomial par une machine de Turing non-déterministe. }}
 
@@ -138,7 +141,7 @@ L'importance des problèmes \textsf{\#P} au sein de la théorie de la complexit�
     La hiérarchie polynomiale \textsf{PH} est contenue dans $\textsf{P}^{\textsf{\#P}}$.
 \end{subtheorem}
 
-\textcolor{mydarkred}{\textit{https://www.cs.cornell.edu/~sabhar/chapters/ModelCounting-SAT-Handbook-prelim.pdf}}
+% \textcolor{mydarkred}{\textit{https://www.cs.cornell.edu/~sabhar/chapters/ModelCounting-SAT-Handbook-prelim.pdf}}
 
 % L'ordinateur quantique boulverse le domaine de la complexité classique. En effet, la thèse de Church-Turing, stipulant qu'un algorithme est calculable si et seulement s'il est calculable par une machine de Turing, ne prend pas en compte les processus physiques. Le principe de Church-Turing-Deustch généralise la thèse de Church-Turing en énoncçant qu'un dispositif de calcul universel peut simuler n'importe quel processus physique. \textcolor{mydarkred}{\textit{Enlever?}}
 
@@ -152,17 +155,18 @@ L'ordinateur quantique bouleverse le domaine de la complexité classique. Les pr
 
 % \textcolor{mydarkred}{\textit{Discuter des relations entre les classes de complexité définies.}}
 
-\textcolor{mydarkred}{\textit{Church-Turing-Deutch}}
+% \textcolor{mydarkred}{\textit{Church-Turing-Deutch}}
 % \textcolor{mydarkred}{\textit{Parler des problèmes d'optimisation combinatoire.}}
 
-\textcolor{mydarkred}{\textit{Ajouter une figure sur les classes de complexité.}}
-\textcolor{mydarkred}{\textit{Classe PP}}
+% \textcolor{mydarkred}{\textit{Ajouter une figure sur les classes de complexité.}}
+% \textcolor{mydarkred}{\textit{Classe PP}}
 % \textcolor{mydarkred}{\textit{Classes de complexité quantique}}
 
 %-----------------------------------------------------------------------------%
 
 \section{Satisfaisabilité booléenne}
 \label{sec:satisfaisabilite-booleenne}
+
 \begin{comment}
 \subsection*{Plan}
 
@@ -212,7 +216,7 @@ Dans l'étude du problème SAT, les formules propositionnelles sont souvent expr
     n'est pas satisfaisable car $\varphi (x_{1}) = 0$ peu importe le choix de $x_{1}$.
 \end{example}
 
-\textcolor{mydarkred}{\textit{Tables de vérité?}}
+% \textcolor{mydarkred}{\textit{Tables de vérité?}}
 
 Le problème kSAT constitue un cas spécial du problème SAT, où le nombre de littéraux appartenant à chaque clause d'une formule CNF est restreint à $k$ littéraux au maximum. Notons que le problème kSAT est trivial pour $k=1$, résoluble en temps linéaire pour $k=2$~\cite{kromDecisionProblemClass1967}, et \textsf{NP}-complet pour $k \geq 3$~\cite{karpReducibilityCombinatorialProblems1972}. Surprenamment, les problèmes de comptage correspondant, \#2SAT et \#3SAT, appartiennent tous les deux à la classe \textsf{\#P}-complet~\cite{valiantComplexityEnumerationReliability1979}. Ainsi, compter le nombre de solutions à un problème \textsf{NP}-complet peut être difficile même s'il est possible de trouver une solution efficacement.
 
@@ -267,9 +271,9 @@ où $\text{OBJ}_{\Pi}(x) = \min_{y} \text{obj}_{\Pi} (x, y)$. Ce type de problè
 
 Pour pallier ce problème, des algorithmes approximatifs avec garantis sont définis en fonction de deux paramètres: la tolérance $\varepsilon$ et la confiance $\delta$. La tolérance indique l'erreur multiplicative maximale de l'approximation et la confiance indique la probabilité de succès de l'algorithme. Ce couple de paramètres est souvent utilisés pour décrire les algorithmes approximatifs.
 
-Un \textit{algorithme d'approximation de tolérance $\varepsilon$} pallie ce problème en garantissant une solution optimale à une erreur multiplicative près~\cite{vaziraniApproximationAlgorithms2003}. Pour un problème de minimisation $\Pi$, cet algorithme produit une solution $s$ pour toutes instances $x \in I_{\Pi}$ tel que $f_{\Pi}(x, y) \leq \varepsilon(\lvert x \rvert ) \cdot \text{OBJ}(x)$ où $\lvert  x \rvert $ est la taille de l'instance et $\varepsilon \geq 1   $. Cette définition peut être détendue en permettant à l'algorithme de produire une telle solution avec une certaine probabilité. Cette variante, l'\textit{algorithme d'approximation randomisé de tolérance $\varepsilon$}, introduit des concepts pertinents pour le chapitre~\ref{cha:echantillonnage-quasi-uniforme-comptage-approximatif-randomise}.
+Un \textit{algorithme d'approximation de tolérance $\varepsilon$} pallie ce problème en garantissant une solution optimale à une erreur multiplicative près~\cite{vaziraniApproximationAlgorithms2003}. Pour un problème de minimisation $\Pi$, cet algorithme $f$ produit une solution $s$ pour toutes instances $x \in I_{\Pi}$ tel que $f_{\Pi}(x, y) \leq \varepsilon(\lvert x \rvert ) \cdot \text{OBJ}(x)$ où $\lvert  x \rvert $ est la taille de l'instance et $\varepsilon \geq 1   $. Cette définition peut être détendue en permettant à l'algorithme de produire une telle solution avec une certaine probabilité. Cette variante, l'\textit{algorithme d'approximation randomisé de tolérance $\varepsilon$}, introduit des concepts pertinents pour le chapitre~\ref{cha:echantillonnage-quasi-uniforme-comptage-approximatif-randomise}.
 
-\textcolor{mydarkred}{\textit{What is $f$?}}
+% \textcolor{mydarkred}{\textit{What is $f$?}}
 
 \begin{subtheorem}{Algorithme d'approximation randomisé}{algorithme-approximation-randomise}
     Un algorithme d'approximation randomisé de tolérance $\varepsilon$ pour un problème de minimisation $\Pi$ est un algorithme aléatoire prenant en entrée une instance $x \in D_{\Pi}$ et une tolérance $\varepsilon$ et qui produit une solution $y \in S_{\Pi}(x)$ tel que
@@ -285,7 +289,7 @@ En relaxant la condition d'exactitude, il est attendu qu'un gain en possible en 
 %-----------------------------------------------------------------------------%
 
 \section{Comptage de modèles}
-\label{sec:complexite-et-bornes-sur-le-comptage}
+\label{sec:comptage-de-modeles}
 
 \begin{comment}
 \subsection*{Plan}
@@ -324,21 +328,21 @@ Le développement du calcul quantique a aussi mené à de fructueux aboutissemen
 Notons que dans tous les cas, le comptage de solutions aux formules CNF, l'objet de ce travail, ne s'effectue jamais en temps polynomial. Même les approches approximatives nécessitent un nombre exponentiel d'opérations, indiquant davantage la difficulté de ce problème.
 
 
-\textcolor{mydarkred}{\textit{Model counting!}}
-\textcolor{mydarkred}{\textit{Hashing based}}
-\textcolor{mydarkred}{\textit{JVV}}
-\textit{}
-\textcolor{mydarkred}{\textit{Permanent}}
+% \textcolor{mydarkred}{\textit{Model counting!}}
+% \textcolor{mydarkred}{\textit{Hashing based}}
+% \textcolor{mydarkred}{\textit{JVV}}
+% \textit{}
+% \textcolor{mydarkred}{\textit{Permanent}}
 
-\textcolor{mydarkred}{\textit{Quantum counting?}}
+% \textcolor{mydarkred}{\textit{Quantum counting?}}
 
-\textcolor{mydarkred}{\textit{https://www.scottaaronson.com/papers/apxcount.pdf}}
+% \textcolor{mydarkred}{\textit{https://www.scottaaronson.com/papers/apxcount.pdf}}
 
-\textcolor{mydarkred}{\textit{https://www.cs.cornell.edu/~sabhar/chapters/ModelCounting-SAT-Handbook-prelim.pdf}}
+% \textcolor{mydarkred}{\textit{https://www.cs.cornell.edu/~sabhar/chapters/ModelCounting-SAT-Handbook-prelim.pdf}}
 
-\textcolor{mydarkred}{\textit{https://www.cs.toronto.edu/~meel/Papers/handbook-chapter.pdf}}
+% \textcolor{mydarkred}{\textit{https://www.cs.toronto.edu/~meel/Papers/handbook-chapter.pdf}}
 
-\textcolor{mydarkred}{\textit{Partition function}}
+% \textcolor{mydarkred}{\textit{Partition function}}
 
 %-----------------------------------------------------------------------------%
 

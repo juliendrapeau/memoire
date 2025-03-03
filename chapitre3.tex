@@ -1,5 +1,5 @@
 \chapter{Algorithmes variationnels quantiques}
-
+\label{cha:algorithmes-variationnels-quantiques}
 %-----------------------------------------------------------------------------%
 
 \begin{comment}
@@ -23,15 +23,13 @@
 
 En général, le comptage est un problème ardu. En acceptant une solution approximative, la complexité de ce problème peut être déplacée à l'échantillonnage quasi uniforme de solutions à ce problème grâce à l'algorithme de JVV. Toutefois, la construction d'un tel générateur n'a pas encore été évoquée. En fait, la majorité des solutionneurs de problème \textsf{\#P} ne se basent pas sur l'échantillonnage en raison de la difficulté d'obtenir une distribution uniforme composée de solutions. Est-ce que le calcul quantique peut offrir une méthode efficace pour la génération uniforme de solutions?
 
-Les \textit{algorithmes variationnels quantiques} (« Quantum Variational Algorithms ») (VQA) sont des algorithmes hybrides, c'est-à-dire composés d'une partie quantique et d'une partie classique, conçus pour exploiter les avantages du calcul quantique tout en profitant de la puissance des algorithmes classiques~\cite{cerezoVariationalQuantumAlgorithms2021}. Ces algorithmes ont émergés comme la stratégie dominante pour atteindre l'avantage quantique avec le matériel informatique quantique actuel, connu sous le nom des ordinateurs quantiques bruités de taille intermédiaire (« Noisy Intermediate-Scale Quantum ») (NISQ). En effet, les algorithmes quantiques possédant un avantage par rapport aux algorithmes classiques sont présentement hors d'atteinte pour les ordinateurs quantiques du moment en raison de la taille des systèmes nécessaires et des erreurs causées par le bruit. Le concept derrière des VQA s'inspire des méthodes d'apprentissage automatique pour résoudre des problèmes d'optimisation combinatoire avec des circuits de faible profondeur sans se soucier de la correction des erreurs des qubits. Un état quantique initial facile à préparer est évolué unitairement avec un circuit quantique paramétré et la valeur moyenne d'une fonction de coût est estimé par de multiples mesures du circuit dans une base appropriée. Les paramètres du circuit sont alors ajustés itérativement avec un optimiseur classique pour minimiser la fonction de coût et ainsi préparer un état près d'une superposition des solutions du problème. Cette approche limite les inconvénients causés par le bruit en raison de l'utilisation de circuits paramétrés limitant la taille des circuits utilisés.
+Les \textit{algorithmes variationnels quantiques} (« Quantum Variational Algorithms ») (VQA) sont des algorithmes hybrides, c'est-à-dire composés d'une partie quantique et d'une partie classique, conçus pour exploiter les avantages du calcul quantique tout en profitant de la puissance des algorithmes classiques~\cite{cerezoVariationalQuantumAlgorithms2021}. Ces algorithmes ont émergés comme la stratégie dominante pour atteindre l'avantage quantique avec le matériel informatique quantique actuel, connu sous le nom des ordinateurs quantiques bruités de taille intermédiaire (« Noisy Intermediate-Scale Quantum ») (NISQ). En effet, les algorithmes quantiques possédant un avantage par rapport aux algorithmes classiques sont présentement hors d'atteinte pour les ordinateurs quantiques du moment en raison de la taille des systèmes nécessaires et des erreurs causées par le bruit. Le concept derrière des VQA s'inspire des méthodes d'apprentissage automatique pour résoudre des problèmes d'optimisation combinatoire avec des circuits de faible profondeur sans se soucier de la correction des erreurs des qubits. Un état quantique initial facile à préparer est évolué unitairement avec un circuit quantique paramétré et la valeur moyenne d'une fonction de coût est estimé par de multiples mesures du circuit dans une base appropriée. Les paramètres du circuit sont alors ajustés itérativement avec un optimiseur classique pour minimiser la fonction de coût et ainsi préparer un état près d'une superposition des solutions du problème. Cette approche limite les inconvénients causés par le bruit en raison de l'utilisation de circuits paramétrés limitant la taille des circuits utilisés. Ainsi, les VQA sont une option possible pour la résolution de problèmes d'échantillonnage de l'algorithme de JVV.
 
 % Un circuit quantique paramétré est d'abord préparé sur un ordinateur quantique et un optimiseur classique modifie itérativement les paramètres de ce circuit pour minimiser la fonction de coût d'un problème à l'aide des mesures du circuit préparé. 
 
-Les algorithmes variationnels quantiques peuvent possiblement résoudre le problème d'échantillonnage de l'algorithme de JVV. Ceux-ci sont en effet connus pour être en mesure de préparer des distributions difficile à imiter par des ordinateurs classiques~\cite{aaronsonComputationalComplexityLinear2011, boulandComplexityVerificationQuantum2019}.
+Cet chapitre introduit d'abord l'algorithme adiabatique quantique à la section~\ref{sec:algorithme-adiabatique-quantique}, fondant la base théorique de QAOA. Après avoir détaillé QAOA à la section~\ref{sec:algorithme-quantique-d'optimisation-approximative}, différentes variantes de QAOA sont explorées, tel comme sa généralisation, l'ansatz quantique  opérateur alternées, et une variante de celle-ci utilisant le forçage de Grover à la section~\ref{sec:ansatz-quantique-a-operateurs-alternants}. Finalement, deux propriétés de QAOA sont explorés, c'est-à-dire l'initialisation et l'optimisation des paramètres du circuit quantique à la section~\ref{subsec:configuration-des-parametres} et le biais d'échantillonnage à la section~\ref{sec:echantillonnage-et-biais}.
 
-Cette section introduit d'abord l'algorithme adiabatique , qui fonde   Différentes variantes de QAOA sont ensuite explorées, tel GM-QAOA, 
-
-\textcolor{mydarkred}{\textit{Importance des heuristiques quantiques (voir qaoa (2e version) paper)}}
+% \textcolor{mydarkred}{\textit{Importance des heuristiques quantiques (voir qaoa (2e version) paper)}}
 
 %-----------------------------------------------------------------------------%
 
@@ -115,6 +113,7 @@ L'algorithme adiabatique quantique se place au sein du \textit{calcul adiabatiqu
 %-----------------------------------------------------------------------------%
 
 \section{Algorithme quantique d'optimisation approximative}
+\label{sec:algorithme-quantique-d'optimisation-approximative}
 
 \begin{comment}
 \subsection*{Plan}
@@ -393,6 +392,7 @@ Ce processus est généralement nommé \textit{évolution adiabatique trottéris
 %-----------------------------------------------------------------------------%
 
 \section{Ansatz quantique à opérateurs alternants}
+\label{sec:ansatz-quantique-a-operateurs-alternants}
 
 \begin{comment}
 \subsection*{Plan}

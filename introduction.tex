@@ -1,20 +1,23 @@
-\begin{comment}
-\end{comment}
-
 \Introduction   % Chapitre qui ne sera pas numéroté si IntroConcluSansNombre est Vrai
 
 %-----------------------------------------------------------------------------%
 
-\textcolor{mydarkred}{\textit{It is currently unknwon wheter quantum computing can provide an advantage over classical algorithms}}
+En tirant parti du parallélisme, de la superposition et de l'intrication, les algorithmes quantiques remettent en question les limites classiques du calcul, promettant des accélérations exponentielles pour certains types de problèmes. L'algorithme de Shor permet par exemple de factoriser des entiers naturels en offrant une accélération superpolynomiale par rapport aux 
+meilleurs algorithmes classiques connus~\cite{shorAlgorithmsQuantumComputation1994}. L'utilité actuelle du calcul quantique demeure toutefois incertaine pour plusieurs raisons. Les algorithmes quantiques ne s'appliquent présentement qu'à une classe de problèmes restreints, possédant un éventail d'applications limitées. De plus, les ordinateurs quantiques du moment, nommés ordinateurs quantiques à échelle intermédiaire bruités, sont affligés par différentes complications rendant tout calcul excessivement difficile: un nombre limité de qubits, une connectivité limitée et la présence d'erreurs limitant la taille du circuit.
+
+Pour contourner ces difficultés, les algorithmes variationnels quantiques (« Variational Quantum Algorithms ») (VQA) fût conçus pour exploiter les mécanismes de l'algorithmie quantique tout en prenant avantage de la puissance du calcul classique~\cite{cerezoVariationalQuantumAlgorithms2021}. Ceux-ci reposent sur des circuits quantiques paramétrés dont les paramètres sont optimisé par un optimiseur classique pour effectuer des tâches computationnelles complexes. Étant basée sur l'optimisation de paramètres, cette stratégie est en mesure de considérer toutes les difficultés précédentes d'un coup tout en limitant la taille des circuits quantiques. De nombreux travaux au cours des dernières années ont tenté d'améliorer les VQA en introduisant des stratégies pour mieux exploiter la structure des problèmes. Malgré ces études, il est présentement inconnu si ces algorithmes possèdent un avantage par rapport aux algorithmes classiques. 
+
+Les VQA sont typiquement appliqués à des problèmes d'optimisation combinatoire, comme le problème de coupe maximale et d'ensembles indépendants. Comme des solveurs classiques pour ce type de problème ont été développés au fil de décennies, il est peu évident de montrer la supériorité des VQA. Le projet de ce mémoire offre une perspective différente sur cette approche. Plutôt que d'entrer en compétition avec des algorithmes classiques déjà performants, les algorithmes variationnels quantique sont appliqués à la résolution de problèmes vastement plus complexes: les problèmes de comptage. Ceux-ci, éléments de la classe complexité \textsf{\#P}, se place plus haut que les problèmes d'optimisation dans la hiérarchie de la complexité computationnelle. 
+
+Pour ce faire, l'équivalence entre le comptage approximatif et l'échantillonnage quasi uniforme, montré par Jerrum, Valiant et Vazirani~\cite{jerrumRandomGenerationCombinatorial1986}, est utilisée. Cette correspondance donne lieu un algorithme randomisé de comptage approximatif, surnommé algorithme de JVV, permettant l'estimation à un facteur multiplicatif près du nombre de solutions à un problème de comptage auto-réduction par l'échantillonnage d'une distribution aléatoire quasi uniforme. La distribution préparée par un VQA peut alors être utilisée comme pour la génération de solutions à cet algorithme, résolvant de cette façon le problème de comptage. 
+
+L'algorithme VQCount, introduit dans ce mémoire, permet de faire le pont entre les VQA et les problèmes de comptage. VQCount prépare une distribution d'états contenant avec une superposition de solutions au problème de comptage avec une haute probabilité en utilisant l'ansatz quantique à opérateurs alternés avec forçage de Grover~\cite{bartschiGroverMixersQAOA2020}. L'algorithme de comptage approximatif est alors employé pour obtenir un estimé du nombre de solutions. Une procédure d'auto-réduction modifie le circuit quantique pour respecter la condition d'auto-réductibilité nécessaire à l'algorithme de JVV. 
+
+La performance de l'algorithme VQCount est ensuite caractérisé sur deux problèmes de comptage, \#NAE3SAT et \#1-in-3SAT. Afin 
 
 
+Le chapitre~\ref{cha:complexite-du-comptage} décrit en profondeur les problèmes de comptage avec le langage de la théorie de la complexité. L'algorithme de JVV est présenté au chapitre~\ref{cha:echantillonnage-quasi-uniforme-comptage-approximatif-randomise} à partir de l'inter-réduction entre l'échantillonnage aléatoire et le comptage approximatif.  
 
+La performance de l'algorithme VQCount est finalement caractérisé au chapitre~\ref{cha:resolution-de-problemes-avec-vqcount}. L'annexe~\ref{ann:auto-reductibilite-du-circuit-gm-qaoa} montre que la procédure d'auto-réduction est bien applicable au, alors que l'annexe~\ref{ann:simulation-circuits-quantiques-avec-reseaux-de-tenseurs} introduit les méthodes de réseaux de tenseurs utilisé pour la simulation de circuit quantique de l'algorithme VQCount.
 
-
-
-
-Le travail effectué au cours de ce projet a mené à la publication d'un article scientifique sur \textit{ArXiV}:
-
-\textcolor{mydarkred}{\textit{Rajouter le lien.}}
-
-Ce mémoire prend ainsi son inspiration de cet écrit.
+Le travail effectué au cours de ce projet a mené à la publication d'un manuscrit sur \textit{arXiv}: \textcolor{mydarkred}{\textit{Rajouter le lien}}. Ce mémoire prend ainsi son inspiration de cet écrit.

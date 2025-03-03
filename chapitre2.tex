@@ -28,7 +28,7 @@ Il n'est pas évident de prime abord de comparer la complexité de ces problème
 
 Ce travail éclaircit la compréhension de la théorie de la complexité, particulièrement pour la génération uniforme et du comptage. La dernière correspondance entre le comptage approximatif randomisé et la génération quasi uniforme s'avère particulièrement intéressante et forme la base du travail de ce mémoire. Cette inter-réduction mène en effet à un algorithme de comptage approximatif résolvant approximativement certains problèmes de comptage, possédant la propriété d'auto-réductibilité, à l'aide d'un générateur de solutions quasi uniforme. Par souci de commodité, cet algorithme est surnommé \textit{algorithme de JVV} selon le nom de ses auteurs. Parmi ses principaux attraits est sa capacité à obtenir un compte approximatif avec un nombre polynomial d'appels au générateur de solutions, sous la condition que ce dernier soit génère une distribution de solutions suffisamment uniforme. Cette propriété s'avère particulièrement utile pour les problèmes possédant un nombre exponentiel de solutions comme le problème SAT.
 
-Les trois concepts nécessaires à l'algorithme de JVV sont formalisés dans cette section: l'auto-réductibilité, l'échantillonnage quasi-uniforme et le comptage approximatif randomisé. Pour conclure, une description en profondeur de l'algorithme de JVV est présentée.
+Les trois concepts nécessaires à l'algorithme de JVV sont formalisés dans cette section: l'auto-réductibilité à la section~\ref{sec:auto-reductibilite}, l'échantillonnage quasi-uniforme à la section~\ref{sec:echantillonnage-quasi-uniforme} et le comptage approximatif randomisé à la section~\ref{sec:comptage-approximatif-randomise}. Pour conclure, la section~\ref{sec:algorithme-jvv} présente une description en profondeur de l'algorithme de JVV.
 
 %-----------------------------------------------------------------------------%
 
@@ -103,7 +103,7 @@ Afin d'obtenir une meilleure perspective sur la notion d'auto-réductibilité, i
 
 L'auto-réductibilité est simplement généralisable aux problèmes dont les variables peuvent prendre $d$ valeurs, dit auto-réductibilité $d$-disjonctive, en prenant la disjonction sur les $d$ valeurs possibles. Le degré de l'arbre est en conséquence donné par $d$. Notons aussi que l'arbre d'auto-réductibilité est aussi parfois défini tel les feuilles correspondent uniquement à des solutions au problème auto-réductible. Dans ce cas, les non-solutions ne sont pas incluses dans les ramifications de l'arbre.
 
-\textcolor{mydarkred}{\textit{https://ics.uci.edu/~vazirani/book.pdf}}
+% \textcolor{mydarkred}{\textit{https://ics.uci.edu/~vazirani/book.pdf}}
 
 % Jusqu'à présent, l’auto-réductibilité a été étudiée principalement dans le cadre du problème SAT. Une vaste étendue de problèmes possèdent toutefois cette propriété, signifiant qu'une généralisation est utile. Ainsi, 
 
@@ -134,8 +134,8 @@ Démystifions cette définition. Le problème SAT est un exemple de relation bin
     \end{aligned}
 \end{equation}
 
-\textcolor{mydarkred}{\textit{https://era.ed.ac.uk/bitstream/handle/1842/11392/Sinclair1988.pdf?sequence=1}}
-\textcolor{mydarkred}{\textit{$\Sigma$ contre $\Sigma^{*}$}}
+% \textcolor{mydarkred}{\textit{https://era.ed.ac.uk/bitstream/handle/1842/11392/Sinclair1988.pdf?sequence=1}}
+% \textcolor{mydarkred}{\textit{$\Sigma$ contre $\Sigma^{*}$}}
 
 La notation $xRy$ signifie que $y$ est une solution valide à l'instance $x$. La première condition implique que la taille des solutions, donnée par la fonction $g$, est bornée par une fonction calculable en temps polynomial. La deuxième condition implique que, pour une instance $x$ et un préfixe $w$ de taille $g(x)$ de n'importe quelle solution $y$ au problème $x$, $\psi$ donne une instance $x'$ dont les solutions sont exactement celles qui, lorsque concaténées avec $w$, forme les solutions de $x$. La fonction $\sigma$ donne alors la granularité des solutions, c'est-à-dire le nombre de caractères de $y$ utilisés pour réduire l'instance $x$. Plus précisément, $\psi(x, w) \leq \lvert x \rvert$ assure que la taille du problème diminue à mesure que la réduction se poursuit. L'implication $g(x) > 0 \implies  \sigma(x) > 0$ signifie que la réduction continue si la taille de l'instance $x$ est non-nulle. La dernière relation énonce que la résolution du problème pour $\braket{x, y}$ peut être réduite à la résolution d'instances de taille inférieure, c'est-à-dire que $\braket{x, y_{1}\dots y_{n}}$ est reliée à $\braket{\psi(x, y_{1}\dots y_{n}), y_{\sigma(x)+1}\dots y_{n}}$.
 
