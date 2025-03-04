@@ -70,11 +70,11 @@ où $\varepsilon_{j}(s) < \varepsilon_{j+1}(s) \ \forall j,s$ et $j \in \set{ 0,
     T \gg \max_{s \in [0,1]} \frac{\lvert \braket{ \varepsilon_{i}(s) | \partial_{s} \tilde{H}(s) | \varepsilon_{j}(s) } \rvert }{\lvert \varepsilon_{i}(s) - \varepsilon_{j}(s) \rvert^{2} } \ \forall j \neq i \,.
 \end{equation}
 
+% \textcolor{mydarkred}{\textit{Rajouter une intuition et un lien avec le théorème.}}
 
+L'approximation adiabatique est souvent utilisée à partir de l'état fondamental $\ket{\varepsilon_{0}(t)}$, menant à la définition du gap spectral entre l'état fondamental et le premier état excité du système $\Delta(s) = \varepsilon_{1}(s) - \varepsilon_{0}(s)$. Généralement, le maximum de $\braket{ \varepsilon_{i}(s) | \partial_{s} \tilde{H}(s) | \varepsilon_{j}(s)}$ est de l'ordre d'une valeur propre typique de $\tilde{H}$ et petit. Le minimum du carré de l'inverse du gap spectral $\Delta$ constitue alors un critère pratique pour quantifier le temps nécessaire à l'évolution adiabatique.
 
-\textcolor{mydarkred}{\textit{Rajouter une intuition et un lien avec le théorème.}}
-
-L'approximation adiabatique est souvent utilisée à partir de l'état fondamental $\ket{\varepsilon_{0}(t)}$, menant à la définition du gap spectral entre l'état fondamental et le premier état excité du système $\Delta(s) = \varepsilon_{1}(s) - \varepsilon_{0}(s)$. Généralement, le maximum de $\braket{ \varepsilon_{i}(s) | \partial_{s} \tilde{H}(s) | \varepsilon_{j}(s)}$ est de l'ordre d'une valeur propre typique de $\tilde{H}$ et petit. Le minimum du carré de l'inverse du gap spectral $\Delta$ constitue alors un critère pratique pour quantifier le temps nécessaire à l'évolution adiabatique. \textcolor{mydarkred}{\textit{Reformuler et faire attention aux symboles.}}
+% \textcolor{mydarkred}{\textit{Reformuler et faire attention aux symboles.}}
 
 L'\textit{algorithme adiabatique quantique} (« Quantum Adiabatic Algorithm ») (QAA), introduit par Farhi, Gutmann et Sipser~\cite{farhiQuantumComputationAdiabatic2000}, emploie un ordinateur quantique physique pour la résolution de problèmes d'optimisation combinatoire en se basant sur le théorème adiabatique quantique. Pour ce faire, le système physique est initialement préparé dans l'état fondamental d'un hamiltonien de forçage $H_{D}$ facile à construire et dont l'état fondamental est simple à trouver. La solution du problème, encodée dans l'état fondamental de l'hamiltonien de problème $H_{P}$, est alors obtenue en transitionnant de l'état fondamental de l'hamiltonien $H_{D}$ à l'état fondamental de l'hamiltonien $H_{P}$ par une évolution adiabatique. Plus précisément, l'hamiltonien du système s'écrit comme
 
@@ -139,12 +139,12 @@ L'algorithme adiabatique quantique se place au sein du \textit{calcul adiabatiqu
 
 Bien que le calcul adiabatique quantique soit utilisé pour résoudre les problèmes d'optimisation combinatoire, le temps nécessaire pour une évolution adiabatique constitue un facteur limitant pour de nombreux problèmes. L'\textit{algorithme quantique d'optimisation approximative} (« Quantum Approximate Optimization Algorithm ») (QAOA)~\cite{farhiQuantumApproximateOptimization2014} propose alors une alternative, sous la forme d'un algorithme variationnel quantique, discrétisant l'évolution continue de QAA. Bien que cette approche s'éloigne de l'évolution adiabatique, celle-ci prend avantage des transitions diabatiques entre l'état fondamental et les états excités pour réduire le temps d'évolution. L'optimisation des paramètres du circuit quantique paramétré permet de naviguer efficacement l'espace de Hilbert pour atteindre une bonne solution approximative. En fait, QAOA est contre-adiabatique et non seulement adiabatique, signifiant que des raccourcis à l'adiabacité sont possibles~\cite{wurtzCounterdiabaticityQuantumApproximate2022}
 
-QAOA trouve des bonnes approximations pour de nombreux problèmes d'optimisation, comme les problèmes de coupe maximum
-\textcolor{mydarkred}{\textit{Applications}}
+% QAOA trouve des bonnes approximations pour de nombreux problèmes d'optimisation, comme les problèmes de coupe maximal
+% De nombreuses extensions à QAOA ont été présentés au cours des dernières années~\cite{blekosReviewQuantumApproximate2024}.+
 
-De nombreuses extensions à QAOA ont été présentés au cours des dernières années~\cite{blekosReviewQuantumApproximate2024}.
+% \textcolor{mydarkred}{\textit{Applications}}
 
-D'abord, l'algorithme tel qu'initialement proposé est introduit. Une discussion plus poussée détaille ensuite les composantes importantes de l'algorithme et un lien avec le calcul adiabatique quantique est présenté pour finir.
+% D'abord, l'algorithme tel qu'initialement proposé est introduit. Une discussion plus poussée détaille ensuite les composantes importantes de l'algorithme et un lien avec le calcul adiabatique quantique est présenté pour finir.
 
 %-----------------------------------------------------------------------------
 
@@ -450,7 +450,7 @@ L'innovation principale de travail provient de l'opérateur de mélange $U_{D}$,
 
 Cet opérateur ressemble aux opérateurs de diffusion utilisés dans l'algorithme d'amplification d'amplitude, où les opérateurs de déphasage $e^{-i\beta}$ remplacent les opérateurs d'inversion de phase $e^{-i\beta}$. $U_{D}$ est alors implémenté en utilisant les unitaires $U_{S}$ et $U_{S}^{\dagger}$, deux couches d'opérateur de Pauli $X$ et un opérateur de déphasage $Z^{-\beta/\pi}$ contrôlés sur tous les qubits.
 
-Une des conséquences de l'inspiration de l'algorithme de Grover signifie GM-QAOA peut préparer des superpositions égales d'états de même énergie. De plus, comme cette approche ne possède pas d'erreur de simulation d'Hamiltonien, comme les erreurs de Trotter. Notons que les problèmes NAE3SAT ET 1-in-3SAT ne sont pas contraints et donc que l'espace faisable demeure le même que pour QAOA, c'est-à-dire que $\ket{F} = \ket{+}^{\otimes n}$.
+Une des conséquences de l'inspiration de l'algorithme de Grover signifie GM-QAOA peut préparer des superpositions égales d'états de même énergie. De plus, comme cette approche ne possède pas d'erreur de simulation d'Hamiltonien, comme les erreurs de Trotter. Notons que les problèmes NAE3SAT et 1-in-3SAT ne sont pas contraints et donc que l'espace faisable demeure le même que pour QAOA, c'est-à-dire que $\ket{F} = \ket{+}^{\otimes n}$.
 
 %-----------------------------------------------------------------------------%
 
@@ -490,7 +490,7 @@ Cet ensemble de complication implique alors qu'une bonne initialisation des para
     \gamma_{i} = \frac{i}{p} \Delta t \,, \beta = (1 - \frac{i}{p}) \Delta t \,.
 \end{equation}
 
-Le pas de temps est optimisé de manière à minimiser la valeur moyenne de l'Hamiltonien de problème $H_{P}$. 
+Le pas de temps est optimisé de manière à minimiser la valeur moyenne de l'Hamiltonien de problème $H_{P}$, donnant des bons paramètres initiaux.
 
 %-----------------------------------------------------------------------------%
 

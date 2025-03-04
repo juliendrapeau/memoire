@@ -141,7 +141,9 @@ La notation $xRy$ signifie que $y$ est une solution valide à l'instance $x$. La
 
 Tous les problèmes \textsf{NP}-complet sont auto-réductibles~\cite{goldreichComputationalComplexityConceptual2008}, mais ce n'est pas le cas pour tous les problèmes de la classe \textsf{NP}~\cite{khullerPlanarGraphColoring1991a}. De nombreux problèmes \textsf{NP} sont aussi auto-réductible descendant. Ces observations impliquent que l'algorithme de JVV s'applique en théorie à de nombreux problèmes intéressants. Toutefois, trouver une relation auto-réductible en pratique n'est pas toujours évident.
 
-La définition de l'auto-réductibilité utilisée dans cette section s'applique principalement à l'équivalence entre l'échantillonnage quasi uniforme et le comptage approximatif randomisé. Cependant, une définition alternative~\cite{goldreichComputationalComplexityConceptual2008} due à XXX est souvent introduite pour l'équivalence entre les problèmes de décision et les problèmes de recherche, où un problème de recherche ne demande pas de montrer l'existence d'une solution, mais de construire une telle solution. En effet, si un problème est auto-réductible à ce sens, alors le problème de recherche est de la même complexité que le problème de décision. 
+La définition de l'auto-réductibilité utilisée dans cette section s'applique principalement à l'équivalence entre l'échantillonnage quasi uniforme et le comptage approximatif randomisé. Cependant, une définition alternative~\cite{goldreichComputationalComplexityConceptual2008} est souvent introduite pour l'équivalence entre les problèmes de décision et les problèmes de recherche, où un problème de recherche ne demande pas de montrer l'existence d'une solution, mais de construire une telle solution. En effet, si un problème est auto-réductible à ce sens, alors le problème de recherche est de la même complexité que le problème de décision. 
+
+% \textcolor{mydarkred}{\textit{la definition est due a qui?}}
 
 %-----------------------------------------------------------------------------%
 
@@ -209,7 +211,7 @@ Un échantillonneur quasi uniforme de tolérance $\xi$ possède en conséquence 
 1. Stockmeyer, L. The complexity of approximate counting. in Proceedings of the fifteenth annual ACM symposium on Theory of computing 118–126 (Association for Computing Machinery, New York, NY, USA, 1983). doi:10.1145/800061.808740.
 \end{comment}
 
-Comme mentionné au chapitre~\ref{cha:complexite-du-comptage}, les problèmes de comptage sont d'une grande complexité et nécessitent en pratique des méthodes approximatives pour la résolution de problèmes de grandes tailles. Le \textit{comptage approximatif randomisé} simplifie davantage les attentes en ne demandant une solution approximative valide qu'avec une certaine probabilité. Un \textit{schéma d'approximation randomisé de tolérance $\varepsilon$} se définit de manière similaire à l'algorithme d'approximation pour l'optimisation décrit à la section~\ref{intractabilite-approximation-et-optimisation}. 
+Comme mentionné au chapitre~\ref{cha:complexite-du-comptage}, les problèmes de comptage sont d'une grande complexité et nécessitent en pratique des méthodes approximatives pour la résolution de problèmes de grandes tailles. Le \textit{comptage approximatif randomisé} simplifie davantage les attentes en ne demandant une solution approximative valide qu'avec une certaine probabilité. Un \textit{schéma d'approximation randomisé de tolérance $\varepsilon$} se définit de manière similaire à l'algorithme d'approximation pour l'optimisation décrit à la section~\ref{sec:intractabilite-approximation-et-optimisation}. 
 
 \begin{maindefinition}{Schéma d'approximation randomisé}{fpras}
     Un schéma d'approximation randomisé pour un problème de comptage $f: \Sigma^{*} \to \mathbb{N}$ est un algorithme randomisé prenant en entrée une instance d'un problème $x \in \Sigma^{*}$ et une tolérance d'erreur $\varepsilon > 0$ et qui génère un nombre $N \in \mathbb{N}$ tel que, pour toute instance $x$,
@@ -251,9 +253,9 @@ Le travail de Jerrum, Valiant et Vazirani~\cite{jerrumRandomGenerationCombinator
     Si un problème algorithmique auto-réductible dans \textsf{\#P} de taille $n$ admet un générateur de solutions avec une non-uniformité $\eta = O(1 / n)$, alors le nombre de solutions peut être approximé à une erreur multiplicative $O(\eta n)$ avec une haute probabilité en utilisant un nombre polynomial d'appels au générateur.
 \end{maintheorem}
 
-Plus précisément, en exigeant un échantillonneur quasi uniforme pleinement polynomial, l'algorithme de JVV fournit un schéma d'approximation randomisé pleinement polynomial pour le comptage approximatif de relations auto-réductibles.
+Plus précisément, en exigeant un échantillonneur quasi uniforme pleinement polynomial, l'algorithme de JVV fournit un schéma d'approximation randomisé pleinement polynomial pour le comptage approximatif de relations auto-réductibles. Plus précisément, $O(\frac{n^{2} \log \delta^{-1}}{\varepsilon^{2}})$ échantillons sont nécessaires.
 
-\textcolor{mydarkred}{\textit{Parler plus précisément du nombre d'échantillons.}}
+% \textcolor{mydarkred}{\textit{Expliquer en détails.}}
 
 Comment est-ce que l'algorithme de JVV opère? Commençons par introduire l'idée principale derrière l'algorithme pour ensuite donner un exemple simple et compléter avec une description plus formelle. 
 
@@ -270,15 +272,13 @@ Pour mieux comprendre son exécution, l'arbre d'auto-réductibilité, présenté
 \end{equation}
   
 
-Quelques notes sont ici nécessaires. Le chemin des probabilités maximales est choisi... \textcolor{mydarkred}{\textit{pour maximiser la probabilité et pour éviter d'obtenir une probabilité nulle.}}
-
-
-Jusqu'à maintenant, le générateur a été considéré comme uniforme. 
+Quelques notes sont ici nécessaires. Le chemin des probabilités maximales est choisi comme une meilleure précision est atteinte avec un plus grand nombre de solutions. De plus, ce choix évite d'obtenir une probabilité nulle, c'est-à-dire lorsque le sous-arbre ne possède aucune solution.
+Jusqu'à maintenant, le générateur a été considéré comme uniforme. Il est cependant possible d'utiliser une distribution quasi uniforme comme montré ci-bas. 
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.55\textwidth]{figures/jvv-algorithm.pdf}
-    \caption[Algorithme de Jerrum-Valiant-Vazirani]{Un exemple de l'arbre d'auto-réductibilité dans l'algorithme de JVV pour une formule CNF $\varphi(x_{1}, x_{2})$, où les solutions sont illustrées par un carré bleu et les non-solutions par un losange rouge. Suivant le chemin des probabilités maximales, le compte approximatif est donné par $N = \frac{1}{P_{0}} \frac{1}{P_{01}} = 3$.}
+    \caption[Algorithme de Jerrum-Valiant-Vazirani]{Exemple de l'arbre d'auto-réductibilité dans l'algorithme de JVV pour une formule CNF $\varphi(x_{1}, x_{2})$, où les solutions sont illustrées par un carré bleu et les non-solutions par un losange rouge. Suivant le chemin des probabilités maximales, le compte approximatif est donné par $N = \frac{1}{P_{0}} \frac{1}{P_{01}} = 3$.}
     \label{fig:algorithme-jvv}
 \end{figure}
 
@@ -308,6 +308,8 @@ où $\tilde{N}_{z_{:i}}$ est le nombre de solutions dans l'ensemble d'échantill
 
 % Comme décrit à la section~\ref{sec:auto-reductibilite}, chaque noeud de l'arbre est associé une chaîne de bits $w$ de taille $m$ fixant les $m$ premières variables de la formule $\varphi$ ainsi qu'une formule partielle $\varphi_{w}$. 
 
+Le nombre approximatif de solutions est ainsi obtenu. L'algorithme se résume par l'algorithme~\ref{sec:algorithme-jvv}.
+
 \begin{algorithm}[h!]
     \caption{Algorithme de JVV}\label{alg:algorithme-jvv}
     \begin{algorithmic}[1]
@@ -318,7 +320,8 @@ où $\tilde{N}_{z_{:i}}$ est le nombre de solutions dans l'ensemble d'échantill
     \FOR{$i \in \{1, \dots, n\}$}
     \STATE $S \leftarrow \{ \ \}$
     \WHILE{$\abs{S} < n_{s}$}
-    \STATE $m \leftarrow \text{Measure}(\text{PQC}(\vec{\beta}, \vec{\gamma}))$
+    \STATE $m \leftarrow \text{Échantillonnage}(f(n,m))$
+    \STATE $S \leftarrow S \cup \set{m}$
     \ENDWHILE
     \STATE $w, \tilde{p} \leftarrow \arg \max_{w' \in \set{ w + 0, w + 1 }} \lvert \set{ s \in S : s_{:\lvert w' \rvert } = w' } \rvert / \lvert S \rvert$
     \STATE $\tilde{N} \leftarrow \tilde{N} / \tilde{p}$

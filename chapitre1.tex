@@ -57,11 +57,11 @@ Il est souvent favorable de décrire la théorie de la complexité à l'aide du 
 
 La théorie de la complexité s'intéresse à la classification des problèmes algorithmiques en \textit{classes de complexité}, c'est-à-dire en ensembles de problèmes de même complexité. Classifier un problème permet de caractériser les ressources nécessaires pour sa résolution par un algorithme. Les problèmes d'une même classe possèdent une difficulté inhérente similaire, ce qui permet le choix d'un algorithme et de ressources appropriées en conséquence. Savoir qu'un problème n'est pas réalistement résoluble, ou plus précisément intraitable, limite les attentes. Sachant ceci, la recherche dans cette direction peut s'avérer grandement utile. La théorie de la complexité cherche aussi à comparer les problèmes de différentes complexités. Ces comparaisons permettent de comprendre l'espace des problèmes en plus grande profondeur. Par exemple, il est évident que certains problèmes sont plus facile à résoudre que d'autres. Comparer des problèmes faciles avec des problèmes difficiles peut aider à comprendre ce qui rend un problème difficile et donc à trouver des algorithmes résolvant efficacement les problèmes plus complexes. Des liens, nommés réductions, peuvent aussi être définis au sein d'une même classe d'une complexité. Un algorithme efficace pour un problème pourrait aussi être efficace pour un problème similaire s'il existe une réduction entre ceux-ci. Les classes de complexité, de manière similaire au modèle de la machine de Turing, tentent de définir de manière abstraite la difficulté d'un problème. Peu importe le matériel informatique à notre disposition, un problème d'une classe donnée ne devrait pas changer de classe. Un problème trivial devrait rester trivial peu importe la quantité de ressources utilisée.  
 
-Comment est-il possible de déterminer la complexité d'un problème? Pour ce faire, les classes de complexité se basent sur les ressources indispensables à la résolution du problème: le temps et la mémoire. Afin de trouver la solution à un problème, un programme doit effectuer un certain nombre d'opérapportns, limité dans le temps par le matériel informatique. On parle alors de \textit{complexité en temps}. Afin de produire un résultat final, le programme doit garder en mémoire les résultats intermédiaires. Ceux-ci doivent être sauvegardés dans le matériel informatique afin d'être réutilisés ultérieurement. Comme la quantité d'information conservée est aussi un facteur limitant pour le matériel informatique, on parle donc de \textit{complexité en espace}. 
+Comment est-il possible de déterminer la complexité d'un problème? Pour ce faire, les classes de complexité se basent sur les ressources indispensables à la résolution du problème: le temps et la mémoire. Afin de trouver la solution à un problème, un programme doit effectuer un certain nombre d'opérations, limité dans le temps par le matériel informatique. On parle alors de \textit{complexité en temps}. Afin de produire un résultat final, le programme doit garder en mémoire les résultats intermédiaires. Ceux-ci doivent être sauvegardés dans le matériel informatique afin d'être réutilisés ultérieurement. Comme la quantité d'information conservée est aussi un facteur limitant pour le matériel informatique, on parle donc de \textit{complexité en espace}. 
 
-La complexité en temps et en espace d'un problème est définie selon la taille de celui-ci. Afin de capturer cette dépendance, on cherche à trouver une loi d'échelle encapsulant la difficulté d'un problème en fonction de sa taille. Le temps et la mémoire quantifient bien les ressources nécessaires des algorithmes. Par contre, ceux-ci dépendent du matériel informatique utilisé. Il est attendu qu'un ordinateur moderne soit bien plus performant qu'une des premières machines analogues. Comment retirer cette dépendance de la notion de complexité? Pour ce faire, on fait appel à la notation asymptotique, communément appelé la \textit{notation $\mathcal{O}$}. La notation asymptotique caractérise la vitesse de croissance d'une fonction en ne considérant que son comportement global à l'infini. Les coefficients ainsi que les termes asymptotiquement inférieurs ne sont pas considérés. Par exemple, pour une taille de problème $n$, la résolution de celui-ci pourrait demander un temps exponentiel $\mathcal{O}(2^{n})$ et une mémoire polynomiale $\mathcal{O}(n)$. Remarquons qu'il n'y a aucune dépendance au matériel informatique: deux ordinateurs différents doivent effectuer le même nombre d'opérapportns et sauvegarder la même quantité d'information. Un de ces ordinateurs pourrait toutefois résoudre le problème plus rapidement si celui-ci peut effectuer un plus grand nombre d'opérapportns par seconde ou accéder plus rapidement à sa mémoire. L'attrait des classes de complexité vient donc en partie de cette abstraction du matériel informatique.
+La complexité en temps et en espace d'un problème est définie selon la taille de celui-ci. Afin de capturer cette dépendance, on cherche à trouver une loi d'échelle encapsulant la difficulté d'un problème en fonction de sa taille. Le temps et la mémoire quantifient bien les ressources nécessaires des algorithmes. Par contre, ceux-ci dépendent du matériel informatique utilisé. Il est attendu qu'un ordinateur moderne soit bien plus performant qu'une des premières machines analogues. Comment retirer cette dépendance de la notion de complexité? Pour ce faire, on fait appel à la notation asymptotique, communément appelé la \textit{notation $\mathcal{O}$}. La notation asymptotique caractérise la vitesse de croissance d'une fonction en ne considérant que son comportement global à l'infini. Les coefficients ainsi que les termes asymptotiquement inférieurs ne sont pas considérés. Par exemple, pour une taille de problème $n$, la résolution de celui-ci pourrait demander un temps exponentiel $\mathcal{O}(2^{n})$ et une mémoire polynomiale $\mathcal{O}(n)$. Remarquons qu'il n'y a aucune dépendance au matériel informatique: deux ordinateurs différents doivent effectuer le même nombre d'opérations et sauvegarder la même quantité d'information. Un de ces ordinateurs pourrait toutefois résoudre le problème plus rapidement si celui-ci peut effectuer un plus grand nombre d'opérations par seconde ou accéder plus rapidement à sa mémoire. L'attrait des classes de complexité vient donc en partie de cette abstraction du matériel informatique.
 
-La quantification de ces ressources permet la séparapportn de plusieurs problèmes: il est en effet souhaitable d'être capable de séparer les algorithmes efficaces de ceux qui ne le sont pas. Commençons par définir deux classes de complexité particulièrement importantes: \textsf{P} et \textsf{NP}. Pour ce faire, un certain type de problème doit d'abord être défini. Un \textit{problème de décision} regroupe simplement tous les problèmes pouvant se répondre par oui ou non. Pour tout problème de décision $A$, on peut représenter celui-ci par une fonction $A(x) \in \set{ 0, 1 }$, où $x$ représente une instance du problème. Les problèmes de décision se manifestent fréquemment, tant en informatique qu'en physique. Ceux-ci se présentent sous diverses formes: Est-ce qu'un nombre $x$ est premier? La configurapportn $x$ représente-t-elle un état fondamental du système donné? Est-ce qu'il existe un chemin $x$ parcourant une seule fois toutes les villes d'une région en parcourant au maximum une distance $d$?
+La quantification de ces ressources permet la séparation de plusieurs problèmes: il est en effet souhaitable d'être capable de séparer les algorithmes efficaces de ceux qui ne le sont pas. Commençons par définir deux classes de complexité particulièrement importantes: \textsf{P} et \textsf{NP}. Pour ce faire, un certain type de problème doit d'abord être défini. Un \textit{problème de décision} regroupe simplement tous les problèmes pouvant se répondre par oui ou non. Pour tout problème de décision $A$, on peut représenter celui-ci par une fonction $A(x) \in \set{ 0, 1 }$, où $x$ représente une instance du problème. Les problèmes de décision se manifestent fréquemment, tant en informatique qu'en physique. Ceux-ci se présentent sous diverses formes: Est-ce qu'un nombre $x$ est premier? La configurapportn $x$ représente-t-elle un état fondamental du système donné? Est-ce qu'il existe un chemin $x$ parcourant une seule fois toutes les villes d'une région en parcourant au maximum une distance $d$?
 
 % \begin{maindefinition}{Problème de décision}{probleme-decision}
 %     Une fonction $A(x)$ est un problème de décision si
@@ -77,11 +77,11 @@ La quantification de ces ressources permet la séparapportn de plusieurs problè
 Quand peut-on dire qu'un problème de décision est résoluble efficacement? La classe de complexité \textsf{P}, pour « temps polynomial », tente de répondre à cette question. Informellement, un problème de la classe \textsf{P} est un problème de décision qui peut être résolu en temps polynomial. Un problème est donc considéré comme efficacement résoluble ou \textit{traitable}, s'il appartient à la classe \textsf{P}. 
 
 \begin{maindefinition}{Classe de complexité \textsf{P}}{classe-p}
-    Une fonction $A$ fait partie de la classe de complexité \textsf{P} si et seulement si un algorithme peut calculer 
+    Une fonction $A$ fait partie de la classe de complexité \textsf{P} si et seulement si elle prend la forme 
     \begin{equation*}
         A(x)=\exists y
     \end{equation*}
-    en temps polynomial, c’est-à-dire en temps $O(n^{c})$ pour une taille $n = \lvert x \rvert$ et une constante $c$, où $\lvert y \rvert = \mathrm{poly}(\lvert x \rvert )$.
+    et calculable en temps polynomial, c’est-à-dire en temps $O(n^{c})$ pour une taille $n = \lvert x \rvert$ et une constante $c$, où $\lvert y \rvert = \mathrm{poly}(\lvert x \rvert )$.
 \end{maindefinition}
 
 Soit, par exemple, le problème de décision du test de primalité $A$. Ce problème cherche à déterminer si un entier naturel $x$ est premier ou composé. Ce problème peut être résolu, c'est-à-dire qu'il est possible de calculer $A(x)=\exists y$, en temps polynomial $\tilde{O}(\log(n)^{12})$~\cite{PRIMESAnnalsMathematics}, où la notation $\tilde{O}$ signifie que les termes polylogarithmiques sont aussi cachés. 
@@ -92,11 +92,11 @@ La relation entre un calcul en temps polynomial et un calcul efficace semble év
 Une deuxième classe particulièrement importante en théorie de la complexité est la classe \textsf{NP}, pour « temps polynomial non déterministe ». Celle-ci regroupe les problèmes de décision dont les solutions sont vérifiables en temps polynomial. Généralement, ces problèmes sont formulés sous la forme suivante: Existe-t-il une solution, vérifiable en temps polynomial, au problème donné? Malgré que les solutions sont vérifiables efficacement, déterminer l'existence d'une telle solution n'est pas nécessairement possible en temps polynomial. Une métaphore souvent utilisée pour la description d'un problème \textsf{NP} est celle d'une aiguille dans une botte de foin. Trouver cette aiguille parmi la quantité énorme de brins de foin est un défi de taille. Par contre, une fois l'aiguille trouvée, il n'y a aucun doute qu'il s'agit bien d'une aiguille. 
 
 \begin{maindefinition}{Classe de complexité \textsf{NP}}{classe-np}
-    Une fonction $A$ fait partie de la classe de complexité \textsf{NP} si et seulement si une fonction $B \in  \textsf{P}$ existe tel que
+    Une fonction $A$ fait partie de la classe de complexité \textsf{NP} si et seulement si elle prend la forme
     \begin{equation*}
         A(x) = \exists y \mid B(x,y)
     \end{equation*}
-    où $\lvert y \rvert = \mathrm{poly}(\lvert x \rvert)$.
+    pour une fonction $B \in  \textsf{P}$, où $\lvert y \rvert = \mathrm{poly}(\lvert x \rvert)$.
 \end{maindefinition}
 
 On appelle $B$ le vérificateur du problème de décision $A$ et $y$ le certificat ou le témoin pour l'entrée $x$. Un exemple de problème \textsf{NP} est le problème du commis voyageur. Soit un graphe $x$ représentant les villes d'une région particulière. Est-ce que le commis voyageur peut visiter toutes les villes exactement une fois et revenir à son point de départ en parcourant une distance inférieure à $d$? Dans ce cas, la fonction $A$ détermine le chemin parcouru alors que la fonction $B$ détermine si un chemin $y$ est de taille inférieure à $d$.
@@ -114,13 +114,14 @@ La classe \textsf{NP} est aussi définie comme la classe de problèmes pouvant �
 La classe de complexité d'intérêt dans le cadre de ce mémoire est la classe \textsf{\#P} introduit par Valiant~\cite{valiantComplexityComputingPermanent1979}. Cette classe, définie par extension à la classe \textsf{NP}, cherche non seulement à déterminer si un problème de décision possède une solution, mais aussi à spécifier le nombre de solutions à ce problème. Ainsi, un \textit{problème de comptage} consiste à trouver le nombre de solutions d'un problème de décision. Un problème de comptage est donc défini par rapport à un problème de décision. Prenons par exemple le problème du commis voyageur. Le problème de décision généralement défini cherche un trajet de taille inférieure à une certaine distance. Le problème de comptage adjoint exige alors le nombre de trajets possibles de taille inférieure à la distance donnée. 
 
 \begin{maindefinition}{Classe de complexité \textsf{\#P}}{classe-sharp-p}
-    Une fonction $A$ fait partie de la classe de complexité $\textsf{\#P}$ si et seulement si une fonction $B \in \textsf{P}$ existe tel que
+    Une fonction $A$ fait partie de la classe de complexité $\textsf{\#P}$ si et seulement si elle prend la forme
     \begin{equation*}
         A(x) = \lvert \set{ y \mid B(x, y)} \rvert
     \end{equation*}
-    où $\lvert y \rvert = \mathrm{poly}(\lvert x \rvert)$ pour toutes les valeurs $y$ prises par $B(x,y)$.
+    pour une fonction $B \in \textsf{P}$, où $\lvert y \rvert = \mathrm{poly}(\lvert x \rvert)$ pour toutes les valeurs $y$ prises par $B(x,y)$.
 \end{maindefinition}
-\textcolor{mydarkred}{\textit{Changer!}}
+
+% \textcolor{mydarkred}{\textit{Changer!}}
 
 Par définition, un problème de la classe \textsf{\#P} est au moins aussi difficile qu'un problème de la classe \textsf{NP}. Connaître le nombre de solutions à un problème de décision indique effectivement s'il existe au moins une solution à un problème de décision. Cependant, les problèmes de comptage intéressants possèdent fréquemment un nombre exponentiel de solutions, impliquant une plus grande complexité inhérente.
 
@@ -221,7 +222,7 @@ Dans l'étude du problème SAT, les formules propositionnelles sont souvent expr
 Le problème kSAT constitue un cas spécial du problème SAT, où le nombre de littéraux appartenant à chaque clause d'une formule CNF est restreint à $k$ littéraux au maximum. Notons que le problème kSAT est trivial pour $k=1$, résoluble en temps linéaire pour $k=2$~\cite{kromDecisionProblemClass1967}, et \textsf{NP}-complet pour $k \geq 3$~\cite{karpReducibilityCombinatorialProblems1972}. Surprenamment, les problèmes de comptage correspondant, \#2SAT et \#3SAT, appartiennent tous les deux à la classe \textsf{\#P}-complet~\cite{valiantComplexityEnumerationReliability1979}. Ainsi, compter le nombre de solutions à un problème \textsf{NP}-complet peut être difficile même s'il est possible de trouver une solution efficacement.
 
 Dans ce mémoire, deux variantes de 3SAT seront portées à l'étude: le problème Pas-Tous-Égaux 3SAT (« Not-All-Equal 3-Satisfiability ») (NAE3SAT) et le problème 1-dans-3 3SAT (« One-in-Three 3-Sastisfiability ») (1-in-3SAT). 
-Comme le problème SAT, ces problèmes appartiennent aussi à la classe de complexité \textsf{NP}-complet. Les versions monotones de ces problèmes, où la négation de variables n'est pas permise, sont étonnament aussi \textsf{NP}-complet par le théorème de dichotomie de Schaefer~\cite{schaeferComplexitySatisfiabilityProblems1978}. Ces problèmes de décision peuvent être associés aux problèmes de comptage \#NAE3SAT et \#1-in-3SAT de la classe de complexité \textsf{\#P}.
+Comme le problème SAT, ces problèmes appartiennent aussi à la classe de complexité \textsf{NP}-complet. Les versions monotones de ces problèmes, où la négation de variables n'est pas permise, sont étonnamment aussi \textsf{NP}-complet par le théorème de dichotomie de Schaefer~\cite{schaeferComplexitySatisfiabilityProblems1978}. Ces problèmes de décision peuvent être associés aux problèmes de comptage \#NAE3SAT et \#1-in-3SAT de la classe de complexité \textsf{\#P}.
 
 \begin{maindefinition}{Problème NAE3SAT}{probleme-nae3sat}
     Soit une formule CNF $\varphi(x_{1}, x_{2}, \dots, x_{n})$ pour laquelle chaque clause $C$ contient au maximum 3 littéraux. Existe-t-il une assignation des variables $x_{1}, x_{2}, \dots, x_{n}$ telle que $\varphi$ soit satisfaisable tout en s'assurant que tous les littéraux de chaque clause $C$ ne soient pas égaux?
@@ -376,11 +377,9 @@ Pour les problèmes SAT, la difficulté d'une instance aléatoire est grandement
 Plusieurs autres transitions de phase existent avant la transition critique telle qu'illustré à la figure~\ref{fig:transitions-de-phase}. Ces transitions, similairement aux transitions de phase du modèle d'Ising, correspondent à des changements dans l'organisation de l'ensemble des solutions. Pour décrire cette réorganisation, une mesure de similarité est nécessaire pour comparer les différentes entrées au problème SAT. La \textit{distance de Hamming} entre deux chaînes de bits de même taille correspond au nombre de positions dans les chaînes où les bits correspondants diffèrent. 
 
 
-Avant la première transition de phase, la \textit{transition de phase de regroupement}, toutes les solutions d'une instance du problème SAT sont situées au sein du même amas, chacune à une distance d'Hamming polynomiale selon la taille de l'instance.
+Avant la première transition de phase, la \textit{transition de phase de regroupement}, toutes les solutions d'une instance du problème SAT sont situées au sein du même amas, chacune à une distance d'Hamming polynomiale selon la taille de l'instance. \textcolor{mydarkred}{\textit{Compléter.}}
 
-\textit{transition de phase de congélation}
-
-
+% \textit{transition de phase de congélation}
 
 \begin{figure}[h]
     \centering
@@ -389,20 +388,15 @@ Avant la première transition de phase, la \textit{transition de phase de regrou
     \label{fig:transitions-de-phase}
 \end{figure}
 
-Les approches locales semblent échouer à la transition de condensation, alors que la difficulté du problème SAT semble provenir de la transition de congélation.
+Les approches locales semblent échouer à la transition de condensation, alors que la difficulté du problème SAT semble provenir de la transition de congélation. La transition de phase critique pour NAE3SAT est situé à $\alpha_{c} \approx 2.1$~\cite{achlioptasPhaseTransition1ink2001} et à $\alpha_{c} \approx 2/3$~\cite{raymondPhaseDiagram1in32007} pour 1-in-3SAT. Les instances du problème \#1-in-3SAT près du seuil critique appartiennent à la catégorie des problèmes bloqués. Les problèmes \#P dans ce régime sont parmi les plus difficiles~\cite{zdeborovaStatisticalPhysicsHard2008}.
+
+% \textcolor{mydarkred}{\textit{Pourquoi transition dynamique?}}
+
+% \textcolor{mydarkred}{\textit{Parler du nombre de solutions.}}
+
+% \textcolor{mydarkred}{\textit{Locked problems.}}
 
 
-NAE3SAT: $\alpha_{c} \approx 2.1$~\cite{achlioptasPhaseTransition1ink2001}
-1-in-3SAT: $\alpha_{c} \approx 2/3$~\cite{raymondPhaseDiagram1in32007}
+% \textcolor{mydarkred}{\textit{Voir papier de stefanos fast counting, plus d'informations et de références.}}
 
-\textcolor{mydarkred}{\textit{Pourquoi transition dynamique?}}
-
-\textcolor{mydarkred}{\textit{Parler du nombre de solutions.}}
-
-\textcolor{mydarkred}{\textit{Locked problems.}}
-
-Les instances du problème \#1-in-3SAT près du seuil critique appartiennent à la catégorie des problèmes bloqués. Les problèmes \#P dans ce régime sont parmi les plus difficiles~\cite{zdeborovaStatisticalPhysicsHard2008}.
-
-\textcolor{mydarkred}{\textit{Voir papier de stefanos fast counting, plus d'informations et de références.}}
-
-\textcolor{mydarkred}{\textit{Algorithme local vs global}}
+% \textcolor{mydarkred}{\textit{Algorithme local vs global}}
