@@ -191,7 +191,7 @@ où $\vec{\gamma} = (\gamma_{1}, \dots, \gamma_{p})$ et $\vec{\beta} = (\beta_{1
     E_{P} (\vec{\gamma}, \vec{\beta}) = \braket{ \psi(\vec{\gamma}, \vec{\beta}) | H_{P} | \psi(\vec{\gamma}, \vec{\beta}) } \,.
 \end{equation}
 
-L'énergie trouvée quantifie l'optimalité de l'état préparé. Par la suite, une méthode d'optimisation classique continue, comme la descente de gradient stochastique, est employée pour mettre à jour itérativement les paramètres $\gamma$ et $\beta$ du circuit paramétré de manière à minimiser la valeur moyenne $E_{P} (\vec{\gamma}, \vec{\beta})$:
+Comme $H_{P}$ est typiquement une somme d'opérateurs de Pauli, cette valeur moyenne peut être évaluée efficacement en mesurant l'état du circuit préparé\textcolor{mydarkred}{\textit{CITE MIKE AND IKE!}}. L'énergie trouvée quantifie l'optimalité de l'état préparé. Par la suite, une méthode d'optimisation classique continue, comme la descente de gradient stochastique, est employée pour mettre à jour itérativement les paramètres $\gamma$ et $\beta$ du circuit paramétré de manière à minimiser la valeur moyenne $E_{P} (\vec{\gamma}, \vec{\beta})$:
 
 \begin{equation}
     (\vec{\gamma}^{*}, \vec{\beta}^{*}) = \arg \min_{{\vec{\gamma}, \vec{\beta}}} E_{P}(\vec{\gamma}, \vec{\beta}) \,.
@@ -437,7 +437,7 @@ Décrivons d'abord le circuit QAOA, tel qu'illustré à la figure~\ref{fig:gm-qa
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/gm-qaoa}
+    \includegraphics[width=0.6\textwidth]{figures/gm-qaoa}
     \caption[Circuit de l'ansatz quantique à opérateurs alternants avec forçage de Grover]{\textcolor{mydarkred}{\textit{Refaire la figure.}}}
     \label{fig:gm-qaoa}
 \end{figure}

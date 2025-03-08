@@ -1,0 +1,62 @@
+
+%  QAOA CIRCUIT
+
+% \begin{figure}[h!]
+%     \centering
+%     \begin{quantikz}[font=\sffamily]
+%       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{1})} & \gate[wires=4, nwires=3, style={fill=myred}][1.30cm]{U_D (\beta_{1})} & \ \ldots\ \qw & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{p})} & \gate[wires=4, nwires=3, style={fill=myred}][1.30cm]{U_D (\beta_{p})} & \qw \\
+%       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & & & \ \ldots\ \qw & & & \qw \\
+%       \vdots & & & & & & & \\
+%       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & & & \ \ldots\ \qw & & & \qw
+%     \end{quantikz}
+%     \caption{}
+% \end{figure}
+
+% REDUCED QAOA CIRCUIT
+
+% \begin{figure}[h!]
+%     \centering
+%     \begin{quantikz}
+%       \ket{0} & \gate[style={fill=myyellow!80}][0.80cm]{X^{c}} & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{1})} & \qw & \ \ldots\ \qw & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{p}) } & \qw & \qw \\
+%       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & & \gate[wires=3, nwires=2, style={fill=myred}][1.30cm]{U_D (\beta_{1})} & \ \ldots\ \qw & & \gate[wires=3, nwires=2, style={fill=myred}][1.30cm]{U_D (\beta_{p})} & \qw \\
+%       \vdots & & & & & & & \\
+%       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & & & \ \ldots\ \qw & & & \qw
+%     \end{quantikz}
+%     \caption{}
+% \end{figure}
+
+% GM-QAOA CIRCUIT
+
+% \begin{figure}[h!]
+%     \centering
+%     \begin{quantikz}[font=\sffamily]
+%       \ket{0} & \gate[wires=4, nwires=3, style={fill=mypurple}]{U_S} & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{1})} & \gate[wires=4, nwires=3, style={fill=mypurple}]{U_S^{\dagger}} & \targ{} & \ctrl{1} & \targ{} & \gate[wires=4, nwires=3, style={fill=mypurple}]{U_S} & \ \ldots\ \qw \\
+%       \ket{0} & & & & \targ{} & \ctrl{2} & \targ{} & & \ \ldots\ \qw  \\
+%       \vdots & & & & \vdots & & \vdots & & \\
+%       \ket{0} & & & & \targ{} & \gate[style={fill=myred}]{Z^{-\beta_k/\pi}} & \targ{} & & \ \ldots\ \qw 
+%     \end{quantikz}
+%     \caption{}
+% \end{figure}
+
+% TOWER OF EXCITED STATES
+
+% \begin{figure}[h]
+%     \centering
+%     \begin{quantikz}
+%         \ket{x_1} & \ctrl{3} & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw     & \ctrl{3} & \qw \\
+%         \ket{x_2} & \qw      & \ctrl{2} & \ctrl{3} & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \ctrl{3} & \ctrl{2}     & \qw      & \qw \\
+%         \ket{x_3} & \qw      & \qw      & \qw      & \ctrl{2} & \qw      & \qw      & \qw      & \qw      & \qw      & \ctrl{2} & \qw      & \qw     & \qw      & \qw \\
+%         \ket{0}   & \targ{}  & \targ{}  & \qw      & \qw      & \targ{}  & \ctrl{2}      & \qw      & \ctrl{2} & \targ{}  & \qw      & \qw      & \targ{}      & \targ{}  & \qw \\
+%         \ket{0}   & \qw      & \qw      & \targ{}  & \targ{}  & \targ{}  & \ctrl{1}      & \qw     & \ctrl{1}  & \targ{}  & \targ{}  & \targ{}  & \qw     & \qw     & \qw \\
+%         \ket{0}   & \qw      & \qw      & \qw      & \qw      & \qw      & \targ{}       & \ctrl{7} & \targ{}  & \qw      & \qw      & \qw      & \qw     & \qw      & \qw \\ [0.5cm]
+%         \ket{x_4} & \ctrl{3} & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw     & \ctrl{3} & \qw \\
+%         \ket{x_5} & \qw      & \ctrl{2} & \ctrl{3} & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \ctrl{3} & \ctrl{2}     & \qw      & \qw \\
+%         \ket{x_6} & \qw      & \qw      & \qw      & \ctrl{2} & \qw      & \qw      & \qw      & \qw      & \qw      & \ctrl{2} & \qw      & \qw     & \qw      & \qw \\
+%         \ket{0}   & \targ{}  & \targ{}  & \qw      & \qw      & \targ{}  & \ctrl{2}      & \qw      & \ctrl{2} & \targ{}  & \qw      & \qw      & \targ{}      & \targ{}  & \qw \\
+%         \ket{0}   & \qw      & \qw      & \targ{}  & \targ{}  & \targ{}  & \ctrl{1}      & \qw     & \ctrl{1}  & \targ{}  & \targ{}  & \targ{}  & \qw     & \qw     & \qw \\
+%         \ket{0}   & \qw      & \qw      & \qw      & \qw      & \qw      & \targ{}       & \ctrl{1} & \targ{}  & \qw      & \qw      & \qw      & \qw     & \qw      & \qw \\ [0.5cm]
+%         \ket{0}   & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \gate[style={fill=myred}]{Z^{- \gamma \varepsilon/\pi}}  & \qw & \qw & \qw & \qw & \qw & \qw & \qw \\
+%         \end{quantikz}
+%     \caption{}
+%     \label{fig:..}
+% \end{figure}

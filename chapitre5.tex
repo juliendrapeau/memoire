@@ -37,7 +37,7 @@ Le projet de ce mémoire a mené au développement d'un module Python, nommé VQ
 
 
 Certaines précédentes considérations sont relâchées ou modifiées. D'abord, 
-l'algorithme GM-QAOA n'est plus considéré dans sa forme limite de Grover. Plutôt qu'utiliser les paramètres du circuit fixes $\gamma_{i}=\beta_{i}=\pi$ pour $i=1,\dots,p$, les paramètres sont optimisés. De plus, les problèmes étudiés sont transformés à des hamiltoniens de problème régulier contenant une tour d'états excités plutôt que de l'oracle à deux niveaux construit précédemment. Comme l'impact de la non-uniformité de la distribution d'état produite, l'algorithme VQCount est aussi employé avec l'algorithme quantique d'optimisation approximative.
+l'algorithme GM-QAOA n'est plus considéré dans sa forme limite de Grover. Plutôt qu'utiliser les paramètres du circuit fixes $\gamma_{i}=\beta_{i}=\pi$ pour $i=1,\dots,p$, les paramètres sont optimisés. De plus, les problèmes étudiés sont transformés à des hamiltoniens de problème contenant une tour d'états excités plutôt que de l'oracle à deux niveaux construit précédemment. Comme l'impact de la non-uniformité de la distribution d'état produite, l'algorithme VQCount est aussi employé avec l'algorithme quantique d'optimisation approximative.
 
 Pour les simulations numériques effectuées, les solutions sont échantillonnées sans remplacement. Ce choix dévie du protocole de l'algorithme de JVV, mais améliore l'efficacité de la méthode lorsqu'un problème possède peu de solutions ou lorsque la distribution préparée par le circuit est fortement non-uniforme.
 

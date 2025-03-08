@@ -111,22 +111,35 @@ Notons qu'un algorithme classique peut être utilisé pour résoudre l'instance 
 \end{enumerate}
 \end{comment}
 
+% % \begin{figure}[h!]
+% %     \centering
+% %     \begin{quantikz}[font=\sffamily]
+% %       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{1})} & \gate[wires=4, nwires=3, style={fill=myred}][1.30cm]{U_D (\beta_{1})} & \ \ldots\ \qw & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{p})} & \gate[wires=4, nwires=3, style={fill=myred}][1.30cm]{U_D (\beta_{p})} & \qw \\
+% %       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & & & \ \ldots\ \qw & & & \qw \\
+% %       \vdots & & & & & & & \\
+% %       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & & & \ \ldots\ \qw & & & \qw
+% %     \end{quantikz}
+% %     \caption{}
+% % \end{figure}
+
+
+
+% % \begin{figure}[h!]
+% %     \centering
+% %     \begin{quantikz}
+% %       \ket{0} & \gate[style={fill=myyellow!80}][0.80cm]{X^{c}} & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{1})} & \qw & \ \ldots\ \qw & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{p}) } & \qw & \qw \\
+% %       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & & \gate[wires=3, nwires=2, style={fill=myred}][1.30cm]{U_D (\beta_{1})} & \ \ldots\ \qw & & \gate[wires=3, nwires=2, style={fill=myred}][1.30cm]{U_D (\beta_{p})} & \qw \\
+% %       \vdots & & & & & & & \\
+% %       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & & & \ \ldots\ \qw & & & \qw
+% %     \end{quantikz}
+% %     \caption{}
+% % \end{figure}
+
 % \begin{figure}[h!]
 %     \centering
 %     \begin{quantikz}[font=\sffamily]
 %       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{1})} & \gate[wires=4, nwires=3, style={fill=myred}][1.30cm]{U_D (\beta_{1})} & \ \ldots\ \qw & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{p})} & \gate[wires=4, nwires=3, style={fill=myred}][1.30cm]{U_D (\beta_{p})} & \qw \\
 %       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & & & \ \ldots\ \qw & & & \qw \\
-%       \vdots & & & & & & & \\
-%       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & & & \ \ldots\ \qw & & & \qw
-%     \end{quantikz}
-%     \caption{}
-% \end{figure}
-
-% \begin{figure}[h!]
-%     \centering
-%     \begin{quantikz}
-%       \ket{0} & \gate[style={fill=myyellow!80}][0.80cm]{X^{c}} & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{1})} & \qw & \ \ldots\ \qw & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{p}) } & \qw & \qw \\
-%       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & & \gate[wires=3, nwires=2, style={fill=myred}][1.30cm]{U_D (\beta_{1})} & \ \ldots\ \qw & & \gate[wires=3, nwires=2, style={fill=myred}][1.30cm]{U_D (\beta_{p})} & \qw \\
 %       \vdots & & & & & & & \\
 %       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & & & \ \ldots\ \qw & & & \qw
 %     \end{quantikz}
@@ -186,12 +199,12 @@ L'algorithme VQCount ne comprend qu'une optimisation des paramètres du circuit 
 
 La réponse à cette question est positive dans le cas de circuits GM-QAOA peu profonds dans la limite $\gamma_{i}=\beta_{i}$, $i=1,\dots,p$. Dans cette limite, GM-QAOA se réduit à l'algorithme de Grover. En effet, pour tous les hamiltoniens de problème $H_{P}$ pouvant être écrit comme une somme de chaînes de Pauli, un circuit peut être construit effondrant tous les niveaux excités de $H_{P}$ à un seul niveau excité, menant à circuit d'évolution d'hamiltonien à deux niveaux $U_{P}$. Avec les paramètres susmentionnés, $U_{P}$ devient un oracle pour les états fondamentaux de $H_{P}$, à une phase constante près, et $U_{D}$ devient l'opérateur de diffusion de Grover. Dans cette limite, à une profondeur constante $p=O(1)$, le taux de succès est une fonction strictement croissante du rapport des solutions au nombre total d'états. Si, en descendant l'arbre d'auto-réductibilité de l'algorithme de JVV, nous choisissons les branches possédant une probabilité plus grande que $1/2$, alors le ratio des solutions au nombre total d'états est aussi strictement croissant. Cela signifie que, pour ce choix de paramètres, un circuit GM-QAOA peu profond pour un problème donné peut être modifié selon la procédure d'auto-réduction pour résoudre les sous-problèmes avec le même ou un meilleur taux de succès. Cet argument est seulement valide dans la limite de Grover, mais suggère que la stratégie d'auto-réduction est possiblement aussi valide dans d'autres cas. Le chapitre suivant introduit des évidences sous la forme de simulations numériques pour confirmer la validité de cette intuition.
 
-% \begin{figure*}[h]
-%     \centering
-%     \includegraphics[width=0.6\textwidth]{figures/two-level-map.pdf}
-%     \caption{}
-%     \label{fig:two-level-map}
-% \end{figure*}
+\begin{figure*}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/tower-of-excited-states.pdf}
+    \caption{}
+    \label{fig:tower-of-excited-states}
+\end{figure*}
 
 %-----------------------------------------------------------------------------%
 
