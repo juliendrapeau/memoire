@@ -55,7 +55,7 @@ Pour le problème \#NAE3SAT, 20 instances aléatoires sont générées par taill
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{figures/count-accuracy.pdf}
-    \caption[Précision du comptage pour des problèmes \textsf{\#P}-difficile]{Précision du comptage obtenue en augmentant le nombre de solutions échantillonnées à chaque étape de l'auto-réduction à partir du circuit QAOA de profondeur $p=3$ pour des instances \#NAE3SAT et \#1-in-3SAT de $n=18$ variables. Les lignes grises en pointillés et en tirets représentent les erreurs multiplicatives $\varepsilon = \frac{1}{3}$ et $\varepsilon = \frac{1}{9}$.}
+    \caption[Précision du comptage pour des problèmes \textsf{\#P}-difficile]{Précision du comptage obtenue en augmentant le nombre de solutions échantillonnées à chaque étape de la réduction auto-réductive avec des circuits QAOA de profondeur $p=3$ pour les instances NAE3SAT et 1-in-3SAT avec $n=18$ variables. Les lignes solides représentent la moyenne et les régions ombragées montrent l'erreur standard de la moyenne. La ligne noire en pointillés représente la précision exacte du comptage, tandis que les lignes grises en tirets et pointillés correspondent à une erreur multiplicative de $\varepsilon = 1/3$ et $\varepsilon = 1/9$.}
     \label{fig:count-accuracy.pdf}
 \end{figure}
 
@@ -77,8 +77,8 @@ Afin de déterminer le nombre d'échantillons nécessaires pour atteindre un com
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{figures/nae3sat-number-of-samples.pdf}
-    \caption[Biais d'échantillonnage de \#NAE3SAT]{Comparaison de la performance de l'algorithme VQCount avec des circuits QAOA et GM-QAOA de profondeur $p=3$ pour des instances NAE3SAT à $\alpha=1$ (gauche) et à $\alpha=2$ (droite). (a, b) Non-uniformité maximale à travers l'auto-réduction. La limite de JVV montrée est donnée par $f(n) = \frac{2}{n}$. (c, d) Taux de succès minimum à travers l'auto-réduction. (e, f) Moyenne (lignes solides) et médiane (lignes pointillées) du nombre d'échantillons nécessaires pour obtenir un compte approximatif avec une tolérance $\varepsilon=\frac{1}{3}$. Un ajustement exponentiel de la courbe extrapolé des 5 derniers points de la médiane donne $O(1.45^n)$ (QAOA) et $O(1.44^n)$ (GM-QAOA) pour (e) ainsi que $O(1.34^n)$ (QAOA) et $O(1.88^n)$ (GM-QAOA) pour (f).}
+    \includegraphics[width=1\textwidth]{figures/nae3sat-nonuniformity.pdf}
+    \caption[Biais d'échantillonnage de \#NAE3SAT]{Performance de VQCount avec des circuits QAOA de profondeur $p=3$ (cercles bleus) et GM-QAOA (carrés rouges) pour les instances NAE3SAT à $\alpha=1$ (panneaux de gauche) et $\alpha=2$ (panneaux de droite). Les lignes solides et pointillées représentent respectivement la moyenne et la médiane. Les régions ombragées montrent l'erreur standard de la moyenne. (a,b) Non-uniformité maximale tout au long de la réduction auto-réductive. L'algorithme JVV nécessite que la non-uniformité soit au plus $O(n^{-1})$ pour $n$ variables, comme illustré (lignes noires en tirets et pointillés) avec la fonction $f(n) = O(1/n)$. (c,d) Taux de succès minimal tout au long de la réduction auto-réductive. (e,f) Nombre d'échantillons nécessaires pour obtenir un comptage approximatif avec une tolérance d'erreur $\varepsilon = 1/3$. Un ajustement exponentiel extrapolé à partir des cinq derniers points de la médiane donne $O(1.45^n)$ (QAOA) et $O(1.44^n)$ (GM-QAOA) pour (e), et $O(1.34^n)$ (QAOA) et $O(1.88^n)$ (GM-QAOA) pour (f).}
     \label{fig:nae3sat-number-of-samples}
 \end{figure}
 
@@ -87,7 +87,7 @@ Comme vu à la section~\ref{sec:echantillonnage-et-biais}, l'état préparé par
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{figures/nae3sat-scaling.pdf}
-    \caption[Comportement d'échelle du nombre d'échantillons post-sélectés pour \#NAE3SAT]{Nombre d'échantillons post-sélectionnés nécessaires pour obtenir un comptage approximatif avec une tolérance d'erreur $\varepsilon=1/3$, en utilisant des circuits QAOA et GM-QAOA de profondeur $p=3$ pour des instances de NAE3SAT à $\alpha=1$. Un ajustement polynomial de la médiane donne $O(n^{5.12})$ (QAOA) et $O(n^{3.42})$ (GM-QAOA). Le panneau en encart montre le comportement de mise à l'échelle en fonction de l'inverse de la tolérance d'erreur $\varepsilon$ pour $n=12$ variables. Un ajustement polynomial de la moyenne donne $O(\varepsilon^{-1.09})$ (QAOA) et $O(\varepsilon^{-1.07})$ (GM-QAOA).}
+    \caption[Comportement d'échelle du nombre d'échantillons post-sélectés pour \#NAE3SAT]{Nombre d'échantillons post-sélectionnés nécessaires pour obtenir un comptage approximatif avec une tolérance d'erreur $\varepsilon=1/3$ avec des circuits QAOA de profondeur $p=3$ (cercles bleus) et GM-QAOA (carrés rouges) pour les instances NAE3SAT à $\alpha=1$. Les lignes solides et pointillées représentent respectivement la moyenne et la médiane. Les régions ombragées montrent l'erreur standard de la moyenne. Un ajustement polynomial de la médiane donne $O(n^{5.12})$ (QAOA) et $O(n^{3.42})$ (GM-QAOA). Le panneau inséré montre le comportement de l'échelle en fonction de l'inverse de la tolérance d'erreur $\varepsilon$ pour $n=12$ variables. Un ajustement polynomial de la moyenne donne $O(\varepsilon^{-1.13})$ (QAOA) et $O(\varepsilon^{-1.07})$ (GM-QAOA).}
     \label{fig:nae3sat-scaling}
 \end{figure}
 
@@ -97,8 +97,8 @@ Dans cette étude, les paramètres des circuits quantiques sont maintenus à une
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{figures/nae3sat-jvv-steps}
-    \caption[Impact de la procédure d'auto-réduction sur la non-uniformité pour \#NAE3SAT]{Impact de la fixation de qubits au long de l'auto-réduction sur l'échantillonnage des circuits QAOA et GM-QAOA de profondeur $p=3$ pour des instances de NAE3SAT avec $n=18$ variables à $\alpha=1$ (panneaux de gauche) et $\alpha=2$ (panneaux de droite). (a, b) Non-uniformité en fonction du nombre d'étapes de l'auto-réduction. (c, d) Taux de succès en fonction du nombre d'étapes de l'auto-réduction.}
+    \includegraphics[width=1\textwidth]{figures/nae3sat-self-reduction-step.pdf}
+    \caption[Impact de la procédure d'auto-réduction sur la non-uniformité pour \#NAE3SAT]{Impact de la fixation des qubits tout au long de la procédure d'auto-réducttion sur l'échantillonnage avec des circuits QAOA de profondeur $p=3$ (cercles bleus) et GM-QAOA (carrés rouges) pour les instances NAE3SAT de $n=18$ variables à $\alpha=1$ (panneaux de gauche) et $\alpha=2$ (panneaux de droite). Les lignes solides représentent la moyenne, et les régions ombragées montrent l'erreur standard de la moyenne. (a,b) Non-uniformité en fonction du nombre d'étapes dans la réduction auto-réductive. (c,d) Taux de succès en fonction du nombre d'étapes dans la procédure d'auto-réduction.}
     \label{fig:nae3sat-jvv-steps}
 \end{figure}
 
@@ -107,7 +107,7 @@ Pour l'instant, la performance de VQCount a été étudié pour des circuits de 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{figures/nae3sat-depth.pdf}
-    \caption[Impact de la profondeur du circuit pour \#NAE3SAT]{Performance de l'algorithme VQCount en fonction de la profondeur avec QAOA et GM-QAOA pour des instances de NAE3SAT avec 16 qubits à $\alpha=2$. (a) Non-uniformité maximale au cours de l'auto-réduction. (b) Taux de succès minimal au cours de l'auto-réduction. (c) Nombre moyen d'échantillons nécessaires pour que le comptage approximatif soit dans une tolérance d'erreur $\varepsilon = \frac{1}{3}$.}
+    \caption[Impact de la profondeur du circuit pour \#NAE3SAT]{Performance de VQCount en fonction de la profondeur avec des circuits QAOA (cercles bleus) et GM-QAOA (carrés rouges) pour les instances NAE3SAT de $n=16$ variables à $\alpha=2$. Les lignes solides représentent la moyenne, et les régions ombragées montrent l'erreur standard de la moyenne. (a) Non-uniformité maximale tout au long de la réduction auto-réductive. (b) Taux de succès minimal tout au long de la réduction auto-réductive. (c) Nombre d'échantillons nécessaires pour obtenir un comptage approximatif avec une tolérance d'erreur $\varepsilon = 1/3$.}
     \label{fig:nae3sat-depth}
 \end{figure}
 
@@ -131,8 +131,8 @@ Les résultats précédents suggèrent que le circuit QAOA est un meilleur gén�
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/1in3sat-number-of-samples.pdf}
-    \caption[Comportement d'échelle du nombre d'échantillons pour \#1-in-3SAT]{Comportement d'échelle de l'algorithme VQCount avec QAOA pour des instances de 1-in-3SAT à $\alpha=\frac{2}{3}$. L'échantillonnage par rejet naïf est représenté par une ligne noir pointillé-mixte. Les lignes en pointillés indiquent l'ajustement exponentiel extrapolé à partir des 4 derniers points. (a) Nombre d'échantillons nécessaires pour que le comptage approximatif soit dans une tolérance d'erreur $\varepsilon = \frac{1}{3}$ pour différentes profondeurs. (b) Nombre d'échantillons nécessaires pour que le comptage approximatif soit dans une tolérance d'erreur $\varepsilon$ pour une profondeur $p=3$.}
+    \includegraphics[width=1\textwidth]{figures/1in3sat-number-of-samples.pdf}
+    \caption[Comportement d'échelle du nombre d'échantillons pour \#1-in-3SAT]{Comportement de mise à l'échelle de VQCount avec des circuits QAOA pour les instances 1-in-3SAT à $\alpha=2/3$. Le nombre d'échantillons nécessaires pour obtenir un comptage approximatif en utilisant l'échantillonnage par rejet naïf et l'algorithme de comptage quantique de Brassard, Høyer, Mosca et Tapp (BHMT) est indiqué respectivement par une ligne noire en tirets et pointillés et une ligne noire en tirets densément pointillés, suivant les fonctions $f(n) = O(1.82^{n})$ et $f(n) = O(1.35^{n})$ pour $n$ variables. Les lignes solides représentent la moyenne, et les régions ombragées montrent l'erreur standard de la moyenne. Les lignes en pointillés indiquent l'ajustement exponentiel extrapolé à partir des quatre derniers points comme indiqué dans la légende. (a) Nombre d'échantillons nécessaires pour que le comptage approximatif soit dans la tolérance d'erreur $\varepsilon = 1/3$ pour les profondeurs $p$. (b) Nombre d'échantillons nécessaires pour que le comptage approximatif soit dans la tolérance d'erreur $\varepsilon$ pour une profondeur $p=3$.}
     \label{fig:1in3sat-number-of-samples}
 \end{figure}
 
@@ -143,7 +143,7 @@ Ayant conclu que QAOA semble être un meilleur générateur de solutions pour un
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{figures/1in3sat-scaling.pdf}
-    \caption[Comportement d'échelle du nombre d'échantillons post-sélectés pour \#1-in-3SAT]{Nombre d'échantillons post-sélectionnés nécessaires pour obtenir un comptage approximatif avec une tolérance d'erreur $\varepsilon$ pour des circuits QAOA de profondeur $p=3$ appliqués à des instances de 1-in-3SAT à $\alpha=\frac{2}{3}$. Le panneau en encart montre le comportement de mise à l'échelle en fonction de l'inverse de la tolérance d'erreur $\varepsilon$ pour $n=24$ variables, pour lequel un ajustement polynomial donne $O(\varepsilon^{-0.79})$.}
+    \caption[Comportement d'échelle du nombre d'échantillons post-sélectés pour \#1-in-3SAT]{Nombre d'échantillons post-sélectionnés nécessaires pour obtenir un comptage approximatif avec une tolérance d'erreur $\varepsilon$ avec des circuits QAOA de profondeur $p=3$ pour les instances 1-in-3SAT à $\alpha=2/3$. Le panneau inséré montre le comportement de mise à l'échelle en fonction de l'inverse de la tolérance d'erreur $\varepsilon$ pour $n=24$ variables, pour lequel un ajustement polynomial donne $O(\varepsilon^{-0.79})$. Les lignes solides représentent la moyenne, et les régions ombragées montrent l'erreur standard de la moyenne.}
     \label{fig:1in3sat-scaling}
 \end{figure}
 
@@ -154,7 +154,7 @@ L'algorithme VQCount est conçu pour estimer un nombre exponentiel de solutions 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{figures/sampling-efficiency.pdf}
-    \caption[Efficacité de l'échantillonnage pour des problèmes \#P-difficile]{Nombre de solutions (a) et efficacité d'échantillonnage (b) nécessaires pour atteindre une tolérance d'erreur $\varepsilon = 1$ avec l'algorithme VQCount utilisant QAOA de profondeur $p=3$ pour des instances de NAE3SAT et 1-in-3SAT.}
+    \caption[Efficacité de l'échantillonnage pour des problèmes \#P-difficile]{Nombre de solutions (a) et efficacité d'échantillonnage (b) pour atteindre une tolérance d'erreur $\varepsilon = 1$ avec des circuits QAOA de profondeur $p=3$ pour les instances NAE3SAT (panneaux de gauche) et 1-in-3SAT (panneaux de droite). Les lignes solides représentent la moyenne, et les régions ombragées montrent l'erreur standard de la moyenne.}
     \label{fig:sampling-efficiency}
 \end{figure}
 

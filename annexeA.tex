@@ -7,8 +7,18 @@
 
 %-----------------------------------------------------------------------------%
 
-\begin{maintheorem}{Auto-réductibilité de GM-QAOA}{auto-reductibilite-gm-qaoa}
-    Supposons qu'un circuit GM-QAOA génère efficacement des solutions approximatives à un problème auto-réductible $\varphi$ dans \textsf{\#P}. Alors, ce circuit peut être modifié, sans modifier les paramètres du circuit, pour résoudre approximativement tous les sous-problèmes $\varphi_{c}$ de $\varphi$ en conservant les propriétés de GM-QAOA.
+\begin{maintheorem}{Expression fermée de l'état GM-QAOA}{expression-fermee-etat-gm-qaoa}
+    L'état préparé par un circuit GM-QAOA s'exprime sous la forme de l'expression récursive fermée suivante:
+
+    \begin{equation}
+        \label{eq:recursive-formula}
+        \ket{\psi} = \frac{1}{\sqrt{ N }} \sum_{i=0}^{Q-1} \left( \sqrt{ \lvert G_{i} \rvert } F_{p} \ket{g_{i}} + \sum_{k} \sqrt{ \lvert E^{(k)}_{i} \rvert } \bar{F}^{(k)}_{p} \ket{e^{(k)}_{i}} \right) \ket{i} \,,
+    \end{equation}
+    où $N=2^{n}$, $Q=2^{q}$, $F_{0}=\bar{F}_{0}^{(k)}=1$ et
+    \begin{align*}
+        F_{p} &= F_{p-1} - \frac{1}{N} (1-e^{-i\beta_{p}}) \left( \lvert G \rvert   F_{p-1} + \sum_{k'} \lvert E^{(k')} \rvert \bar{F}^{(k')}_{p-1} e^{-i\gamma_{p}\varepsilon_{k'}} \right) \,, \\
+        \bar{F}^{(k)}_{p} &= e^{-i\gamma_{p} \varepsilon_{k}}\bar{F}_{p-1}^{(k)} - \frac{1}{N} (1-e^{-i\beta_{p}}) \left( \lvert G \rvert   F_{p-1} + \sum_{k'} \lvert E^{(k')} \rvert \bar{F}^{(k')}_{p-1} e^{-i\gamma_{p}\varepsilon_{k'}} \right) \,.
+    \end{align*}
 \end{maintheorem}
 
 \begin{proof}
@@ -30,16 +40,7 @@ Soit $\varphi_{c}$ le sous-problème de $\varphi$ où les dernières $q$ variabl
     \ket{g_{c}} = \frac{1}{\sqrt{ \lvert G_{c} \rvert }} \sum_{j \in G_{c}} \ket{j}, \\
     \ket{e^{(k)}_{c}} = \frac{1}{\sqrt{ \lvert E^{(k)}_{c} \rvert }} \sum_{j \in E^{(k)}_{c}} \ket{j} \,.
 \end{align}
-Évoluons l'état initial $\ket{\psi_{0}} = \ket{+}^{\otimes n}$ avec un circuit optimisé GM-QAOA de $p$ couches en séparant le registre des derniers $q$ qubits. Montrons par induction que l'état final suit la formule récursive suivante:
-\begin{equation}
-    \label{eq:recursive-formula}
-    \ket{\psi} = \frac{1}{\sqrt{ N }} \sum_{i=0}^{Q-1} \left( \sqrt{ \lvert G_{i} \rvert } F_{p} \ket{g_{i}} + \sum_{k} \sqrt{ \lvert E^{(k)}_{i} \rvert } \bar{F}^{(k)}_{p} \ket{e^{(k)}_{i}} \right) \ket{i} \,,
-\end{equation}
-où $N=2^{n}$, $Q=2^{q}$, $F_{0}=\bar{F}_{0}^{(k)}=1$ et
-\begin{align}
-    F_{p} &= F_{p-1} - \frac{1}{N} (1-e^{-i\beta_{p}}) \left( \lvert G \rvert   F_{p-1} + \sum_{k'} \lvert E^{(k')} \rvert \bar{F}^{(k')}_{p-1} e^{-i\gamma_{p}\varepsilon_{k'}} \right) \,, \\
-    \bar{F}^{(k)}_{p} &= e^{-i\gamma_{p} \varepsilon_{k}}\bar{F}_{p-1}^{(k)} - \frac{1}{N} (1-e^{-i\beta_{p}}) \left( \lvert G \rvert   F_{p-1} + \sum_{k'} \lvert E^{(k')} \rvert \bar{F}^{(k')}_{p-1} e^{-i\gamma_{p}\varepsilon_{k'}} \right) \,.
-\end{align}
+Évoluons l'état initial $\ket{\psi_{0}} = \ket{+}^{\otimes n}$ avec un circuit optimisé GM-QAOA de $p$ couches en séparant le registre des derniers $q$ qubits. Montrons par induction que l'état final suit la formule récursive~\ref{eq:recursive-formula}
 
 \newpage
 \textbf{Cas 1 (1 couche):}
