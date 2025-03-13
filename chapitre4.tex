@@ -56,7 +56,7 @@ où $\hat{\mathcal{P}}_{G}$ est le projecteur dans l'espace des solutions $G$, c
 Cette définition permet alors de décrire la performance des différents algorithmes pour le comptage basé sur l'échantillonnage sur un pied d'égalité en utilisant le taux de succès $r$, la tolérance (ou l'erreur multiplicative) $\varepsilon$ ainsi que la confiance $\delta$. Cette caractérisation s'étend aux algorithmes classiques employant un générateur échouant à produire une solution à un taux $1 - r$.
 
 Ces remarques complétées, des échantillons sont mesurés à partir du circuit $\ket{\vec{\gamma}, \vec{\beta}}$ pour estimer la valeur la plus probable de la première variable $w_{0}$. Selon l'algorithme de JVV, il faut alors échantillonner des solutions à la sous-instance $\varphi_{w_{0}}$. Résoudre directement celle-ci à l'aide du même circuit optimisé demanderait une post-sélection supplémentaire sur la première variable. En réalité, comme il existe un nombre exponentiel de sous-instances en raison du nombre exponentiel de chaînes de bits possibles, un nombre exponentiel d'échantillons supplémentaires devraient être retiré. Une autre méthode consiste à construire et optimiser un différent circuit pour résoudre la sous-instance. Pour éviter cette surcharge computationnelle, le circuit de GM-QAOA est modifié pour résoudre directement la sous-instance. Cette procédure d'auto-réduction, qui consiste à remplacer pour chaque qubit fixé la porte d'Hadamard par une porte de Pauli conditionnée sur la valeur $w_{0}$ du bit fixé et à retirer l'opérateur de l'hamiltonien de forçage sur le qubit associé, est détaillée à la section~\ref{sec:procedure-auto-reduction}.
-Ce changement permet de conserver la propriété d'égalité des amplitudes de GM-QAOA. De plus, celle-ci suggère qu'il soit possible d'éviter d'optimiser à nouveau le circuit en gardant les mêmes paramètres. Ainsi, le circuit est modifié selon la procédure d'auto-réduction sans optimiser les paramètres. Des solutions sont alors encore échantillonnées de ce sous-circuit et le processus est répété de manière récursive jusqu'à ce que toutes les variables soient fixées. Le nombre de solutions est alors données par l'inverse du produit des probabilités conditionnelles tel qu'énoncé par l'algorithme de JVV. L'algorithme~\ref{alg:algorithme-jvv} résume les étapes de l'algorithme VQCount.
+Ce changement permet de conserver la propriété d'égalité des amplitudes de GM-QAOA. De plus, celle-ci suggère qu'il soit possible d'éviter d'optimiser à nouveau le circuit en gardant les mêmes paramètres. Ainsi, le circuit est modifié selon la procédure d'auto-réduction sans procéder à une nouvelle ronde d'optimisation. Des solutions sont alors encore échantillonnées de ce sous-circuit et le processus est répété de manière récursive jusqu'à ce que toutes les variables soient fixées. Le nombre de solutions est alors données par l'inverse du produit des probabilités conditionnelles tel qu'énoncé par l'algorithme de JVV. L'algorithme~\ref{alg:algorithme-jvv} résume les étapes de l'algorithme VQCount.
 
 \begin{algorithm}[h!]
     \caption{VQCount}\label{alg:vqcount}
@@ -65,13 +65,12 @@ Ce changement permet de conserver la propriété d'égalité des amplitudes de G
     
     \STATE PQC($\vec{\beta}_0, \vec{\gamma}_0) \leftarrow \text{Circuit-QAOA}(H_P, H_D, \vec{\beta}_0, \vec{\gamma}_0, p$)
     \STATE $\text{PQC}(\vec{\beta}, \vec{\gamma}) \leftarrow \text{Optimisation}(\text{PQC}(\vec{\beta}_0, \vec{\gamma}_0), n_{o})$
-    \STATE $w \leftarrow \texttt{""}$ 
     \STATE $\tilde{N} \leftarrow 1$
     \FOR{$i \in \{1, \dots, n\}$}
     \STATE $S \leftarrow \{ \ \}$
     \WHILE{$\abs{S} < n_{s}$}
     \STATE $m \leftarrow \text{Mesure}(\text{PQC}(\vec{\beta}, \vec{\gamma}))$
-    \IF{$\text{Vérification-Solution}(m)$}
+    \IF{$\text{Vérification-Solution}(m, H_{P})$}
     \STATE $S \leftarrow S \cup \{m\}$
     \ENDIF
     \ENDWHILE
@@ -84,11 +83,9 @@ Ce changement permet de conserver la propriété d'égalité des amplitudes de G
 \end{algorithmic}
 \end{algorithm}
     
-Comme l'algorithme VQCount se fonde sur l'algorithme de JVV, son utilisation requiert $O(\frac{n^{2} \log (\frac{1}{\delta})}{r \varepsilon^{2}})$ échantillons pour approximer le nombre d'états fondamentaux à une erreur multiplicative $\varepsilon$ avec une confiance $1 - \delta$. Ce résultat se compare favorablement à un travail similaire évaluant la fonction de partition d'hamiltoniens de spin classiques qui requiert $O(\frac{\sqrt{N \log(1 / \delta)}}{r \varepsilon})$ échantillons pour la même tâche~\cite{sundarQuantumAlgorithmCount2019}. Lorsque $N=O(2^{n})$, VQCount nécessite exponentiellement moins d'échantillons que cette méthode.
+Comme l'algorithme VQCount se fonde sur l'algorithme de JVV, son utilisation requiert $O(\frac{n^{2} \log (\delta^{-1})}{r \varepsilon^{2}})$ échantillons pour approximer le nombre d'états fondamentaux à une erreur multiplicative $\varepsilon$ avec une confiance $1 - \delta$. Ce résultat se compare favorablement à un travail similaire évaluant la fonction de partition d'hamiltoniens de spin classiques qui requiert $O(\frac{\sqrt{N \log(\delta^{-1})}}{r \varepsilon})$ échantillons pour la même tâche~\cite{sundarQuantumAlgorithmCount2019}. Lorsque $N=O(2^{n})$, VQCount nécessite exponentiellement moins d'échantillons que cette méthode. Notons qu'un algorithme classique peut être utilisé pour résoudre l'instance du problème de comptage lorsque VQCount ait suffisamment réduit celle-ci.
 
 Malgré que l'approche présentée résoute certains des problèmes énoncés au début de la section, les problèmes \textsf{\#P}-difficile demeure difficile pour les ordinateurs quantiques. La génération des distributions arbitraires, incluant les distributions uniformes de structures combinatoires, est difficile en général et seulement facile dans des cas exceptionnels~\cite{aaronsonComputationalComplexityLinear2011, boulandComplexityVerificationQuantum2019}. De plus, GM-QAOA requiert en général des profondeurs de circuits de taille exponentielle selon la taille du problème pour atteindre un taux de succès fini~\cite{xiePerformanceUpperBound2025}. 
-
-Notons qu'un algorithme classique peut être utilisé pour résoudre l'instance du problème de comptage lorsque VQCount ait suffisamment réduit celle-ci.
 
 % \begin{enumerate}[(1)]
 %     \item \textbf{Auto-réductibilité:} Le problème de comptage doit être auto-réductible.
@@ -167,7 +164,7 @@ Notons qu'un algorithme classique peut être utilisé pour résoudre l'instance 
 %     \label{fig:..}
 % \end{figure}
 
-Pour agir en tant que générateur de solutions à sous-instance de l'instance du problème original, le circuit GM-QAOA doit être modifié pour être en mesure d'échantillonner à partir de la distribution de solutions appropriée. Comme expliqué à la section précédente, il n'est pas suffisant d'échantillonner l'état produit par le circuit original en raison du nombre exponentielle de mesures nécessaires. Une \textit{procédure d'auto-réduction}, illustrée à la figure~\ref{fig:vqcount-circuit}, est ainsi introduite pour résoudre cette complication. Soit une formule CNF $\varphi$ et une sous-formule CNF $\varphi_{w}$ représentant la formule $\varphi$ où les premières variables sont remplacées par $w$. Alors, pour chaque qubit $q$ fixé à $w_{q}$ du circuit GM-QAOA, les opérations suivantes sont appliquées:
+Pour agir en tant que générateur de solutions à sous-instance de l'instance du problème original, le circuit GM-QAOA doit être modifié pour être en mesure d'échantillonner à partir de la distribution de solutions appropriée. Comme expliqué à la section précédente, il n'est pas suffisant d'échantillonner l'état produit par le circuit original en raison du nombre exponentielle de mesures nécessaires. Une \textit{procédure d'auto-réduction}, illustrée à la figure~\ref{fig:vqcount-circuit}, est ainsi introduite pour résoudre cette complication. Soit une formule CNF $\varphi$ de taille $n$ et une sous-formule CNF $\varphi_{w}$ représentant la formule $\varphi$ où les premières variables sont remplacées par $w$. Alors, pour chaque qubit $q$ fixé à $w_{q}$ du circuit GM-QAOA, les opérations suivantes sont appliquées:
 
 \begin{enumerate}[(1)]
     \item Retirer la porte d'Hadamard $H$ initiale du qubit $q$.
@@ -175,48 +172,59 @@ Pour agir en tant que générateur de solutions à sous-instance de l'instance d
     \item Retirer l'opérateur de l'hamiltonien de forçage $H_{D}$ du qubit $q$.
 \end{enumerate}
 
-Ces modifications fixent alors l'état du qubit $q$ à $\ket{w_{q}}$ tout en préservant les termes d'interactions encodant les contraintes de la formule $\varphi_{w}$. De plus, le circuit modifié possède les propriétés de GM-QAOA. L'annexe~\ref{ann:auto-reductibilite-du-circuit-gm-qaoa} prouve la validité de ces affirmations.
+Ces modifications fixent alors l'état du qubit $q$ à $\ket{w_{q}}$ tout en préservant les termes d'interactions encodant les contraintes de la formule $\varphi_{w}$. Comme l'opérateur de forçage $U_{D}$ n'est plus appliqué au qubit $q$, celui-ci demeure dans le même état, à une phase près, spécifié par la porte de Pauli $X$. Le sous-circuit, c'est-à-dire le circuit initial sans le qubit $q$, résout alors le sous-problème tout en conservant les mêmes propriétés de GM-QAOA. En effet, similairement à l'auto-réductibilité du problème SAT, le modèle d'Ising est aussi auto-réductible. Considérons le terme d'interactions $Z_{q}Z_{p}$ appliqué sur les spins $q$ et $p$. Fixer le spin $q$ à une valeur constante $\sigma_{q}$ signifie que l'influence de ce terme sur le spin $p$ peut être vu comme un terme de champ magnétique local $\sigma_{q} Z_{p}$. Le sous-circuit peut ainsi être reconstruit en prenant avantage de la propriété d'auto-réductibilité du modèle d'Ising. Avec cette perspective, nous remarquons que le sous-circuit constitue aussi un circuit GM-QAOA.     
 
-\begin{figure*}[h!]
+\begin{figure}[h!]
     \centering
     \begin{subfigure}[h]{0.6\textwidth}
-    \centering
-    \caption{}
-    \includegraphics[width=1\textwidth]{figures/qaoa-self-reducibility-1.pdf}
-    \label{fig:vqcount-circuit-a}
+        \centering
+        \caption{}
+        \includegraphics[width=1\textwidth]{figures/qaoa-self-reducibility-1.pdf}
+        \label{fig:vqcount-circuit-a}
     \end{subfigure}
     \begin{subfigure}[h]{0.6\textwidth}
-    \centering
-    \caption{}
-    \includegraphics[width=1\textwidth]{figures/qaoa-self-reducibility-2.pdf}
-    \label{fig:vqcount-circuit-b}
+        \centering
+        \caption{}
+        \includegraphics[width=1\textwidth]{figures/qaoa-self-reducibility-2.pdf}
+        \label{fig:vqcount-circuit-b}
     \end{subfigure}
-\caption[Procédure d'auto-réduction de VQCount]{Générateur de solutions QAOA avant (a) et après (b) avoir fixé le premier qubit à $c$ durant la procédure d'auto-réduction.}
-\label{fig:vqcount-circuit}
-\end{figure*}
+    \caption[Procédure d'auto-réduction de VQCount]{Générateur de solutions QAOA avant (a) et après (b) avoir fixé le premier qubit à $c$ durant la procédure d'auto-réduction. La porte de Hadamard $H$ agissant sur le qubit fixé est remplacée par la porte de Pauli-X, conditionnée classiquement sur $c$. Pour chaque couche, l'opérateur de problème $U_{P}(\gamma)$ reste inchangé, tandis que les portes de l'opérateur de forçage $U_{D}(\beta)$ agissant sur le qubit fixé sont supprimées.}
+    \label{fig:vqcount-circuit} 
+\end{figure}
+
+Le développement de cette procédure a aussi mené à une expression récursive fermée de l'état préparé par le circuit GM-QAOA, présenté dans l'annexe~\ref{ann:expression-fermee-etat-circuit-gm-qaoa}.
 
 L'algorithme VQCount ne comprend qu'une optimisation des paramètres du circuit quantique paramétré avant la procédure d'auto-réduction. Toutefois, un autre cycle d'optimisation est en principe nécessaire pour chaque circuit réduit afin d'atteindre un état optimal représentant les solutions à la sous-instance du problème. Ce choix mène alors à la question suivante: Est-ce que la probabilité de succès $r$ du circuit réduit est égale ou supérieur à celle du circuit original avec les mêmes paramètres? Dans ce cas, l'optimisation n'est nécessaire que pour le circuit original et peut être sautée pour les circuits réduits.
 
-La réponse à cette question est positive dans le cas de circuits GM-QAOA peu profonds dans la limite $\gamma_{i}=\beta_{i}$, $i=1,\dots,p$. Dans cette limite, GM-QAOA se réduit à l'algorithme de Grover. En effet, pour tous les hamiltoniens de problème $H_{P}$ pouvant être écrit comme une somme de chaînes de Pauli, un circuit peut être construit effondrant tous les niveaux excités de $H_{P}$ à un seul niveau excité, menant à circuit d'évolution d'hamiltonien à deux niveaux $U_{P}$. Avec les paramètres susmentionnés, $U_{P}$ devient un oracle pour les états fondamentaux de $H_{P}$, à une phase constante près, et $U_{D}$ devient l'opérateur de diffusion de Grover. Dans cette limite, à une profondeur constante $p=O(1)$, le taux de succès est une fonction strictement croissante du rapport des solutions au nombre total d'états. Si, en descendant l'arbre d'auto-réductibilité de l'algorithme de JVV, nous choisissons les branches possédant une probabilité plus grande que $1/2$, alors le ratio des solutions au nombre total d'états est aussi strictement croissant. Cela signifie que, pour ce choix de paramètres, un circuit GM-QAOA peu profond pour un problème donné peut être modifié selon la procédure d'auto-réduction pour résoudre les sous-problèmes avec le même ou un meilleur taux de succès. Cet argument est seulement valide dans la limite de Grover, mais suggère que la stratégie d'auto-réduction est possiblement aussi valide dans d'autres cas. Le chapitre suivant introduit des évidences sous la forme de simulations numériques pour confirmer la validité de cette intuition.
+La réponse à cette question est positive dans le cas de circuits GM-QAOA peu profonds dans la limite $\gamma_{i}=\beta_{i}$, $i=1,\dots,p$. Dans cette limite, GM-QAOA se réduit à l'algorithme de Grover. En effet, tel qu'expliqué ci-bas, pour tous les hamiltoniens de problème $H_{P}$ pouvant être écrit comme une somme de chaînes de Pauli, un circuit peut être construit effondrant tous les niveaux excités de $H_{P}$ à un seul niveau excité, menant à circuit d'évolution d'hamiltonien à deux niveaux $U_{P}$. Avec les paramètres susmentionnés, $U_{P}$ devient un oracle pour les états fondamentaux de $H_{P}$, à une phase constante près, et $U_{D}$ devient l'opérateur de diffusion de Grover. Dans cette limite, à une profondeur constante $p=O(1)$, le taux de succès est une fonction strictement croissante du rapport des solutions au nombre total d'états. Si, en descendant l'arbre d'auto-réductibilité de l'algorithme de JVV, nous choisissons les branches possédant une probabilité plus grande que $1/2$, alors le ratio des solutions au nombre total d'états est aussi strictement croissant. Cela signifie que, pour ce choix de paramètres, un circuit GM-QAOA peu profond pour un problème donné peut être modifié selon la procédure d'auto-réduction pour résoudre les sous-problèmes avec le même ou un meilleur taux de succès. Cet argument est seulement valide dans la limite de Grover, mais suggère que la stratégie d'auto-réduction est possiblement aussi valide dans d'autres cas. Le chapitre suivant introduit des évidences sous la forme de simulations numériques pour confirmer la validité de cette intuition.
+
+Pour exemplifier l'effondrement d'une multitude de niveaux d'états excités à un unique niveau d'état excité pour l'hamiltonien $H_{P}$, considérons le circuit illustré à la figure~\ref{fig:tower-excited-states-circuit}. Ce circuit effondre les états excités pour une formule CNF $\varphi = (x_{1} \lor x_{2} \lor x_{3}) \land (x_{4} \lor x_{5} \lor x_{6})$ représentant le problème NAE3SAT. Le tableau~\ref{tab:tower-excited-states-parity} suit l'état des bits de parité au long du circuit. Les qubits d'entrées correspondent aux valeurs $x_{i}$ prises par la formule $\varphi$. D'abord, la parité des couples de variables d'une même clause est mesurée et sauvegardée dans les bits de parité (a) à l'aide de portes CNOT. Par la suite, une porte NOT est appliquée sur les bits de parité (a). La parité des bits de parité (a) est alors aussi mesuré et emmagasiné dans le bit de parité (b). La partie cruciale de ce circuit est l'opérateur de phase $Z^{-\gamma \varepsilon \pi}$ contrôlée sur les qubits de parité (b).
+
+\begin{table*}[h]
+    \centering
+    \begin{tabular}{c c c}
+        \hline
+        Entrée & Parité (a) & Parité (b) \\
+        \hline
+        000 & 00 & 1 \\
+        001 & 01 & 0 \\
+        010 & 11 & 0 \\
+        100 & 10 & 0 \\
+        011 & 10 & 0 \\
+        110 & 11 & 0 \\
+        101 & 01 & 0 \\
+        111 & 00 & 1 \\
+        \hline
+    \end{tabular}
+    \caption{Parité des qubits (a) et (b) de la première partie du circuit d'effondrement des états excités selon les différentes entrées possibles.}
+    \label{tab:tower-excited-states-parity}
+\end{table*}
 
 \begin{figure*}[h]
     \centering
-    \includegraphics[width=0.7\textwidth]{figures/tower-of-excited-states.pdf}
-    \caption{}
-    \label{fig:tower-of-excited-states}
+    \includegraphics[width=1\textwidth]{figures/tower-excited-states-circuit.pdf}
+    \caption[Circuit d'effondrement des états excités]{}
+    \label{fig:tower-excited-states-circuit}
 \end{figure*}
 
-%-----------------------------------------------------------------------------%
-
-% \section{Module VQCount}
-% \label{sec:module-vqcount}
-
-% \begin{comment}
-% \subsection*{Plan}
-% \begin{enumerate}
-%     \item Expliquer les librairies python dévelopées
-%     \item Décrire \textit{qaoa-quimb}
-%     \item Décrire \textit{VQCount}
-% \end{enumerate}
-% \end{comment}
-
+\textcolor{mydarkred}{\textit{Voir Nielsen et Chuang.}}

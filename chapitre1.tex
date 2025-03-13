@@ -8,7 +8,7 @@ Borne sur le comptage ("a tighter bound for counting max-weight solutions to 2SA
 \end{comment}
 
 \chapter{Complexité du dénombrement}
-\label{cha:complexite-du-dénombrement}
+\label{cha:complexite-du-denombrement}
 
 \begin{comment}
     \subsection*{Plan}
@@ -119,7 +119,7 @@ Comme que les problèmes de la classe \textsf{P} font aussi partie de la classe 
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.4\textwidth]{figures/complexity-classes.png}
+    \includegraphics[width=0.35\textwidth]{figures/complexity-classes.png}
     \caption[Classes de complexité]{Classes de complexité.}
     \label{fig:complexity-classes}
 \end{figure}
@@ -360,34 +360,29 @@ Notons que dans tous les cas, le comptage de solutions aux formules CNF, l'objet
 
 La complexité d'une instance aléatoire d'un problème \textsf{NP} n'est pas toujours équivalente. En réalité, certaines instances sont résolubles en temps polynomial, alors que d'autres sont intraitables. Les discussions autour des classes de complexité s'intéressent principalement à la complexité dans le pire des cas pour décrire la difficulté inhérente d'un problème. Cependant, certaines instances peuvent posséder une complexité inférieure, pouvant alors être pris en avantage par certains algorithmes. 
 
-Pour les problèmes SAT, la difficulté d'une instance aléatoire est grandement dépendante sur le rapport $\alpha = \frac{m}{n}$, où $m$ est le nombre de clauses et $n$ est le nombre de variables. Intuitivement, cette difficulté provient de l'ajout de contraintes au problème sous la forme de clauses. Plus surprenamment, la complexité d'une telle instance suit une transition de phase nommée \textit{transition de phase critique}. En effet, il existe une valeur critique $\alpha_{c}$ où les instances du problème SAT passe de satisfaisable à insatisfaisable dans la limite asymptotique de $n$. La difficulté du problème SAT est maximale juste avant cette transition. Pourquoi est-ce le cas?
+Pour les problèmes SAT, la difficulté d'une formule CNF aléatoire est grandement dépendante sur le rapport $\alpha = \frac{m}{n}$, où $m$ est le nombre de clauses et $n$ est le nombre de variables. Intuitivement, cette difficulté provient de l'ajout de contraintes au problème sous la forme de clauses. Plus surprenamment, la complexité d'une telle instance suit une transition de phase nommée \textit{transition de phase critique}. En effet, il existe une valeur critique $\alpha_{c}$ où les instances du problème SAT passe de satisfaisable à insatisfaisable dans la limite asymptotique de $n$. La difficulté du problème SAT est maximale juste avant cette transition. Pourquoi est-ce le cas?
 
-Plusieurs autres transitions de phase existent avant la transition critique telle qu'illustré à la figure~\ref{fig:transitions-de-phase}. Ces transitions, similairement aux transitions de phase du modèle d'Ising, correspondent à des changements dans l'organisation de l'ensemble des solutions. Pour décrire cette réorganisation, une mesure de similarité est nécessaire pour comparer les différentes entrées au problème SAT. La \textit{distance de Hamming} entre deux chaînes de bits de même taille correspond au nombre de positions dans les chaînes où les bits correspondants diffèrent. 
+Plusieurs autres transitions de phase existent avant la transition critique telle qu'illustré à la figure~\ref{fig:transitions-de-phase}. Notons que la discussion suivante s'inspire de l'ouvrage de Moore et Mertens~\cite{mooreNatureComputation2011}, une incroyable référence sur la théorie du calcul. Ces transitions, similairement aux transitions de phase du modèle d'Ising, correspondent à des changements dans l'organisation de l'ensemble des solutions. Pour décrire cette réorganisation, une mesure de similarité est nécessaire pour comparer les différentes entrées au problème SAT. La \textit{distance de Hamming} entre deux chaînes de bits de même taille correspond au nombre de positions dans les chaînes où les bits correspondants diffèrent. L'espace de solutions se sépare typiquement en amas de solutions composé d'un nombre exponentiel de solutions, où chaque solution d'un amas est séparée par une large distance de Hamming avec les solutions des amas avoisinants. Pour le modèle d'Ising, une chaîne de Markov retournant les spins un à un nécessite un temps exponentiel pour passer d'un amas à un autre en raison de la présence d'états à haute énergie à la frontière de l'amas. La même situation apparait pour le problème SAT en remplaçant l'énergie par le nombre de contraintes non respectées.
 
-
-Avant la première transition de phase, la \textit{transition de phase de regroupement}, toutes les solutions d'une instance du problème SAT sont situées au sein du même amas, chacune à une distance d'Hamming polynomiale selon la taille de l'instance. \textcolor{mydarkred}{\textit{Compléter.}}
-
-% \textit{transition de phase de congélation}
-
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{figures/phase-transitions.pdf}
-    \caption[Transitions de phase du problème SAT]{Schéma des transitions de phase du problème SAT selon le rapport du nombre de clauses au nombre de variables $\alpha$. Les transitions de phases illustrées sont la transition de regroupement $\alpha_{\text{clust}}$, la transition de condensation $\alpha_{\text{cond}}$, la transition de congélation $\alpha_{\text{rigid}}$ et la transition de satisfaisabilité $\alpha_{c}$.}
+    \caption[Transitions de phase du problème SAT]{Schéma des transitions de phase du problème SAT selon le rapport du nombre de clauses au nombre de variables $\alpha$. Les transitions de phases illustrées sont la transition de regroupement $\alpha_{\text{clust}}$, la transition de condensation $\alpha_{\text{cond}}$, la transition de congélation $\alpha_{\text{rigid}}$ et la transition de satisfaisabilité $\alpha_{c}$. Figure tirée de~\cite{mooreNatureComputation2011}.}
     \label{fig:transitions-de-phase}
 \end{figure}
 
-Les approches locales semblent échouer à la transition de condensation, alors que la difficulté du problème SAT semble provenir de la transition de congélation. La transition de phase critique pour NAE3SAT est situé à $\alpha_{c} \approx 2.1$~\cite{achlioptasPhaseTransition1ink2001} et à $\alpha_{c} \approx 2/3$~\cite{raymondPhaseDiagram1in32007} pour 1-in-3SAT. Les instances du problème \#1-in-3SAT près du seuil critique appartiennent à la catégorie des problèmes bloqués. Les problèmes \#P dans ce régime sont parmi les plus difficiles~\cite{zdeborovaStatisticalPhysicsHard2008}.
+Avant la première transition de phase située à $\alpha_{\text{clust}}$, la \textit{transition de phase de regroupement}, toutes les solutions d'une instance du problème SAT sont situées au sein du même amas. Après cette transition, un nombre exponentiel d'amas font leur apparition, séparés par une grande distance d'Hamming. Deux autres transitions se présentent en augmentant la densité des clauses sur les variables. Après la \textit{transition de phase de condensation} $\alpha_{\text{cond}}$, un nombre sous-exponentiel d'amas domine l'ensemble de solutions. Finalement, les variables de chaque amas la \textit{transition de phase de congélation} $\alpha_{\text{rigid}}$ sont forcée de prendre des valeurs particulières.
+
+Les approches locales échouent à la transition de condensation en raison de la présence de corrélations à longues distances comme mis en évidence par la méthode de propagation des convictions~\cite{mezardInformationPhysicsComputation2009}. La propagation par sondage corrige la propagation des convictions en adressant les corrélations à longues distances et permet de localiser la transition de congélation suivant la transition de condensation~\cite{mezardInformationPhysicsComputation2009}.
+
+La difficulté du problème SAT semble alors provenir de la transition de congélation. La transition de phase critique pour NAE3SAT est situé à $\alpha_{c} \approx 2.1$~\cite{achlioptasPhaseTransition1ink2001} et à $\alpha_{c} \approx 2/3$~\cite{raymondPhaseDiagram1in32007} pour 1-in-3SAT. Les problèmes \#SAT semblent quant à eux être aussi plus complexe près de la phase de satisfaisabilité~\cite{dyerMarkovChainsIndependent2000, barthelClusteringAnalysisGroundstate2004}. Les instances du problème \#1-in-3SAT près du seuil critique appartiennent à la catégorie des problèmes bloqués. Les problèmes \#P dans ce régime sont parmi les plus difficiles~\cite{zdeborovaStatisticalPhysicsHard2008}.
+
+L'approche utilisée dans le travail de ce mémoire se base sur l'optimisation des paramètres de circuits quantiques. Cette approche n'est pas locale en comparaison avec les algorithmes classiques typiquement utilisés. Cela laisse ainsi espérer un possible avantage. Par exemple, le problème \#XORSAT est résoluble en temps polynomial avec l'élimination gaussienne qui est une méthode globale et non locale~\cite{mooreNatureComputation2011}.
+
+
 
 % \textcolor{mydarkred}{\textit{Pourquoi transition dynamique?}}
 
 % \textcolor{mydarkred}{\textit{Parler du nombre de solutions.}}
 
 % \textcolor{mydarkred}{\textit{Locked problems.}}
-
-
-% \textcolor{mydarkred}{\textit{Voir papier de stefanos fast counting, plus d'informations et de références.}}
-
-% \textcolor{mydarkred}{\textit{Algorithme local vs global}}
-
-~\cite{dyerMarkovChainsIndependent2000}
-~\cite{barthelClusteringAnalysisGroundstate2004}

@@ -191,7 +191,7 @@ où $\vec{\gamma} = (\gamma_{1}, \dots, \gamma_{p})$ et $\vec{\beta} = (\beta_{1
     E_{P} (\vec{\gamma}, \vec{\beta}) = \braket{ \psi(\vec{\gamma}, \vec{\beta}) | H_{P} | \psi(\vec{\gamma}, \vec{\beta}) } \,.
 \end{equation}
 
-Comme $H_{P}$ est typiquement une somme d'opérateurs de Pauli, cette valeur moyenne peut être évaluée efficacement en mesurant l'état du circuit préparé\textcolor{mydarkred}{\textit{CITE MIKE AND IKE!}}. L'énergie trouvée quantifie l'optimalité de l'état préparé. Par la suite, une méthode d'optimisation classique continue, comme la descente de gradient stochastique, est employée pour mettre à jour itérativement les paramètres $\gamma$ et $\beta$ du circuit paramétré de manière à minimiser la valeur moyenne $E_{P} (\vec{\gamma}, \vec{\beta})$:
+Comme $H_{P}$ est typiquement une somme d'opérateurs de Pauli, cette valeur moyenne peut être évaluée efficacement en mesurant l'état du circuit~\cite{nielsenQuantumComputationQuantum2011}. L'énergie trouvée quantifie l'optimalité de l'état préparé. Par la suite, une méthode d'optimisation classique continue, comme la descente de gradient stochastique, est employée pour mettre à jour itérativement les paramètres $\gamma$ et $\beta$ du circuit paramétré de manière à minimiser la valeur moyenne $E_{P} (\vec{\gamma}, \vec{\beta})$:
 
 \begin{equation}
     (\vec{\gamma}^{*}, \vec{\beta}^{*}) = \arg \min_{{\vec{\gamma}, \vec{\beta}}} E_{P}(\vec{\gamma}, \vec{\beta}) \,.
@@ -438,7 +438,7 @@ Décrivons d'abord le circuit QAOA, tel qu'illustré à la figure~\ref{fig:gm-qa
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.6\textwidth]{figures/gm-qaoa}
-    \caption[Circuit de l'ansatz quantique à opérateurs alternants avec forçage de Grover]{Circuit de GM-QAOA. }
+    \caption[Circuit de l'ansatz quantique à opérateurs alternants avec forçage de Grover]{Circuit de GM-QAOA. Ce circuit est composé de l'opérateur de préparation d'état $U_{S}$, de l'opérateur de problème $U_{P}$, de portes de Pauli $X$ ainsi que d'une porte de déphasage $Z^{-\beta pi}$ controllée sur tous les qubits}
     \label{fig:gm-qaoa}
 \end{figure}
 
@@ -448,7 +448,10 @@ L'innovation principale de travail provient de l'opérateur de mélange $U_{D}$,
     U_D^{\mathrm{Grover}} = e^{-i \beta \ket{F}\!\bra{}} = U_{S}\left[ \mathds{1}^{\otimes n} -\left(1-e^{-i \beta}\right) (\ket{0}\!\bra{0})^{\otimes n} \right] U_{S}^{\dagger} \,.
 \end{equation}
 
-Cet opérateur ressemble aux opérateurs de diffusion utilisés dans l'algorithme d'amplification d'amplitude, où les opérateurs de déphasage $e^{-i\beta}$ remplacent les opérateurs d'inversion de phase $e^{-i\beta}$. $U_{D}$ est alors implémenté en utilisant les unitaires $U_{S}$ et $U_{S}^{\dagger}$, deux couches d'opérateur de Pauli $X$ et un opérateur de déphasage $Z^{-\beta/\pi}$ contrôlés sur tous les qubits.
+Cet opérateur ressemble aux opérateurs de diffusion utilisés dans l'algorithme d'amplification d'amplitude, où les opérateurs de déphasage $e^{-i\beta}$ remplacent les opérateurs d'inversion de phase $e^{-i\beta}$. $U_{D}$ est alors implémenté en utilisant les unitaires $U_{S}$ et $U_{S}^{\dagger}$, deux couches d'opérateur de Pauli $X$ et un opérateur de déphasage $Z^{-\beta/\pi} = \begin{pmatrix}
+1 & 0 \\
+0 & e^{-i\beta}
+\end{pmatrix}$ contrôlés sur tous les qubits.
 
 Une des conséquences de l'inspiration de l'algorithme de Grover signifie GM-QAOA peut préparer des superpositions égales d'états de même énergie. De plus, comme cette approche ne possède pas d'erreur de simulation d'Hamiltonien, comme les erreurs de Trotter. Notons que les problèmes NAE3SAT et 1-in-3SAT ne sont pas contraints et donc que l'espace faisable demeure le même que pour QAOA, c'est-à-dire que $\ket{F} = \ket{+}^{\otimes n}$.
 
