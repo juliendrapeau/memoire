@@ -86,23 +86,23 @@ L'\textit{algorithme adiabatique quantique} (« Quantum Adiabatic Algorithm ») 
 
 Ainsi, en présumant que le gap spectral entre l'état fondamental et l'état excité est non-nul, la solution du problème est toujours obtenue à partir de l'état fondamental obtenu si l'évolution, donnée par l'opérateur $U(t) = e^{-i \int_{0}^{1} \tilde{H}(s) ds}$, est suffisamment lente tel que garantit par le théorème adiabatique quantique. Si le temps d'évolution est trop petit, une \textit{transition diabatique}, c'est-à-dire une transition de l'état fondamental à un état excité, peuvent empêcher l'évolution adiabatique.
 
-\begin{figure}[ht!]
-    \centering
-    \begin{subfigure}{.48\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{figures/algorithme-adiabatique-quantique.png}
-        \caption{}
-        \label{fig:algorithme-adiabatique-quantique-1}
-    \end{subfigure}
-    \begin{subfigure}{.48\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{figures/algorithme-adiabatique-quantique-2.png}
-        \caption{}
-        \label{fig:algorithmne-adiabatique-quantique-2}
-    \end{subfigure}
-    \caption[Algorithme adiabatique quantique]{\textcolor{mydarkred}{\textit{Refaire les figures.}}}
-    \label{fig:algorithme-adiabatique-quantique}
-\end{figure}
+% \begin{figure}[ht!]
+%     \centering
+%     \begin{subfigure}{.48\textwidth}
+%         \centering
+%         \includegraphics[width=1\textwidth]{figures/algorithme-adiabatique-quantique.png}
+%         \caption{}
+%         \label{fig:algorithme-adiabatique-quantique-1}
+%     \end{subfigure}
+%     \begin{subfigure}{.48\textwidth}
+%         \centering
+%         \includegraphics[width=1\textwidth]{figures/algorithme-adiabatique-quantique-2.png}
+%         \caption{}
+%         \label{fig:algorithmne-adiabatique-quantique-2}
+%     \end{subfigure}
+%     \caption[Algorithme adiabatique quantique]{\textcolor{mydarkred}{\textit{Refaire les figures.}}}
+%     \label{fig:algorithme-adiabatique-quantique}
+% \end{figure}
 
 Typiquement, le gap spectral est non-nul~\cite{farhiQuantumComputationAdiabatic2000}, mais cela n'est pas suffisant pour rendre l'algorithme utile comme ce gap doit être assez grand pour limiter le temps d'évolution. Le gap spectral peut être suffisamment grand pour permettre une évolution adiabatique dans un temps réaliste pour certains problèmes, mais ce n'est pas toujours possible~\cite{altshulerAndersonLocalizationMakes2010}. Une alternative consiste à trouver un compromis entre le temps d'évolution et la proximité de l'état final avec l'état fondamental espéré. Le choix du chemin adiabatique utilisé pour transitionner de $H_{D}$ à $H_{P}$ peut aussi différer de l'équation~\ref{eq:chemin-adiabatique} dans l'objectif de maximiser le gap au long du chemin et donc minimiser le temps d'évolution~\cite{nishimoriExponentialEnhancementEfficiency2017, hormoziNonstoquasticHamiltoniansQuantum2017}.
 
