@@ -11,7 +11,7 @@
 \end{enumerate}
 \end{comment}
 
-Les chapitres précédents ont laissés transparaître l'intuition derrière l'approche empruntée dans ce travail: Est-il possible d'utiliser les algorithmes variationnels comme générateur de solutions à l'algorithme de JVV pour la résolution approximative des problèmes de comptage? Avant d'introduire le fruit du travail de ce mémoire, l'algorithme VQCount, énumérons les difficultés liées à la résolution de problèmes de comptage avec les algorithmes variationnels quantiques. D'abord, les circuits quantiques doivent produire une grande séparation entre les amplitudes des solutions et les non-solutions de l'état produit pour pouvoir produire même une seule solution avec un nombre tractable de mesures. Ensuite, même si les amplitudes des non-solutions sont nulles, si les amplitudes d'un sous-ensemble non négligeable des solutions sont significativement supprimés par rapport aux autres amplitudes, la mesure des états supprimés entraîne une surcharge computationnelle, potentiellement exponentielle, du nombre de répétitions. Finalement, même si toutes les solutions possèdent environ des amplitudes égales et si les non-solutions ne sont pas présentes dans l'état produit, un nombre exponentiel de mesures est en théorie nécessaire pour énumérer naïvement les solutions de manière exhaustive comme le nombre de solutions est exponentiel pour les problèmes d'intérêt.
+Les chapitres précédents ont laissés transparaître l'intuition derrière l'approche empruntée dans ce travail: est-il possible d'utiliser les algorithmes variationnels quantiques comme générateur de solutions à l'algorithme de JVV pour la résolution approximative des problèmes de comptage? Avant d'introduire le fruit du travail de ce mémoire, l'algorithme VQCount, énumérons les difficultés liées à la résolution de problèmes de comptage avec les algorithmes variationnels quantiques. D'abord, les circuits quantiques doivent produire une grande séparation entre les amplitudes des solutions et les non-solutions de l'état produit pour pouvoir produire même une seule solution avec un nombre tractable de mesures. Ensuite, même si les amplitudes des non-solutions sont nulles, si les amplitudes d'un sous-ensemble non négligeable des solutions sont significativement supprimés par rapport aux autres amplitudes, la mesure des états supprimés entraîne une surcharge computationnelle, potentiellement exponentielle, du nombre de répétitions. Finalement, même si toutes les solutions possèdent environ des amplitudes égales et si les non-solutions ne sont pas présentes dans l'état produit, un nombre exponentiel de mesures est en théorie nécessaire pour énumérer naïvement les solutions de manière exhaustive comme le nombre de solutions est exponentiel pour les problèmes d'intérêt.
 
 L'apport principal de ce travail réside dans la combinaison des algorithmes variationnels quantique et l'algorithme de JVV. L'algorithme VQCount échantillonne la distribution préparée par un algorithme variationnel quantique afin de produire un compte approximatif à l'aide de l'algorithme de JVV. Cette approche tente de minimiser l'impact des obstacles précédents, en particulier la deuxième et troisième difficulté. L'utilisation de GM-QAOA permet d'éviter la suppression d'amplitude d'un sous-ensemble de solutions en assurant que toutes les solutions aient la même amplitude. De plus, l'algorithme de JVV prend avantage de la structure des problèmes auto-réductibles pour éviter de devoir énumérer naïvement toutes les solutions. 
 
@@ -101,69 +101,6 @@ Malgré que l'approche présentée résoute certains des problèmes énoncés au
 \section{Procédure d'auto-réduction}
 \label{sec:procedure-auto-reduction}
 
-\begin{comment}
-\subsection*{Plan}
-    \begin{enumerate}
-    \item Faire la preuve de l'auto-réductibilité des algorithmes variationnels quantiques
-\end{enumerate}
-\end{comment}
-
-% % \begin{figure}[h!]
-% %     \centering
-% %     \begin{quantikz}[font=\sffamily]
-% %       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{1})} & \gate[wires=4, nwires=3, style={fill=myred}][1.30cm]{U_D (\beta_{1})} & \ \ldots\ \qw & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{p})} & \gate[wires=4, nwires=3, style={fill=myred}][1.30cm]{U_D (\beta_{p})} & \qw \\
-% %       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & & & \ \ldots\ \qw & & & \qw \\
-% %       \vdots & & & & & & & \\
-% %       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & & & \ \ldots\ \qw & & & \qw
-% %     \end{quantikz}
-% %     \caption{}
-% % \end{figure}
-
-
-
-% % \begin{figure}[h!]
-% %     \centering
-% %     \begin{quantikz}
-% %       \ket{0} & \gate[style={fill=myyellow!80}][0.80cm]{X^{c}} & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{1})} & \qw & \ \ldots\ \qw & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{p}) } & \qw & \qw \\
-% %       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & & \gate[wires=3, nwires=2, style={fill=myred}][1.30cm]{U_D (\beta_{1})} & \ \ldots\ \qw & & \gate[wires=3, nwires=2, style={fill=myred}][1.30cm]{U_D (\beta_{p})} & \qw \\
-% %       \vdots & & & & & & & \\
-% %       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & & & \ \ldots\ \qw & & & \qw
-% %     \end{quantikz}
-% %     \caption{}
-% % \end{figure}
-
-% \begin{figure}[h!]
-%     \centering
-%     \begin{quantikz}[font=\sffamily]
-%       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{1})} & \gate[wires=4, nwires=3, style={fill=myred}][1.30cm]{U_D (\beta_{1})} & \ \ldots\ \qw & \gate[wires=4, nwires=3, style={fill=myblue}][1.30cm]{U_P (\gamma_{p})} & \gate[wires=4, nwires=3, style={fill=myred}][1.30cm]{U_D (\beta_{p})} & \qw \\
-%       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & & & \ \ldots\ \qw & & & \qw \\
-%       \vdots & & & & & & & \\
-%       \ket{0} & \gate[style={fill=mysilver!80}][0.80cm]{H} & & & \ \ldots\ \qw & & & \qw
-%     \end{quantikz}
-%     \caption{}
-% \end{figure}
-
-% \begin{figure}[h]
-%     \centering
-%     \begin{quantikz}
-%         \ket{x_1} & \ctrl{3} & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw     & \ctrl{3} & \qw \\
-%         \ket{x_2} & \qw      & \ctrl{2} & \ctrl{3} & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \ctrl{3} & \ctrl{2}     & \qw      & \qw \\
-%         \ket{x_3} & \qw      & \qw      & \qw      & \ctrl{2} & \qw      & \qw      & \qw      & \qw      & \qw      & \ctrl{2} & \qw      & \qw     & \qw      & \qw \\
-%         \ket{0}   & \targ{}  & \targ{}  & \qw      & \qw      & \targ{}  & \ctrl{2}      & \qw      & \ctrl{2} & \targ{}  & \qw      & \qw      & \targ{}      & \targ{}  & \qw \\
-%         \ket{0}   & \qw      & \qw      & \targ{}  & \targ{}  & \targ{}  & \ctrl{1}      & \qw     & \ctrl{1}  & \targ{}  & \targ{}  & \targ{}  & \qw     & \qw     & \qw \\
-%         \ket{0}   & \qw      & \qw      & \qw      & \qw      & \qw      & \targ{}       & \ctrl{7} & \targ{}  & \qw      & \qw      & \qw      & \qw     & \qw      & \qw \\ [0.5cm]
-%         \ket{x_4} & \ctrl{3} & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw     & \ctrl{3} & \qw \\
-%         \ket{x_5} & \qw      & \ctrl{2} & \ctrl{3} & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \ctrl{3} & \ctrl{2}     & \qw      & \qw \\
-%         \ket{x_6} & \qw      & \qw      & \qw      & \ctrl{2} & \qw      & \qw      & \qw      & \qw      & \qw      & \ctrl{2} & \qw      & \qw     & \qw      & \qw \\
-%         \ket{0}   & \targ{}  & \targ{}  & \qw      & \qw      & \targ{}  & \ctrl{2}      & \qw      & \ctrl{2} & \targ{}  & \qw      & \qw      & \targ{}      & \targ{}  & \qw \\
-%         \ket{0}   & \qw      & \qw      & \targ{}  & \targ{}  & \targ{}  & \ctrl{1}      & \qw     & \ctrl{1}  & \targ{}  & \targ{}  & \targ{}  & \qw     & \qw     & \qw \\
-%         \ket{0}   & \qw      & \qw      & \qw      & \qw      & \qw      & \targ{}       & \ctrl{1} & \targ{}  & \qw      & \qw      & \qw      & \qw     & \qw      & \qw \\ [0.5cm]
-%         \ket{0}   & \qw      & \qw      & \qw      & \qw      & \qw      & \qw      & \gate{Z^{- \gamma \varepsilon/\pi}}  & \qw & \qw & \qw & \qw & \qw & \meter{} & \qw \\
-%         \end{quantikz}
-%     \caption{}
-%     \label{fig:..}
-% \end{figure}
-
 Pour agir en tant que générateur de solutions à sous-instance de l'instance du problème original, le circuit GM-QAOA doit être modifié pour être en mesure d'échantillonner à partir de la distribution de solutions appropriée. Comme expliqué à la section précédente, il n'est pas suffisant d'échantillonner l'état produit par le circuit original en raison du nombre exponentielle de mesures nécessaires. Une \textit{procédure d'auto-réduction}, illustrée à la figure~\ref{fig:vqcount-circuit}, est ainsi introduite pour résoudre cette complication. Soit une formule CNF $\varphi$ de taille $n$ et une sous-formule CNF $\varphi_{w}$ représentant la formule $\varphi$ où les premières variables sont remplacées par $w$. Alors, pour chaque qubit $q$ fixé à $w_{q}$ du circuit GM-QAOA, les opérations suivantes sont appliquées:
 
 \begin{enumerate}[(1)]
@@ -198,27 +135,34 @@ L'algorithme VQCount ne comprend qu'une optimisation des paramètres du circuit 
 
 La réponse à cette question est positive dans le cas de circuits GM-QAOA peu profonds dans la limite $\gamma_{i}=\beta_{i}$, $i=1,\dots,p$. Dans cette limite, GM-QAOA se réduit à l'algorithme de Grover. En effet, tel qu'expliqué ci-bas, pour tous les hamiltoniens de problème $H_{P}$ pouvant être écrit comme une somme de chaînes de Pauli, un circuit peut être construit effondrant tous les niveaux excités de $H_{P}$ à un seul niveau excité, menant à circuit d'évolution d'hamiltonien à deux niveaux $U_{P}$. Avec les paramètres susmentionnés, $U_{P}$ devient un oracle pour les états fondamentaux de $H_{P}$, à une phase constante près, et $U_{D}$ devient l'opérateur de diffusion de Grover. Dans cette limite, à une profondeur constante $p=O(1)$, le taux de succès est une fonction strictement croissante du rapport des solutions au nombre total d'états. Si, en descendant l'arbre d'auto-réductibilité de l'algorithme de JVV, nous choisissons les branches possédant une probabilité plus grande que $1/2$, alors le ratio des solutions au nombre total d'états est aussi strictement croissant. Cela signifie que, pour ce choix de paramètres, un circuit GM-QAOA peu profond pour un problème donné peut être modifié selon la procédure d'auto-réduction pour résoudre les sous-problèmes avec le même ou un meilleur taux de succès. Cet argument est seulement valide dans la limite de Grover, mais suggère que la stratégie d'auto-réduction est possiblement aussi valide dans d'autres cas. Le chapitre suivant introduit des évidences sous la forme de simulations numériques pour confirmer la validité de cette intuition.
 
-Pour exemplifier l'effondrement d'une multitude de niveaux d'états excités à un unique niveau d'état excité pour l'hamiltonien $H_{P}$, considérons le circuit illustré à la figure~\ref{fig:tower-excited-states-circuit}. Ce circuit effondre les états excités pour une formule CNF $\varphi = (x_{1} \lor x_{2} \lor x_{3}) \land (x_{4} \lor x_{5} \lor x_{6})$ représentant le problème NAE3SAT. Le tableau~\ref{tab:tower-excited-states-parity} suit l'état des bits de parité au long du circuit selon les valeurs de bits d'entrées. Les qubits d'entrées correspondent aux valeurs $x_{i}$ prises par la formule $\varphi$. D'abord, la parité des couples de littéraux d'une même clause est mesurée et sauvegardée dans les bits de parité (a) à l'aide de portes CNOT. Par la suite, une porte NOT est appliquée sur les bits de parité (a). La parité des bits de parité (a) est alors aussi mesuré et emmagasiné dans le bit de parité (b). La partie cruciale de ce circuit est l'opérateur de phase $Z^{-\gamma \varepsilon \pi}$ contrôlée sur les qubits de parité (b).
+Comment peut-on effondrer une multitude de niveaux excités à un unique niveau excité pour un hamiltonien $H_{P}$ à l'aide d'un circuit? Montrons un exemple avec le circuit illustré à la figure~\ref{fig:tower-excited-states-circuit}. Ce circuit effondre les états excités pour un problème NAE3SAT décrit par la formule CNF $\varphi = (x_{1} \lor x_{2} \lor x_{3}) \land (x_{4} \lor x_{5} \lor x_{6})$. Le premier registre du circuit, composé de trois qubits d'entrées, deux qubits de parité et un qubit de contrôle, concerne la première clause. De même, un deuxième registre, identique au premier registre, concerne la deuxième clause. Le dernier qubit de phase s'occupe de l'application d'une phase aux solutions.
+
+Pour comprendre ce circuit, déterminons d'abord l'état des qubits juste avant l'application de l'opérateur de phase multi-contrôlé $Z^{-\gamma \pi}$ pour le premier registre. Les qubits d'entrées correspondent aux valeurs prises par les litéraux de la première clause de $\varphi$. La parité des couples de litéraux $(x_{1}, x_{2})$ et $(x_{2}, x_{3})$ de cette clause est ensuite sauvegardée dans les deux qubits de parité à l'aide de portes CNOT. Par la suite, une porte NOT est appliquée sur les bits de parité. Finalement, une porte de Toffoli transforme le qubit de contrôle si l'état des qubits de parité est $\ket{11}$. Le tableau~\ref{tab:tower-excited-states-parity} présente les valeurs des qubits mentionnés selon les différentes valeurs des qubits d'entrée à ce point du circuit.
 
 \begin{table*}[h]
     \centering
     \begin{tabular}{c c c}
         \hline
-        Entrée & Parité (a) & Parité (b) \\
+        Entrée & Parité & Contrôle \\
         \hline
-        000 & 00 & 1 \\
-        001 & 01 & 0 \\
-        010 & 11 & 0 \\
-        100 & 10 & 0 \\
-        011 & 10 & 0 \\
-        110 & 11 & 0 \\
-        101 & 01 & 0 \\
-        111 & 00 & 1 \\
+        000 & 11 & 1 \\
+        001 & 10 & 0 \\
+        010 & 00 & 0 \\
+        100 & 01 & 0 \\
+        011 & 01 & 0 \\
+        101 & 00 & 0 \\
+        110 & 10 & 0 \\
+        111 & 11 & 1 \\
         \hline
     \end{tabular}
-    \caption{Parité des qubits (a) et (b) de la première partie du circuit d'effondrement des états excités selon les différentes entrées possibles.}
+    \caption{État des différents qubits du premier registre du circuit d'effondrement des états excités avant l'application de l'opérateur de phase $Z^{-\gamma \varepsilon \pi}$.}
     \label{tab:tower-excited-states-parity}
 \end{table*}
+
+Remarquons que le qubit de contrôle est dans l'état $\ket{1}$ seulement si les qubits d'entrée sont dans l'état $\ket{000}$ ou $\ket{111}$, c'est-à-dire les non-solutions du problème NAE3SAT. Le qubit de contrôle indique donc si une clause est satisfaite ou insatisfaite. Cette procédure s'applique aussi au deuxième registre, où le qubit de contrôle de celui-ci indique si la deuxième clause est respectée. Sachant cela, un opérateur de phase $Z^{-\gamma \varepsilon \pi}$ contrôlé sur tous les qubits de contrôle permet d'appliquer une phase uniquement aux non-solutions.
+
+Finalement, le circuit est uncomputed  \textcolor{mydarkred}{\textit{Voir Nielsen et Chuang.}}
+
 
 \begin{figure*}[h]
     \centering
@@ -227,4 +171,3 @@ Pour exemplifier l'effondrement d'une multitude de niveaux d'états excités à 
     \label{fig:tower-excited-states-circuit}
 \end{figure*}
 
-\textcolor{mydarkred}{\textit{Voir Nielsen et Chuang.}}
