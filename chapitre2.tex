@@ -82,15 +82,13 @@ Par complétude, une définition rigoureuse de l'auto-réductibilité dans le se
     \end{enumerate}
 \end{maindefinition}
 
-Démystifions cette définition. Le problème SAT est un exemple de relation binaire $R$, où $x$ encode une formule booléenne et $y$ encode une assignation satisfaisable parmi l'ensemble des entrées possibles $\Sigma^{*}$ tel que
-
+Démystifions cette définition. L'ensemble $\Sigma$ est un alphabet fini encodant à la fois les instances du problème et ses solutions. Le problème SAT est un exemple de relation binaire $R$, où $x$ encode une formule booléenne et $y$ encode une assignation satisfaisable parmi l'ensemble des entrées possibles $\Sigma^{*}$ tel que
 \begin{equation}
     \begin{aligned}
     R = \{ \braket{x, y} : \ & x \in \Sigma^{*} \text{ encode une formule booléenne } B, \\ 
     & y \in \Sigma^{*} \text{ est une assignation satifaisable de } B \} \,.
     \end{aligned}
 \end{equation}
-
 La notation $xRy$ signifie que $y$ est une solution valide à l'instance $x$. La première condition implique que la taille des solutions, donnée par la fonction $g$, est bornée par une fonction calculable en temps polynomial. La deuxième condition implique que, pour une instance $x$ et un préfixe $w$ de taille $\sigma(x)$ de n'importe quelle solution $y$ au problème $x$, la fonction $\psi$ donne une instance $x'$ dont les solutions sont exactement celles qui, lorsque concaténées avec $w$, forment les solutions de $x$. La fonction $\sigma$ donne alors la granularité des solutions, c'est-à-dire le nombre de caractères de $y$ utilisés pour réduire l'instance $x$. Plus précisément, $\psi(x, w) \leq \lvert x \rvert$ assure que la taille du problème diminue à mesure que la réduction se poursuit. L'implication $g(x) > 0 \implies  \sigma(x) > 0$ signifie que la réduction continue tant que la taille de l'instance $x$ est non nulle. La dernière relation énonce que la résolution du problème pour $\braket{x, y}$ peut être réduite à la résolution d'instances de taille inférieure, c'est-à-dire que $\braket{x, y_{1}\dots y_{n}}$ est reliée à $\braket{\psi(x, y_{1}\dots y_{\sigma (x)}), y_{\sigma(x)+1}\dots y_{n}}$.
 
 Tous les problèmes \textsf{NP}-complet sont auto-réductibles~\cite{goldreichComputationalComplexityConceptual2008}, mais ce n'est pas le cas pour tous les problèmes de la classe \textsf{NP}~\cite{khullerPlanarGraphColoring1991a}. De nombreux problèmes \textsf{NP} sont aussi auto-réductible descendant. Ces observations impliquent que l'algorithme de JVV s'applique en théorie à de nombreux problèmes intéressants. Toutefois, trouver une relation auto-réductible en pratique n'est pas toujours évident.
@@ -139,23 +137,10 @@ Un échantillonneur quasi uniforme de tolérance $\xi$ possède en conséquence 
 \section{Comptage approximatif randomisé}
 \label{sec:comptage-approximatif-randomise}
 
-\begin{comment}
-\subsection*{Plan}
-
-\begin{enumerate}
-    \item Introduire les FPRAS
-    \item Introduire les algorithmes de comptage classique connus (ex.: Stockmeyer et JVV)
-\end{enumerate}
-
-\subsection*{Références}
-
-1. Stockmeyer, L. The complexity of approximate counting. in Proceedings of the fifteenth annual ACM symposium on Theory of computing 118–126 (Association for Computing Machinery, New York, NY, USA, 1983). doi:10.1145/800061.808740.
-\end{comment}
-
 Comme mentionné au chapitre~\ref{cha:complexite-du-denombrement}, les problèmes de comptage sont d'une grande complexité et nécessitent en pratique des méthodes approximatives pour la résolution de problèmes de grandes tailles. Le \textit{comptage approximatif randomisé} simplifie davantage les attentes en ne demandant une solution approximative valide qu'avec une certaine probabilité. Un \textit{schéma d'approximation randomisé de tolérance $\varepsilon$} se définit de manière similaire à l'algorithme d'approximation pour l'optimisation, décrit à la section~\ref{sec:intractabilite-approximation-et-optimisation}. 
 
 \begin{maindefinition}{Schéma d'approximation randomisé}{fpras}
-    Un schéma d'approximation randomisé pour un problème de comptage $f: \Sigma^{*} \to \mathbb{N}$ est un algorithme randomisé prenant en entrée une instance d'un problème $x \in \Sigma^{*}$ et une tolérance d'erreur $\varepsilon > 0$ et qui génère un nombre rationnel $N \in \mathbb{Q}$ tel que, pour toute instance $x$,
+    Un schéma d'approximation randomisé pour un problème de comptage $f: \Sigma^{*} \to \mathbb{Q}$ est un algorithme randomisé prenant en entrée une instance d'un problème $x \in \Sigma^{*}$ et une tolérance d'erreur $\varepsilon > 0$ et qui génère un nombre rationnel $N \in \mathbb{Q}$ tel que, pour toute instance $x$,
     \begin{equation*}
         \mathrm{ Pr }\left[(1+\varepsilon)^{-1} f(x) \leq N \leq (1+\varepsilon)f(x)\right] \geq \frac{3}{4} .
     \end{equation*}
@@ -169,23 +154,6 @@ La valeur $3/4$ est un nombre arbitraire pouvant être remplacée par n'importe 
 \section{Algorithme de Jerrum-Valiant-Vazirani}
 \label{sec:algorithme-jvv}
 
-\begin{comment}
-\subsection*{Plan}
-
-\begin{enumerate}
-    \item Introduire le but de l'algorithme de JVV
-    \item Vulgariser l'algorithme de JVV
-    \item Introduire rigoureusement l'algorithme de JVV
-    \item Rajouter l'algorithme complet sous forme de pseudo-code.
-\end{enumerate}
-
-\subsection*{Références}
-
-1. Jerrum, M. R., Valiant, L. G. and Vazirani, V. V. Random generation of combinatorial structures from a uniform distribution. Theoretical Computer Science 43, 169–188 (1986).
-2. Huber, M. Exact sampling and approximate counting techniques. in Proceedings of the thirtieth annual ACM symposium on Theory of computing 31–40 (Association for Computing Machinery, New York, NY, USA, 1998). doi:10.1145/276698.276709.
-\end{comment}
-
-
 Le travail de Jerrum, Valiant et Vazirani~\cite{jerrumRandomGenerationCombinatorial1986} (voir aussi~\cite{broderHowHardIt1986, sinclairAlgorithmsRandomGeneration1993}) établit une correspondance entre l'échantillonnage quasi uniforme et le comptage approximatif randomisé. Pour ce faire, deux algorithmes permettant le passage d'un problème à l'autre sont présentés. Bien la réduction du comptage à l'échantillonnage est intéressante, elle ne sera discutée que brièvement à la fin de la section comme la réduction d'importance est ici son inverse. L'algorithme de comptage approximatif randomisé, surnommé \textit{algorithme de JVV}, permet de trouver le nombre de solutions d'un problème auto-réductible de la classe \textsf{\#P} à une erreur multiplicative près avec un nombre polynomial d'appels à un générateur de solution quasi uniforme. Le comptage approximatif randomisé est utilisé plutôt que le comptage approximatif en raison de l'impossibilité d'obtenir un résultat déterministe à partir d'une procédure aléatoire.
 
 \begin{maintheorem}{Algorithme de JVV}{algorithme-jvv}
@@ -197,11 +165,9 @@ En exigeant un échantillonneur quasi uniforme pleinement polynomial (FPAUS), l'
 Comment est-ce que l'algorithme de JVV opère? Commençons par introduire l'idée principale derrière l'algorithme pour ensuite donner un exemple simple et compléter avec une description plus formelle. 
 
 Pour mieux comprendre son exécution, l'arbre d'auto-réductibilité, présenté à la section~\ref{sec:auto-reductibilite}, est employé. L'algorithme de JVV implique de se déplacer vers le haut ou vers le bas de cet arbre, en s'intéressant à toutes les sous-instances en chemin. Supposons qu'il soit possible d'échantillonner uniformément les solutions de n'importe quelle instance de taille $n$ du problème SAT (la généralisation à un échantillonneur quasi uniforme est effectuée plus bas). Commençons d'abord par échantillonner des solutions au problème initial $\varphi$ représenté par la racine de l'arbre. Soit $P_{0}$ et $P_{1}$ les probabilités que la première variable $x_{1}$ soit respectivement de $0$ et $1$, calculées à partir des solutions échantillonnées. Ces probabilités reflètent la proportion de solutions dans chaque sous-arbre. Notons la valeur la plus probable par $w_{1}$. Descendons alors l'arbre vers l'enfant le plus probable $\varphi_{w_{1}}$, représentant la formule $\varphi$ réduite par le préfixe $w_{1}$, en gardant en mémoire la probabilité $P_{w_{1}}$. Comme l'échantillonneur peut aussi résoudre le problème subséquent, nous pouvons encore déterminer la valeur la plus probable $w_{2}$ de la variable suivante $x_{2}$ à partir de la probabilité $P_{w_{1}w_{2}}$. Le processus est répété jusqu'à atteindre les feuilles de l'arbre, en sauvegardant les probabilités $P_{w_{1} w_{2} \dots w_{i}}$ le long du chemin $w_{1} w_{2} \dots w_{i}$ choisi. Au dernier noeud avant les feuilles, nous obtenons une solution donnée par $w_{1} w_{2} \dots w_{n}$ avec une probabilité $P_{w_{1} w_{2} \dots w_{n}}$. Comme nous sommes à la base de l'arbre, cette probabilité indique le nombre de solutions que possède la dernière sous-instance. En effet, ce sous-arbre contient nécessairement $\frac{1}{P_{w_{1} w_{2} \dots w_{n}}}$ solutions, car il y a nécessairement une ou deux solutions à la dernière sous-instance. En remontant l'arbre, on remarque que la sous-instance précédente contient $\frac{1}{P_{w_{1} w_{2} \dots w_{n-1}}}$ fois plus de solutions. Par conséquent, le nombre de solutions dans cette partie de l'arbre est de $\frac{1}{P_{w_{1} w_{2} \dots w_{n}}} \cdot \frac{1}{P_{w_{1} w_{2} \dots w_{n-1}}}$. Continuant cette procédure jusqu'à la racine, nous trouvons que le nombre de solutions au problème $\varphi$ est donné par 
-
 \begin{equation}
     N = \frac{1}{P_{w_{1}}} \cdot \frac{1}{P_{w_{1} w_{2}}} \dots \frac{1}{P_{w_{1} w_{2} \dots w_{n}}} = \frac{N}{N_{w_{1}}} \cdot \frac{N_{w_{1}}}{N_{w_{1} w_{2}}} \dots \frac{N_{w_{1} w_{2} \dots w_{n-1}}}{N_{w_{1} w_{2} \dots w_{n}}} \,,
 \end{equation}
-
 où $N_{w_{1} \dots w_{i}}$ est le nombre de solutions au problème $\varphi_{w_{1}, \dots, w_{i}}$.
 
 Éclaircissons maintenant cette idée à l'aide d'un exemple simple illustré à la figure~\ref{fig:algorithme-jvv}. Soit une instance du problème SAT décrite par la formule CNF $\varphi(x_{1}, x_{2}) = \neg x_{1} \land x_{2}$, dont les solutions sont les couples $(0,0)$, $(0,1)$ et $(1,1)$. Un arbre est construit de manière à représenter toutes les sous-instances de l'instance originale. La racine de l'arbre représente le problème initial $\varphi$ et ses deux variables $x_{1}$ et $x_{2}$. La première couche représente les sous-problèmes $\varphi_{0}$ et $\varphi_{1}$ où la première variable du problème $\varphi$ est remplacée par 0 et 1 respectivement. Les feuilles représentent les assignations possibles au problème $\varphi$, c'est-à-dire $00$, $01$, $10$ et $11$, comme toutes les variables sont fixées à une certaine valeur. Les arêtes de l'arbre décrivent la probabilité de l'assignation des variables. Par exemple, la probabilité $P_{11}=1$ indique que les échantillons générés à partir du sous-problème $\varphi_{1}$ commencent par le préfixe $11$ avec une probabilité $1$. Maintenant que l'arbre d'auto-réductibilité est construit, comptons le nombre de solutions à la formule $\varphi(x_{1}, x_{2})$. En échantillonnant l'instance originale, nous trouvons que les échantillons possèdent une probabilité $P_{0}=2/3$ de commencer avec la variable $x_{1} = 0$. La sous-instance $\varphi_{0} = \varphi(0, x_{1})$ est donc choisie, comme il s'agit de l'enfant le plus probable, et de nouvelles solutions sont générées. Nous remarquons que celles-ci possèdent la même probabilité $P_{00} = P_{01} =\frac{1}{2}$ de commencer par le préfixe $00$ que par le préfixe $01$. Après avoir choisi le préfixe $01$, le compte est obtenu avec $N = (P_{0} \cdot P_{01})^{-1} = (\frac{2}{3} \cdot \frac{1}{2})^{-1} = 3$.
@@ -216,32 +182,25 @@ où $N_{w_{1} \dots w_{i}}$ est le nombre de solutions au problème $\varphi_{w_
 Quelques notes sont ici nécessaires. Le chemin des probabilités maximales est choisi, car une meilleure précision est atteinte avec un plus grand nombre de différentes solutions échantillonnées. De plus, ce choix évite d'obtenir une probabilité nulle, ce qui arrive si le sous-arbre ne possède aucune solution. Jusqu'à maintenant, le générateur a été considéré comme uniforme. Il est cependant possible d'utiliser une distribution quasi uniforme, qui introduit une petite erreur additionnelle pouvant être absorbée dans la tolérance $\varepsilon$.
 
 Maintenant que l'intuition derrière l'algorithme de JVV est éclaircie, décrivons plus formellement celui-ci. Supposons que le nombre exact de solutions pour une instance de taille $n$ du problème SAT est de $N$. Notons $x_{:m}$ le préfixe de taille $m$ de la chaîne de bits $x$ et $N_{x_{:m}}$ le nombre de solutions commençant avec le préfixe $x_{:m}$. Par la suite, supposons que nous avons accès à un générateur qui échantillonne l'ensemble de solutions uniformément et aléatoirement, tel que chaque solution est échantillonnée avec une probabilité $p^{\star} = \frac{1}{N}$. Pour n'importe quelle solution $z$, on peut écrire
-
 \begin{align}
     p^\star = \frac1N =&{\ } \frac{N_{z_{:1}}}{N} \cdot \frac{N_{z_{:2}}}{N_{z_{:1}}} \cdots \frac{N_{z_{:n}}}{N_{z_{:n-1}}} \\
     =&{\ } p(z_{:1}) \cdot p(z_{:2}|z_{:1}) \cdots p(z_{:n}|z_{:n-1}) \\
     =&{\ } p(z_{:1}) \prod_{i=1}^{n-1} p(z_{:i+1}|z_{:i}) \,,
 \end{align}
-
 où $N_{z_{:n}} \equiv 1$. La probabilité conditionnelle $p(z_{:i+1}|z_{:i}) \equiv N_{z_{:i+1}} / N_{z_{:i}}$ est la probabilité qu'une solution échantillonnée $z'$ soit $z'_{i+1} = z_{i+1}$ sachant que $z'_{:i} = z_{:i}$. L'algorithme de JVV pour le comptage approximatif retourne une approximation à un facteur multiplicatif près de $p^{\star}$, et donc de $N$, en approximant les probabilités conditionnelles $p(z_{:i+1}|z_{:i})$. Cela est fait en générant un ensemble d'échantillons $S$ et en approximant les probabilités conditionnelles avec
-
 \begin{equation}
     \tilde p(z_{:i+1}|z_{:i}) = \frac{ \tilde N_{z_{:i+1}} }{ \tilde N_{z_{:i}} } \,,
 \end{equation}
-
 où $\tilde{N}_{z_{:i}}$ est le nombre de solutions dans l'ensemble d'échantillons commençant par $z_{:i}$. Donc,
-
 \begin{equation}
     \tilde p^\star = \tilde p(z_{:1}) \prod_{i=1}^{n-1} \tilde p(z_{:i+1}|z_{:i}) \approx \frac1N \,.
 \end{equation}
-
 Le nombre approximatif de solutions est ainsi obtenu. La preuve donnée dans le travail de Jerrum, Valiant et Vazirani montre qu'un ensemble d'échantillons de taille polynomiale est suffisant pour obtenir une approximation multiplicative au nombre de solutions exact~\cite{jerrumRandomGenerationCombinatorial1986}. L'algorithme se résume plus succinctement par l'algorithme~\ref{sec:algorithme-jvv}.
 
 \begin{algorithm}[H]
     \caption{Algorithme de JVV}\label{alg:algorithme-jvv}
     \begin{algorithmic}[1]
     \REQUIRE Formule CNF: $f(n, m)$, Nombre d'échantillons: $n_{s}$
-
     \STATE $w \leftarrow " \ "$
     \STATE $\tilde{N} \leftarrow 1$
     \FOR{$i \in \{1, \dots, n\}$}
@@ -253,7 +212,6 @@ Le nombre approximatif de solutions est ainsi obtenu. La preuve donnée dans le 
     \STATE $w, \tilde{p} \leftarrow \arg \max_{w' \in \set{ w + 0, w + 1 }} \lvert \set{ s \in S : s_{:\lvert w' \rvert } = w' } \rvert / \lvert S \rvert$
     \STATE $\tilde{N} \leftarrow \tilde{N} / \tilde{p}$
     \ENDFOR
-    
     \RETURN $\tilde{N}$
 \end{algorithmic}
 \end{algorithm}

@@ -12,29 +12,6 @@ Il est souvent favorable de décrire la théorie de la complexité à l'aide du 
 \section{Classes de complexité}
 \label{sec:classes-de-complexite}
 
-\begin{comment}
-\subsection*{Plan}
-
-\begin{enumerate}
-    \item Définir comment quantifier la complexité d'un problème (temps contre espace)
-    \item Décrire le but des classes de complexité
-    \item Expliquer les propriétés des classes de complexité et leurs relations
-    \item Expliquer la notation de la complexité (O notation) et les machines de Turing
-    \item Décrire la tour de complexité (hiérarchie polynomiale) 
-    \item Comparer les classes importantes: P et NP et \#P
-    \item Établir la conjecture P != NP
-    \item Mentionner le théorème de Toda
-    \item Parler des classes de complexités quantique
-    \item Parler de la these de church-turing pour les ordis quantiques
-\end{enumerate}
-
-\subsection*{Références}
-
-1. Moore, Cristopher, and Stephan Mertens, The Nature of Computation (Oxford, 2011; online edn, Oxford Academic, 17 Dec. 2013), https://doi.org/10.1093/acprof:oso/9780199233212.001.0001, accessed 19 July 2024.
-
-2. Arora, S. and Barak, B. Computational Complexity: A Modern Approach. (Cambridge University Press, Cambridge, 2009). doi:10.1017/CBO9780511804090.
-\end{comment}
-
 La théorie de la complexité s'intéresse à la classification des problèmes algorithmiques en \textit{classes de complexité}, c'est-à-dire en ensembles de problèmes de même complexité. Classifier un problème permet de caractériser les ressources nécessaires pour sa résolution par un algorithme. Les problèmes d'une même classe ont une difficulté intrinsèque similaire, ce qui facilite le choix d'un algorithme et de ressources appropriées. Savoir qu'un problème n'est pas réalistement résoluble, ou plus précisément intraitable, limite les attentes. Sachant ceci, la recherche dans cette direction s'avère grandement utile. La théorie de la complexité cherche aussi à comparer les problèmes de différentes complexités pour comprendre l'espace des problèmes en plus grande profondeur. Comparer des problèmes faciles avec des problèmes difficiles peut par exemple aider à comprendre ce qui rend un problème difficile et donc à trouver des algorithmes résolvant efficacement les problèmes plus complexes. Des liens, nommés réductions, sont définis entre différents problèmes pour comparer leurs complexités. Un algorithme efficace pour un problème peut en effet être efficace pour un différent problème s'il existe une réduction entre ceux-ci. Les classes de complexité, de manière similaire au modèle de la machine de Turing, tentent de définir de manière abstraite la difficulté d'un problème. Quel que soit le matériel informatique à notre disposition, un problème d'une classe donnée ne doit pas changer de classe; un problème simple doit rester simple dans tous les cas.
 
 Comment est-il possible de déterminer la complexité d'un problème? Pour ce faire, les classes de complexité se basent sur les ressources indispensables à la résolution du problème: le temps et la mémoire. Afin de trouver la solution à un problème, un programme doit effectuer un certain nombre d'opérations, limité dans le temps par le matériel informatique. On parle alors de \textit{complexité en temps}. Afin de produire un résultat final, le programme doit garder en mémoire les résultats intermédiaires. Ceux-ci doivent être sauvegardés dans le matériel informatique afin d'être réutilisés ultérieurement. Comme la quantité d'information conservée est aussi un facteur limitant pour le matériel informatique, on parle donc de \textit{complexité en espace}. 
