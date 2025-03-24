@@ -1,6 +1,8 @@
 \begin{comment}
 \end{comment}
 
+\appendix
+\renewcommand\chapterstring{Annexe}
 
 \chapter{Expression fermée de l'état du circuit GM-QAOA}
 \label{ann:expression-fermee-etat-circuit-gm-qaoa}
@@ -23,22 +25,22 @@
 
 \begin{proof}
     
-Soit $\varphi$ l'instance d'un problème de \textsf{\#P} de taille $n$ que nous voulons résoudre avec GM-QAOA. Cette instance peut être encodée dans un hamiltonien de problème $H_{P}$ avec des valeurs propres $g = 0$ pour les solutions et $e^{(k)} = \varepsilon_{k} \in \mathbb{R}_{>0}$ pour les non-solutions. L'opérateur $U_{P}$ correspondant avec $H_{P}$ s'écrit alors comme:
+Soit $\varphi$ l'instance d'un problème de \textsf{\#P} de taille $n$ que nous voulons résoudre avec GM-QAOA. Cette instance peut être encodée dans un hamiltonien de problème $H_{P}$ avec des valeurs propres $g = 0$ pour les solutions et $e^{(k)} = \varepsilon_{k} \in \mathbb{R}_{>0}$ pour les non-solutions. L'opérateur $U_{P}$ correspondant avec $H_{P}$ s'écrit alors comme
 \begin{equation}
     U_{P} = \sum_{j \in G} \ket{j}\bra{j} + \sum_{k} e^{-i \gamma \varepsilon_{k}} \sum_{j \in E^{(k)}} \ket{j}\bra{j} \,,
 \end{equation} 
-où $G$ et $E^{(k)}$ sont respectivement les variétés des états fondamentaux et états excités, et donc l'ensemble des solutions et des non-solutions de $\varphi$. Pour une espace de solutions non contraint, l'opérateur $U_{D}^{GM}$ est donné par:
+où $G$ et $E^{(k)}$ sont respectivement les variétés des états fondamentaux et états excités, et donc l'ensemble des solutions et des non-solutions de $\varphi$. Pour un espace de solutions non contraint, l'opérateur $U_{D}^{GM}$ est donné par
 \begin{equation}
     U_{D}^{GM} = \mathds{1} - (1 - e^{-i\beta}) (\ket{+}\!\bra{+}^{\otimes n}) \,.
 \end{equation}
-Les états fondamentaux et excités s'écrivent comme:
+Les états fondamentaux et excités s'écrivent comme
 \begin{align}
     \ket{g} = \frac{1}{\sqrt{ \lvert G \rvert }} \sum_{j \in G} \ket{j}, \\
     \ket{e^{(k)}} = \frac{1}{\sqrt{ \lvert E^{(k)} \rvert }} \sum_{j \in E^{(k)}} \ket{j} \,.
 \end{align}
-Montrons par induction que l'état final suit la formule récursive~\ref{eq:recursive-formula} en évoluant l'état initial $\ket{\psi_{0}} = \ket{+}^{\otimes n}$ avec un circuit optimisé GM-QAOA de $p$ couches. 
+Montrons par induction que l'état final suit la formule récursive~\ref{eq:recursive-formula} en évoluant l'état initial $\ket{\psi_{0}} = \ket{+}^{\otimes n}$ avec un circuit GM-QAOA de $p$ couches. 
 
-\paragraph{Cas 1 (1 couche):} Calculons $\ket{\psi_{1}} = U_{P}(\gamma_{1}) \ket{\psi_{0}}$:
+\paragraph{Cas 1 (1 couche):} Calculons $\ket{\psi_{1}} = U_{P}(\gamma_{1}) \ket{\psi_{0}}$.
 \begin{equation}
 \begin{aligned}
     \ket{\psi_{1}} & = \left(\sum_{j \in G} \ket{j}\bra{j} + \sum_{k} e^{-i \gamma_{1} \varepsilon_{k}} \sum_{j \in E^{(k)}} \ket{j}\bra{j} \right) \left( \frac{1}{ \sqrt{ N }} \sum_{j'=0}^{N-1} \ket{j'} \right) \\
@@ -46,59 +48,57 @@ Montrons par induction que l'état final suit la formule récursive~\ref{eq:recu
     & = \frac{1}{ \sqrt{ N }} \left( \sqrt{ \lvert G \rvert  } \ket{g} + \sum_{k} \sqrt{ \lvert E^{(k)} \rvert  } e^{-i \gamma_{1} \varepsilon_{k}} \ket{e^{(k)}} \right) \,,
 \end{aligned}
 \end{equation}
-où la relation $\sum_{j \in G}\ket{j}\bra{j} \sum_{j'=0}^{N} \ket{j'} = \sum_{j \in G} \ket{j}$ a été utilisée. Calculons désormais $\ket{\psi_{2}} = U_{D} (\beta_{1})\ket{\psi_{1}}$:
+où la relation $\sum_{j \in G}\ket{j}\bra{j} \sum_{j'=0}^{N} \ket{j'} = \sum_{j \in G} \ket{j}$ a été utilisée.
+
+\noindent
+Calculons désormais $\ket{\psi_{2}} = U_{D} (\beta_{1})\ket{\psi_{1}}$.
 \begin{equation}
 \begin{aligned}
     \ket{\psi_{2}} &= \left( \mathbb{1} - \frac{1}{N} (1 - e^{-i\beta_{1}}) \sum_{i',j'=0}^{N} \ket{i'}\!\bra{j'} \right) \left( \frac{1}{ \sqrt{ N }} \left( \sqrt{ \lvert G \rvert  } \ket{g} + \sum_{k} \sqrt{ \lvert E^{(k)} \rvert  } e^{-i \gamma_{1} \varepsilon_{k}}  \ket{e^{(k)}} \right) \right) \\
     &=  \frac{1}{ \sqrt{ N }} \left( \sqrt{ \lvert G \rvert  } \ket{g} + \sum_{k} \sqrt{ \lvert E^{(k)} \rvert  } e^{-i \gamma_{1} \varepsilon_{k}}  \ket{e^{(k)}} \right. \\
-    & \left. - \frac{1}{N} (1 - e^{-i\beta_{1}}) \left( \lvert G \rvert + \sum_{k} \lvert E^{(k)} \rvert e^{-i \gamma_{1} \varepsilon_{k}} \right) \sum_{i'=0}^{N} \ket{i'} \right) \\
+    &\left. - \frac{1}{N} (1 - e^{-i\beta_{1}}) \left( \lvert G \rvert + \sum_{k} \lvert E^{(k)} \rvert e^{-i \gamma_{1} \varepsilon_{k}} \right) \sum_{i'=0}^{N} \ket{i'} \right) \\
     &=  \frac{1}{ \sqrt{ N }} \left( \sqrt{ \lvert G \rvert  } \ket{g} + \sum_{k} \sqrt{ \lvert E^{(k)} \rvert  } e^{-i \gamma_{1} \varepsilon_{k}}  \ket{e^{(k)}} \right. \\
-    & \left. - \frac{1}{N} (1 - e^{-i\beta_{1}}) \left( \lvert G \rvert + \sum_{k} \lvert E^{(k)} \rvert e^{-i \gamma_{1} \varepsilon_{k}}   \right) \left( \left( \sqrt{ \lvert G \rvert  } \ket{g} + \sum_{k} \sqrt{ \lvert E^{(k)} \rvert } \ket{e^{(k)}} \right) \right) \right) \\
-    &= \frac{1}{\sqrt{ N }} \left( \sqrt{ \lvert G \rvert } F_{1} \ket{g} + \sum_{k} \sqrt{ \lvert E^{(k)} \rvert } \bar{F}^{(k)} \ket{e^{(k)}} \right) \,,
+    & \left. - \frac{1}{N} (1 - e^{-i\beta_{1}}) \left( \lvert G \rvert + \sum_{k} \lvert E^{(k)} \rvert e^{-i \gamma_{1} \varepsilon_{k}}   \right) \left( \sqrt{ \lvert G \rvert  } \ket{g} + \sum_{k} \sqrt{ \lvert E^{(k)} \rvert } \ket{e^{(k)}} \right) \right) \\
+    &= \frac{1}{\sqrt{ N }} \left( \sqrt{ \lvert G \rvert } F_{1} \ket{g} + \sum_{k} \sqrt{ \lvert E^{(k)} \rvert } \bar{F}^{(k)} \ket{e^{(k)}} \right)
 \end{aligned}
 \end{equation}
 où 
 \begin{align}
     F_{1} &= 1 - \frac{1}{N} (1 - e^{-i\beta_{1}}) \left(  \lvert G \rvert + \sum_{k'} \lvert E^{(k')} \rvert e^{-i \gamma_{1} \varepsilon_{k'}} \right) \\
-    \bar{F}^{(k)}_{1} &= e^{-i\gamma_{1} \varepsilon_{k}} - \frac{1}{N} (1 - e^{-i\beta_{1}}) \left(  \lvert G \rvert + \sum_{k'} \lvert E^{(k')} \rvert e^{-i \gamma_{1} \varepsilon_{k'}} \right) \,.
+    \bar{F}^{(k)}_{1} &= e^{-i\gamma_{1} \varepsilon_{k}} - \frac{1}{N} (1 - e^{-i\beta_{1}}) \left(  \lvert G \rvert + \sum_{k'} \lvert E^{(k')} \rvert e^{-i \gamma_{1} \varepsilon_{k'}} \right)
 \end{align}
 Le cas initial a donc été prouvé.
 
-\textbf{Cas 2 ($p$ couches):}
-Supposons que $\ket{\psi} = U_{D}(\beta_{p}) U_{P}(\gamma_{p}) \dots U_{D}(\beta_{1})U_{P}(\gamma_{1})\ket{\psi_{0}}$ donne lieu à la relation suivante:
+\paragraph{Cas 2 ($p$ couche):} Supposons que $\ket{\psi} = U_{D}(\beta_{p}) U_{P}(\gamma_{p}) \dots U_{D}(\beta_{1})U_{P}(\gamma_{1})\ket{\psi_{0}}$ donne lieu à la relation suivante
 \begin{equation}
 \begin{aligned}
-    \ket{\psi} &= \frac{1}{\sqrt{ N }} \left( \sqrt{ \lvert G \rvert } F_{p} \ket{g_{i}} + \sum_{k} \sqrt{ \lvert E^{(k)} \rvert } \bar{F}^{(k)}_{p} \ket{e^{(k)}} \right)
+    \ket{\psi} &= \frac{1}{\sqrt{ N }} \left( \sqrt{ \lvert G \rvert } F_{p} \ket{g_{i}} + \sum_{k} \sqrt{ \lvert E^{(k)} \rvert } \bar{F}^{(k)}_{p} \ket{e^{(k)}} \right) \,,
 \end{aligned}
 \end{equation}
 où
 \begin{equation}
 \begin{aligned}
     F_{p} &= F_{p-1} - \frac{1}{N} (1-e^{-i\beta_{p}}) \left( \lvert G \rvert   F_{p-1} + \sum_{k'} \lvert E^{(k')} \rvert \bar{F}^{(k')}_{p-1} e^{-i\gamma_{p}\varepsilon_{k'}} \right) \\
-    \bar{F}^{(k)}_{p} &= e^{-i\gamma_{p} \varepsilon_{k}}\bar{F}_{p-1}^{(k)} - \frac{1}{N} (1-e^{-i\beta_{p}}) \left( \lvert G \rvert   F_{p-1} + \sum_{k'} \lvert E^{(k')} \rvert \bar{F}^{(k')}_{p-1} e^{-i\gamma_{p}\varepsilon_{k'}} \right)
+    \bar{F}^{(k)}_{p} &= e^{-i\gamma_{p} \varepsilon_{k}}\bar{F}_{p-1}^{(k)} - \frac{1}{N} (1-e^{-i\beta_{p}}) \left( \lvert G \rvert   F_{p-1} + \sum_{k'} \lvert E^{(k')} \rvert \bar{F}^{(k')}_{p-1} e^{-i\gamma_{p}\varepsilon_{k'}} \right) \,.
 \end{aligned}
 \end{equation}
 
-\newpage
-\textbf{Cas 3 ($p+1$ couches):}
-En utilisant la supposition précédente, appliquons $U_{P}$ en calculant $\ket{\psi_{1}} = U_{P} \ket{\psi_{0}}$:
+\paragraph{Cas 3 ($p+1$ couche):} En utilisant la supposition précédente, appliquons $U_{P}$ en calculant $\ket{\psi_{1}} = U_{P} \ket{\psi_{0}}$.
 \begin{equation}
 \begin{aligned}
 \ket{\psi_{1}} & = \left(\sum_{j \in G} \ket{j}\bra{j} + \sum_{k} e^{-i \gamma_{p+1} \varepsilon_{k}} \sum_{j \in E^{(k)}} \ket{j}\bra{j} \right) \left( \frac{1}{\sqrt{ N }} \left( \sqrt{ \lvert G \rvert } F_{p} \ket{g} + \sum_{k} \sqrt{ \lvert E^{(k)} \rvert } \bar{F}^{(k)}_{p} \ket{e^{(k)}} \right) \right) \\
 & = \frac{1}{\sqrt{ N }} \left( \sum_{j \in G_{i}} \ket{j}\bra{j} + \sum_{i=0}^{Q-1} \sum_{k} e^{-i \gamma_{p+1} \varepsilon_{k}} \sum_{j \in E^{(k)}_{i}} \ket{j}\bra{j} \right) \left( F_{p} \sum_{j \in G} \ket{j} + \sum_{k} \bar{F}^{(k)}_{p} \sum_{j \in E^{(k)}}\ket{j} \right) \\
 & = \frac{1}{\sqrt{ N }} \left( F_{p} \sum_{j \in G}\ket{j}  + \sum_{k} \bar{F}^{(k)}_{p} e^{-i \gamma_{p+1} \varepsilon_{k}} \sum_{j \in E^{(k)}} \ket{j} \right) \\
-& = \frac{1}{\sqrt{ N }} \left(  F_{p} \sum_{j \in G} \ket{j} + \sum_{k} \bar{F}^{(k)}_{p} e^{-i \gamma_{p+1} \varepsilon_{k}} \sum_{j \in E^{(k)}} \ket{j} \right)  \\
 & = \frac{1}{\sqrt{ N }} \left( \sqrt{ \lvert G \rvert  } F_{p} \ket{g} + \sum_{k} \sqrt{ \lvert E^{(k)} \rvert  }\bar{F}^{(k)}_{p} e^{-i \gamma_{p+1} \varepsilon_{k}} \ket{e^{(k)}} \right) \\
 \end{aligned}
 \end{equation}
-Appliquons ensuite $U_{D}$ en calculant $\ket{\psi_{2}}=U_{D}\ket{\psi_{1}}$:
+Appliquons ensuite $U_{D}$ en calculant $\ket{\psi_{2}}=U_{D}\ket{\psi_{1}}$.
 \begin{equation}
 \begin{aligned}
-\ket{\psi_{2}} &= \left( \mathbb{1} - \frac{1}{N} (1 - e^{-i\beta_{p+1}}) \sum_{i',j'=0}^{N} \ket{i'}\!\bra{j'} \right) \left( \frac{1}{\sqrt{ N }} \left( \sqrt{ \lvert G \rvert  } F_{p} \ket{g} + \sum_{k} \sqrt{ \lvert E^{(k)} \rvert  }\bar{F}^{(k)}_{p} e^{-i \gamma_{p+1} \varepsilon_{k}} \ket{e^{(k)}} \right) \right) \\
+\ket{\psi_{2}} &= \left( \mathbb{1} - \frac{1}{N} (1 - e^{-i\beta_{p+1}}) \sum_{i',j'=0}^{N} \ket{i'}\!\bra{j'} \right) \\
+&\left( \frac{1}{\sqrt{ N }} \left( \sqrt{ \lvert G \rvert  } F_{p} \ket{g} + \sum_{k} \sqrt{ \lvert E^{(k)} \rvert  }\bar{F}^{(k)}_{p} e^{-i \gamma_{p+1} \varepsilon_{k}} \ket{e^{(k)}} \right) \right) \\
 &= \frac{1}{\sqrt{ N }} \left( \left( \sqrt{ \lvert G \rvert  } F_{p} \ket{g} + \sum_{k} \sqrt{ \lvert E^{(k)} \rvert  }\bar{F}^{(k)}_{p} e^{-i \gamma_{p+1} \varepsilon_{k}} \ket{e^{(k)}} \right) \right. \\
 & \left. - \frac{1}{N} (1 - e^{-i\beta_{p+1}}) \left(  \lvert G \rvert F_{p} + \sum_{k} \lvert E^{(k)} \rvert \bar{F}^{(k)}_{p} e^{-i \gamma_{p+1} \varepsilon_{k}}\right) \sum_{i'=0}^{N} \ket{i'} \right) \\
-&= \frac{1}{\sqrt{ N }} \left( \left( \sqrt{ \lvert G \rvert  } F_{p} \ket{g} + \sum_{k} \sqrt{ \lvert E^{(k)} \rvert  }\bar{F}^{(k)}_{p} e^{-i \gamma_{p+1} \varepsilon_{k}} \ket{e^{(k)}} \right) \right. \\
-& \left.- \frac{1}{N} (1 - e^{-i\beta_{p+1}}) \left(  \lvert G \rvert F_{p} + \sum_{k} \lvert E^{(k)} \rvert \bar{F}^{(k)}_{p} e^{-i \gamma_{p+1} \varepsilon_{k}}\right) \sum_{i'=0}^{N} \ket{i'} \right) \\
 &= \frac{1}{\sqrt{ N }} \left( \sqrt{ \lvert G \rvert  } F_{p+1} \ket{g_{i}} + \sum_{k} \sqrt{ \lvert E^{(k)} \rvert  } \bar{F}^{(k)}_{p+1} e^{-i \gamma_{p+1} \varepsilon_{k}} \ket{e^{(k)}_{i}} \right) \\
 \end{aligned}
 \end{equation}
@@ -108,8 +108,7 @@ où
 F_{p+1} &= F_{p} - \frac{1}{N} (1-e^{-i\beta_{p+1}}) \left( \lvert G \rvert   F_{p} + \sum_{k'} \lvert E^{(k')} \rvert \bar{F}^{(k')}_{p} e^{-i\gamma_{p+1}\varepsilon_{k'}} \right) \\
 \bar{F}^{(k)}_{p+1} &= e^{-i\gamma_{p+1} \varepsilon_{k}}\bar{F}_{p}^{(k)} - \frac{1}{N} (1-e^{-i\beta_{p+1}}) \left( \lvert G \rvert   F_{p} + \sum_{k'} \lvert E^{(k')} \rvert \bar{F}^{(k')}_{p} e^{-i\gamma_{p+1}\varepsilon_{k'}} \right)
 \end{aligned}
-\end{equation}
-
+\end{equation}  
 La formule récursive a donc été prouvée par induction.
 \end{proof}
 

@@ -1,57 +1,54 @@
-\begin{comment}
-\end{comment}
-
 \chapter{Simulation de circuits quantiques avec les réseaux de tenseurs}
 \label{ann:simulation-circuits-quantiques-avec-reseaux-de-tenseurs}
 
-La simulation classique d'états quantiques est tout sauf évidente. Ces états, appartenant à l'espace de Hilbert, sont décrit par des vecteurs d'état de taille exponentielle empêchant ainsi leur caractérisation même pour des systèmes de taille modeste. Cette difficulté, présente dans de nombreux domaines telle l'apprentissage-machine, est aussi connue sous le nom de la \textit{malédiction de la dimensionnalité}. Cependant, la représentation de certains états physiques intéressants contient parfois de l'information superflue ou une structure inhérente. Par exemple, un état quantique général de $n$ qubits requiert en théorie un vecteur d'état à $2^{n}$ bits, mais un état quantique non intriqué nécessite seulement $2n$ bits en raison de l'absence de corrélation. Cette idée a alors mené au développement des méthodes de réseaux de tenseurs pour l'étude de système quantique à plusieurs corps en matière condensé afin d'obtenir une représentation des états quantiques plus efficace. 
+La simulation classique d'états quantiques est tout sauf évidente. Ces états, appartenant à l'espace de Hilbert, sont décrit par des vecteurs d'état de taille exponentielle empêchant ainsi leur caractérisation même pour des systèmes de taille modeste. Cette difficulté, présente dans de nombreux domaines telle l'apprentissage-machine, est connue sous le nom de la \textit{malédiction de la dimensionnalité}. Cependant, la représentation de certains états physiques intéressants contient parfois de l'information superflue ou une structure inhérente. Par exemple, un état quantique général de $n$ qubits requiert en théorie un vecteur d'état à $2^{n}$ bits, mais un état quantique non intriqué nécessite seulement $2n$ bits en raison de l'absence de corrélation. Cette idée a alors mené au développement des méthodes de réseaux de tenseurs pour l'étude de système quantique à plusieurs corps en matière condensé afin d'obtenir une représentation des états quantiques plus efficace.
 
-Cette annexe décrit seulement en surface les méthodes de réseaux de tenseur. Pour comprendre les différentes méthodes plus en profondeur, de nombreux excellents tutoriels ont été écrits~\cite{bridgemanHandwavingInterpretiveDance2017,biamonteTensorNetworksNutshell2017,bakerMethodesCalculAvec2021}. La section~\ref{sec:reseaux-de-tenseurs} introduit les réseaux de tenseurs ainsi que les principales opérations possibles. Une représentation alternative de ceux-ci, les états en produit de matrices, sont décrit à la section~\ref{sec:mps-mpo} alors que la correspondance entre la simulation de circuits quantiques et la contraction de réseaux de tenseurs est expliqué à la section~\ref{sec:simulation-de-circuits-quantiques}.
+Les réseaux de tenseurs font partis des méthodes les plus puissantes pour la simulation de circuits quantiques. Comme ceux-ci sont utilisés pour les simulations numériques présentées au chapitre~\ref{cha:resolution-de-problemes-avec-vqcount}, une brève introduction à la matière est nécessaire. Cette annexe décrit seulement en surface les méthodes de réseaux de tenseur. Pour comprendre les différentes méthodes plus en profondeur, de nombreux excellents tutoriels ont été écrits~\cite{bridgemanHandwavingInterpretiveDance2017,biamonteTensorNetworksNutshell2017,bakerMethodesCalculAvec2021}. La section~\ref{sec:reseaux-de-tenseurs} introduit les réseaux de tenseurs ainsi que les principales opérations possibles. Une représentation alternative de ceux-ci, les états en produit de matrices, sont décrit à la section~\ref{sec:mps-mpo} alors que la correspondance entre la simulation de circuits quantiques et la contraction de réseaux de tenseurs est expliqué à la section~\ref{sec:simulation-de-circuits-quantiques}.
 
 %-----------------------------------------------------------------------------%
 
 \section{Réseaux de tenseurs}
 \label{sec:reseaux-de-tenseurs}
 
-Un \textit{tenseur} est un tableau multilinéaire de rang, c'est-à-dire un nombre de dimensions, arbitraire encodant une certaine quantité d'information. Par exemple, un scalaire, un vecteur et une matrice correspondent respectivement à un tenseur de rang 0, 1 et 2. Les tenseurs généralisent en outre ces derniers objets en admettant des tenseurs de rang $m$. 
+Un \textit{tenseur} est un tableau multilinéaire de rang, c'est-à-dire un nombre de dimensions, arbitraire encodant une certaine quantité d'information. Un tenseur s'interprète aussi comme une fonction définie sur un domaine discret. Par exemple, un scalaire, un vecteur et une matrice correspondent respectivement à un tenseur de rang 0, 1 et 2. Les tenseurs généralisent en outre ces derniers objets en admettant des tenseurs de rang $m$. 
 
-\begin{maindefinition}{Tenseur}{tenseur}
+\begin{subdefinition}{Tenseur}{tenseur}
     Un tenseur $T[x_{1}, x_{2}, \dots, x_{m}]$ de rang $m$ avec dimensions $d_{1} \times d_{2} \times \dots \times d_{m}$ est un élément de l'ensemble $\mathbb{C}^{d_{1} \times d_{2} \times \dots \times d_{m}}$.
-\end{maindefinition}
+\end{subdefinition}
 
-Pour simplifier la notation, un tenseur s'écrit plus succinctement comme $T[\varepsilon]$ où $\varepsilon \subseteq \set{ x_{1}, x_{2}, \dots, x_{m} }$. Les tenseurs s'interprètent aussi comme des fonctions définies sur un domaine discret. L'attrait principal des tenseurs est leur représentation géométrique simple, qui permet de visualiser aisément leurs caractéristiques principales et de faciliter leur manipulation. Tout tenseur $T$ se représente par une forme géométrique, où chaque indice $x_{i}$ est représenté par une patte sortant de la forme tel qu'illustré à la figure~\ref{fig:tensor}. Un réseau de tenseurs est une collection de tenseurs $\set{ T_{1}[\varepsilon_{1}], T_{2}[\varepsilon_{2}], \dots, T_{n}[\varepsilon_{n}] }$ partageant certains indices $x_{i}$. La notation en réseaux de tenseurs s'apparente beaucoup à la notation d'Einstein; les sommations sont donc souvent implicites. 
+Pour simplifier la notation, un tenseur s'écrit plus succinctement comme $T[\varepsilon]$ où $\varepsilon \subseteq \set{ x_{1}, x_{2}, \dots, x_{m} }$. L'attrait principal des tenseurs est leur représentation géométrique simple, qui permet de visualiser aisément leurs caractéristiques principales ainsi que de faciliter leur manipulation. Tout tenseur $T$ se représente par une forme géométrique, où chaque indice $x_{i}$ est représenté par une patte sortant de la forme tel qu'illustré à la figure~\ref{fig:tensor}. Un réseau de tenseurs est une collection de tenseurs $\set{ T_{1}[\varepsilon_{1}], T_{2}[\varepsilon_{2}], \dots, T_{n}[\varepsilon_{n}] }$ partageant certains indices $x_{i}$. La notation en réseaux de tenseurs s'apparente beaucoup à la notation d'Einstein; les sommations sont donc souvent implicites. 
 
-\begin{figure}[h!]
+\begin{figure}[h]
     \centering
     \begin{subfigure}[h]{0.2\textwidth}
         \centering
         \caption{}
         \includegraphics[width=1\textwidth]{figures/tensor-1.pdf}
-        \label{fig:vqcount-circuit-a}
+        \label{fig:tensor-scalar}
     \end{subfigure}
     \begin{subfigure}[h]{0.2\textwidth}
         \centering
         \caption{}
         \includegraphics[width=1\textwidth]{figures/tensor-2.pdf}
-        \label{fig:vqcount-circuit-b}
+        \label{fig:tensor-vector}
     \end{subfigure}
     \begin{subfigure}[h]{0.2\textwidth}
         \centering
         \caption{}
         \includegraphics[width=1\textwidth]{figures/tensor-3.pdf}
-        \label{fig:vqcount-circuit-b}
+        \label{fig:tensor-matrix}
     \end{subfigure}
     \begin{subfigure}[h]{0.2\textwidth}
         \centering
         \caption{}
         \includegraphics[width=1\textwidth]{figures/tensor-4.pdf}
-        \label{fig:vqcount-circuit-b}
+        \label{fig:tensor-rank-3}
     \end{subfigure}
-    \caption[Représentation géométrique des tenseurs]{}
+    \caption[Représentation géométrique des tenseurs]{Représentation géométrique de tenseurs de différents rangs. Plus précisément, un tenseur de rang 0 (scalaire), 1 (vecteur), 2 (matrice) et 3 (tenseur de rang 3), sont illustrés respectivement aux panneaux (a), (b), (c) et (d).}
     \label{fig:tensor} 
 \end{figure}
 
-Plusieurs opérations peuvent être appliquées sur les tenseurs constituants, tel qu'illustré à la figure XXX. Le \textit{produit tensoriel} entre deux tenseurs $A$ et $B$ sur les ensembles d'indices respectifs $\varepsilon_{1}$ et $\varepsilon_{2}$ correspond au produit élément par élément des valeurs des tenseurs, généralisant ainsi le produit extérieur entre deux vecteurs:
+Plusieurs opérations peuvent être appliquées sur les tenseurs constituants d'un réseau de tenseurs. Le \textit{produit tensoriel} entre deux tenseurs $A$ et $B$ sur les ensembles d'indices respectifs $\varepsilon_{1}$ et $\varepsilon_{2}$ correspond au produit élément par élément des valeurs des tenseurs, généralisant ainsi le produit extérieur entre deux vecteurs:
 
 \begin{equation}
     (A \otimes B)[\varepsilon_{1}, \varepsilon_{2}] \coloneq A[\varepsilon_{1}] \cdot B[\varepsilon_{2}] \,.
@@ -71,67 +68,59 @@ Géométriquement, la trace implique de joindre les pattes du tenseur. La \texti
 
 Deux tenseurs contractés se combinent alors en une seule forme géométrique avec des pattes correspondant aux indices non contractés. Comme les tenseurs ne sont en réalité que des tableaux multidimensionnels, il est possible de réorganiser l'information encodée sous une différente forme. Les opérations de \textit{regroupement} et de \textit{séparation} modifient l'organisation de cette information. Par exemple, une matrice représentée par une matrice de taille $d_{1} \times d_{2}$ peut aussi être encodée dans un vecteur de taille $d_{1} \cdot d_{2}$. Cette manipulation des données se représente graphiquement par un regroupement ou une séparation des pattes des tenseurs.
 
-Finalement, l'opération inverse à la contraction est la \textit{décomposition}, où un tenseur est décomposé en deux différents tenseurs. Un exemple particulièrement intéressant est la \textit{décomposition en valeurs singulières}, une méthode typiquement appliquée aux matrices, mais pouvant se généraliser aux tenseurs en les regroupant sous formes de matrices. Cette décomposition permet en plus de réduire la dimension des indices et donc de retirer l'information superflue et retirant les valeurs négligeables de la matrice singulière.
+Finalement, l'opération inverse à la contraction est la \textit{décomposition}, où un tenseur est décomposé en deux différents tenseurs. Un exemple particulièrement intéressant est la \textit{décomposition en valeurs singulières}, une méthode typiquement appliquée aux matrices, mais pouvant se généraliser aux tenseurs en les regroupant sous formes de matrices. Cette décomposition permet de plus de réduire la dimension des indices et donc de retirer l'information superflue en retirant les valeurs négligeables de la matrice singulière.
 
-Les méthodes de réseaux de tenseur suivent couramment la démarche suivante. Le problème à résoudre est modélisé sous la forme d'un réseau de tenseur en encodant les contraintes sous la forme de tenseurs, de façon à ce que la contraction de ce réseau donne la solution au problème. En utilisant les opérations précédentes, incluant potentiellement les opérations de décomposition ou de regroupement pour la simplification, le réseau est contracté pour obtenir la solution souhaitée. Notons que l'ordre de contraction, c'est-à-dire l'ordre dans lequel chacun des tenseurs est contracté avec les tenseurs environnants, à un fort impact sur la quantité de ressources nécessaires~\cite{grayHyperoptimizedTensorNetwork2021}.
+Les méthodes de réseaux de tenseur suivent couramment la démarche suivante. Le problème à résoudre est d'abord modélisé sous la forme d'un réseau de tenseur en encodant les contraintes sous la forme de tenseurs, de façon à ce que la contraction de ce réseau donne la solution au problème. En utilisant les opérations précédentes, incluant potentiellement les opérations de décomposition pour la simplification, le réseau est contracté pour obtenir la solution souhaitée. Notons que l'ordre de contraction, c'est-à-dire l'ordre dans lequel chacun des tenseurs est contracté avec les tenseurs environnants, à un fort impact sur la quantité de ressources nécessaires~\cite{grayHyperoptimizedTensorNetwork2021}.
 
 %-----------------------------------------------------------------------------%
 
 \section{État en produit de matrices et opérateur en produit de matrices}
 \label{sec:mps-mpo}
 
-Un \textit{état en produit de matrices} (« Matrix Product State ») (MPS) est type particulier de réseau de tenseurs permettant la représentation efficace d'un état quantique. Considérons un état quantique $\ket{\psi}$ à $m$ qubits. En employant la notation en réseau de tenseurs, cet état se représente par un tenseur de rang $m$, avec $m$ indices de dimensions $d=2$, encodant les amplitudes des qubits de $\ket{\psi}$. Cette représentation nécessite un grand nombre d'éléments, plus précisément $2^{n}$, pour encoder l'entièreté des amplitudes des qubits. Alternativement, ce tenseur peut être décomposé en $m$ tenseurs à l'aide de la décomposition en valeurs singulières tel qu'illustré à la figure XXX. En coupant les plus petites valeurs de la matrice singulière, correspondant à l'information redondante du système, une représentation de taille réduite peut être obtenue permettant ainsi l'étude de l'état souhaité. Les MPS sont particulièrement utile pour l'étude de l'intrication entre deux sous-parties d'un système comme celle-ci est capturée dans les indices du MPS.
+Un \textit{état en produit de matrices} (« Matrix Product State ») (MPS) est type particulier de réseau de tenseurs permettant la représentation efficace d'un état quantique. Considérons un état quantique $\ket{\psi}$ à $n$ qubits. En employant la notation en réseau de tenseurs, cet état se représente par un tenseur de rang $n$, avec $n$ indices de dimensions $d=2$, encodant les amplitudes des qubits de $\ket{\psi}$. Cette représentation nécessite un grand nombre d'éléments, plus précisément $2^{n}$, pour encoder l'entièreté des amplitudes des qubits. Alternativement, ce tenseur peut être décomposé en $n$ tenseurs à l'aide de la décomposition en valeurs singulières. Ce nouveau réseau de tenseurs, illustré à la figure~\ref{fig:mps}, représente alors un MPS. En coupant les plus petites valeurs de la matrice singulière lors de la décomposition, correspondant à l'information redondante du système, une représentation de taille réduite peut être obtenue permettant ainsi l'étude de l'état souhaité. Les MPS sont particulièrement utile pour l'étude de l'intrication entre deux sous-parties d'un système comme celle-ci est capturée dans les indices latéraux du MPS. Notons que la taille de la représentation sous forme de MPS est grandement dépendante de l'intrication du système. Un système fortement intriqué ne possède pas de représentation efficace à l'aide de ce type d'objet.
 
-Les opérateurs en produit de matrices permettent quant à eux d'appliquer un opérateur sur un MPS. La méthode MPS/MPO peut par exemple représenter l'évolution d'un système quantique selon un certain Hamiltonien (représenté sous forme de MPO).
-
-\begin{figure}[h!]
+\begin{figure}[h]
     \centering
     \begin{subfigure}[h]{0.7\textwidth}
         \centering
         \caption{}
         \includegraphics[width=1\textwidth]{figures/mps.pdf}
-        \label{fig:vqcount-circuit-a}
+        \label{fig:mps}
     \end{subfigure}
     \begin{subfigure}[h]{0.7\textwidth}
         \centering
         \caption{}
         \includegraphics[width=1\textwidth]{figures/mpo.pdf}
-        \label{fig:vqcount-circuit-b}
+        \label{fig:mpo}
     \end{subfigure}
     \caption[État et opérateur en produit de matrices]{Schéma d'un état (a) et d'un opérateur (b) en produit de matrices.}
 \end{figure}
 
+Les opérateurs en produit de matrices permettent quant à eux d'appliquer un opérateur sur un MPS. Ces opérateurs empruntent la forme d'un MPS en rajoutant une patte par tenseur tel qu'illustré à la figure~\ref{fig:mpo}. La méthode MPS/MPO peut par exemple représenter l'évolution d'un système quantique selon un certain hamiltonien (représenté sous forme de MPO). Ces opérateurs permettent de plus de représenter les matrices de densités. Encore une fois, l'utilité de ceux-ci dépend grandement de l'intrication qu'ils ajoutent au MPS.
 
 %-----------------------------------------------------------------------------%
 
 \section{Simulation de circuits quantiques}
 \label{sec:simulation-de-circuits-quantiques}
 
-\begin{comment}
-\subsection*{Plan}
+Les réseaux de tenseurs font partie des méthodes les plus performantes pour la simulation de circuits quantiques. Il y a en effet une correspondance parfaite entre les réseaux de tenseurs et les circuits quantiques. L'état d'un qubit s'encode facilement par un tenseur de rang $d = 1$. Par exemple, pour un qubit dans une superposition égale, l'état est représenté par le tenseur
+\begin{equation}
+    T^{\ket{\psi}} = 
+    \begin{pmatrix}
+        1 / 2 \\
+        1 / 2
+    \end{pmatrix} \,.
+\end{equation}
+De plus, les opérateurs d'un circuit quantique se représentent aussi simplement par des tenseurs. Par exemple, une porte de Pauli $X$ correspond à un tenseur 
+\begin{equation}
+    T^{X} = 
+    \begin{pmatrix}
+        0 & 1 \\
+        1 & 0
+    \end{pmatrix}
+\end{equation}
+de rang $d = 2$. La contraction d'un réseau composé des différents opérateurs d'un circuit donné est alors équivalente à l'état obtenu par l'application d'opérateurs quantiques. La méthode MPS/MPO se prête bien à la simulation de circuit quantique, particulièrement lorsque l'intrication de celui-ci demeure faible. Les simulations effectuées au cours du travail de ce mémoire emploient alors autant la contraction de réseaux de tenseurs sans formes précises que la contraction de MPS/MPO, selon l'efficacité de la méthode pour un problème étudié.
 
-\begin{enumerate}
-    \item Décrire le lien entre les circuits quantiques et les réseaux de tenseurs
-    \item Décrire les différentes méthodes de simulation (MPS-MPO et réseau de tenseurs général)
-    \item Décrire la méthode d'échantillonage
-\end{enumerate}
-
-\subsection*{Références}
-
-1. Gray, J. quimb: A python package for quantum information and many-body calculations. Journal of Open Source Software 3, 819 (2018).
-
-2. Ferris, A. J. and Vidal, G. Perfect Sampling with Unitary Tensor Networks. Phys. Rev. B 85, 165146 (2012).
-\end{comment}
-
-Les réseaux de tenseurs font partie des méthodes les plus performantes pour la simulation de circuits quantiques. En effet, un s'encode facilement par un tenseur de dimension $d = 2 \times 2$. De même, 
-
-La méthode MPS/MPO se prête particulièrement bien à la simulation de circuit quantique. 
-
-Afin d'obtenir des échantillons à partir d'un réseau de tenseur, deux méthodes sont possibles. D'abord, une représentation dense de la fonction d'onde peut être obtenue en contractant le réseau. Les états sont alors simplement obtenus en pigeant selon la distribution de probabilité trouvée. Une méthode alternative utilise plutôt ~\cite{ferrisPerfectSamplingUnitary2012}. 
-
-
-
-
-
+Afin d'obtenir des échantillons à partir d'un réseau de tenseur, deux méthodes sont possibles. D'abord, une représentation dense de la fonction d'onde peut être obtenue en contractant complètement le réseau. Les configurations sont alors simplement obtenues en pigeant selon la distribution de probabilité trouvée. Cette stratégie exige de sauvegarder un nombre exponentiel de valeurs, ce qui est infaisable pour des instances de grandes tailles. Une méthode alternative est plutôt la méthode proposée par Ferris et Vidal~\cite{ferrisPerfectSamplingUnitary2012}. Pour mesurer la valeur moyenne d'opérateurs locaux, les cônes causaux passés de ceux-ci sont utilisés pour éviter de contracter l'entièreté du réseau de tenseurs. Une séquence de matrices de densité conditionnelles est alors calculé en contractant un à un les opérateurs du cône causal pour permettre l'échantillonnage de la distribution de probabilités des configurations. Cette approche garantit un échantillonnage parfait, c'est-à-dire qu'il est possible d'obtenir des échantillons totalement non corrélés directement de la distribution de probabilités exacte. L'implémentation de cette méthode dans la librairie « quimb »~\cite{grayQuimbPythonPackage2018} est utilisée dans ce mémoire pour réduire la complexité de l'échantillonnage.
 
 %-----------------------------------------------------------------------------%
