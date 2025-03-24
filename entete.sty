@@ -46,7 +46,7 @@
 
 % Paquets pour les algorithmes et le code
 \usepackage{listings}                   % Inclusion de listings de code
-\usepackage[ruled,vlined]{algorithm2e}  % Algorithmes
+\usepackage[ruled,vlined,french]{algorithm2e}  % Algorithmes
 \usepackage{algorithmic}                % Algorithmes
 
 % Paquets pour la bibliographie et les citations
@@ -70,32 +70,18 @@
 % Configuration des sous-légendes
 \captionsetup[subfigure]{singlelinecheck=false} % Configuration des sous-légendes
 
-% \definecolor{myblue}{rgb}{0.33725490196078434, 0.7058823529411765, 0.9137254901960784}
 \definecolor{myblue}{rgb}{0.48137254901960785, 0.757843137254902, 0.9137254901960784}
 \definecolor{mydarkblue}{HTML}{5278A3}
-% \definecolor{myred}{rgb}{0.8666666666666667, 0.3607843137254902, 0.3607843137254902}
 \definecolor{myred}{rgb}{0.8666666666666667, 0.4872549019607843, 0.4872549019607843}
 \definecolor{mydarkred}{HTML}{DD5C5C}
-% \definecolor{mysilver}{rgb}{0.7529411764755882, 0.7529411764755882, 0.7529411764755882}
 \definecolor{mysilver}{rgb}{0.7529411764705882, 0.7529411764705882, 0.7529411764705882}
-% \definecolor{myyellow}{rgb}{0.9411764705882353, 0.8941176470588236, 0.25882352941176473}
 \definecolor{myyellow}{rgb}{0.9411764705882353, 0.9058823529411765, 0.4294117647058824}
 \definecolor{mygreen}{rgb}{0.0, 0.6196078431372549, 0.4509803921568627}
 \definecolor{mypink}{rgb}{0.8, 0.47450980392156855, 0.6549019607843136}
 \definecolor{mybluedark}{rgb}{0.0, 0.44705882352941173, 0.6980392156862745}
 \definecolor{myorange}{rgb}{0.9019607843137255, 0.6235294117647059, 0.0}
 \definecolor{myviolet}{rgb}{0.3254901960784314, 0.1450980392156863, 0.4980392156862745}
-
 \definecolor{mypurple}{HTML}{FFBB99}
-
-% \newtheorem{theorem}{Théorème}[chapter]
-% \newtheorem{corollary}{Corollaire}[theorem]
-% \newtheorem{lemma}[theorem]{Lemme}
-% \newtheorem*{remark}{Remarque}
-
-% \theoremstyle{definition}
-% \newtheorem{definition}{Définition}[chapter]
-
 
 \usepackage[most]{tcolorbox}
 
@@ -143,6 +129,18 @@
 \newtcbtheorem[auto counter,number within=chapter]{example}%
    {Exemple}{colframe=black!20!white, base={#1}, separator sign dash}{ex}
 
+\floatname{algorithm}{Algorithme}
+\renewcommand{\algorithmicreturn}{\textbf{retourne}}
+\renewcommand{\algorithmicrequire}{\textbf{Entrée:}}
+\renewcommand{\algorithmicensure}{\textbf{Sortie:}}
+\renewcommand{\algorithmicend}{\textbf{fin}}
+\renewcommand{\algorithmicif}{\textbf{si}}
+\renewcommand{\algorithmicthen}{\textbf{alors}}
+\renewcommand{\algorithmicelse}{\textbf{sinon}}
+\renewcommand{\algorithmicfor}{\textbf{pour}}
+\renewcommand{\algorithmicforall}{\textbf{pour tout}}
+\renewcommand{\algorithmicdo}{\textbf{faire}}
+\renewcommand{\algorithmicwhile}{\textbf{tant que}}
 
 %=============================================================================%
 
